@@ -17,7 +17,7 @@ namespace EESDD.CSV
         public static String DriftAngle = "EXPORT CHANNEL 21(-)";
         public static String Offset = "EXPORT CHANNEL 22(-)";
         public static String SteeringWheel = "EXPORT CHANNEL 23(-)";
-        public static String RotationalSpeed = "EXPORT CHANNEL 24(-)";
+        public static String WheelSpeed = "EXPORT CHANNEL 24(-)";
         public static String GasPedal = "EXPORT CHANNEL 25(-)";
         public static String BrakePedal = "EXPORT CHANNEL 26(-)";
         public static String ClutchPedal = "EXPORT CHANNEL 27(-)";
