@@ -16,14 +16,16 @@ namespace EESDD.UDP
         Socket socket;
         EndPoint EP;
         byte[] buffer; 
-        const int bufferSize = 184;
+        const int BufferSize = 184;
 
-        VehicleUDP(int port) {
+        public VehicleUDP(int port) {
             this.port = port;
             initSocket();
+            buffer = new byte[BufferSize];
         }
 
         void initSocket(){
+            socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             address = getIPV4Address();
             EP = new IPEndPoint(address,port);
             socket.Bind(EP);
