@@ -8,6 +8,10 @@
 	Title="EvaluationPage">
 
     <Grid>
-        
+        <TextBlock HorizontalAlignment="Left" Margin="251,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="113" Width="461"><Run FontSize="51" Text="Evaluation"/></TextBlock>
+        <Button Content="场景选择" HorizontalAlignment="Left" Margin="820,502,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <TextBlock HorizontalAlignment="Left" Margin="76.333,190.333,0,0" TextWrapping="Wrap" Text="***，您好，您的体验记录如下" VerticalAlignment="Top"/>
+        <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="113" Margin="140,282,0,0" Stroke="Black" VerticalAlignment="Top" Width="113"/>
+        <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="113" Margin="315,282,0,0" Stroke="Black" VerticalAlignment="Top" Width="113"/>
     </Grid>
 </Page>

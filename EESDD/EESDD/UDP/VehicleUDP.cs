@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
-using EESDD.DataModel;
+using EESDD.Control.DataModel;
 
 namespace EESDD.UDP
 {
@@ -31,7 +31,7 @@ namespace EESDD.UDP
             socket.Bind(EP);
         }
 
-        IPAddress getIPV4Address(){
+        public static IPAddress getIPV4Address(){
             string hostName = Dns.GetHostName();
             IPAddress[] addresses = Dns.GetHostAddresses(hostName);
             foreach (IPAddress address in addresses)

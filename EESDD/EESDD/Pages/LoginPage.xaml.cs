@@ -25,9 +25,14 @@ namespace EESDD.Pages
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            PageList.Main.setPage(PageList.Welcome);
+            PageList.Main.setPage(PageList.Evaluation);
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            PageList.Main.setPage(PageList.Evaluation);          
         }
     }
 }

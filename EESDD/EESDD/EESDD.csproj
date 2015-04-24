@@ -38,6 +38,10 @@
     <StartupObject>EESDD.Startup</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DynamicDataDisplay, Version=0.3.0.0, Culture=neutral, PublicKeyToken=5b7d744a7263923f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Users\Hugh\Desktop\DynamicDataDisplay v0.3 Binaries &amp; Samples\DynamicDataDisplay\DynamicDataDisplay.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Expression.Drawing" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -54,6 +58,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Control\Player\Player.cs" />
+    <Compile Include="Control\User\Evaluation.cs" />
+    <Compile Include="Control\User\ExperienceUnit.cs" />
+    <Compile Include="Control\User\User.cs" />
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
@@ -88,7 +96,9 @@
     <Compile Include="CSV\CSVCloumnName.cs" />
     <Compile Include="CSV\CSVReader.cs" />
     <Compile Include="CSV\VehicleCSV.cs" />
+    <Compile Include="UDP\UDPController.cs" />
     <Compile Include="UDP\UDPOffset.cs" />
+    <Compile Include="UDP\UDPTest.cs" />
     <Compile Include="UDP\VehicleUDP.cs" />
     <Page Include="Pages\AboutPage.xaml">
       <SubType>Designer</SubType>
@@ -122,7 +132,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="DataModel\SimulatedVehicle.cs" />
+    <Compile Include="Control\DataModel\SimulatedVehicle.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -169,13 +179,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Player\" />
     <Folder Include="Resources\" />
     <Folder Include="VISSIM\" />
+    <Folder Include="Widgets\Activity\" />
+    <Folder Include="Widgets\Scene\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Buttons\apple.jpg" />
     <Resource Include="Images\Buttons\disc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Widgets\Chart\Lib\DynamicDataDisplay.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -24,5 +24,16 @@ namespace EESDD.Pages
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (PageList.Main.testConnection())
+            {
+                State.Text = "Connected";
+            }
+            else {
+                State.Text = "Disconnected";
+            }
+        }
     }
 }

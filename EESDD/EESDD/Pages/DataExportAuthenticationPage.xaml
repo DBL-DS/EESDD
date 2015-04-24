@@ -8,6 +8,9 @@
 	Title="DataExportAuthenticationPage">
 
     <Grid>
+    	<TextBlock HorizontalAlignment="Left" Margin="389.552,300,0,0" TextWrapping="Wrap" Text="密码" VerticalAlignment="Top"/>
+    	<TextBox HorizontalAlignment="Left" Height="23" Margin="465.672,299,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+    	<Button Content="确认" HorizontalAlignment="Left" Margin="659.701,300,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.06,-0.87"/>
         
     </Grid>
 </Page>

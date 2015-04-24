@@ -8,6 +8,8 @@
 	Title="GetReadyPage">
 
     <Grid>
-        
+        <Button Content="Test Connection" HorizontalAlignment="Left" Margin="134,120,0,0" VerticalAlignment="Top" Width="113" Click="Button_Click" Height="41"/>
+        <TextBlock Name="State" HorizontalAlignment="Left" Margin="99,199,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="53" Width="165"><Run FontSize="18.75" Text="Connection State"/></TextBlock>
+
     </Grid>
 </Page>

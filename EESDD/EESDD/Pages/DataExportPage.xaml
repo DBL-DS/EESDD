@@ -8,6 +8,9 @@
 	Title="DataExportPage">
 
     <Grid>
+    	<Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="398.507" Margin="137.313,89.553,0,0" Stroke="Black" VerticalAlignment="Top" Width="586.567"/>
+    	<Button Content="导出数据" HorizontalAlignment="Left" Margin="910.821,285.074,0,0" VerticalAlignment="Top" Width="75"/>
+    	<Button Content="Done" HorizontalAlignment="Left" Margin="910.821,547.761,0,0" VerticalAlignment="Top" Width="75"/>
         
     </Grid>
 </Page>
