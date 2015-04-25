@@ -10,18 +10,25 @@ namespace EESDD.UDP
     {
         int port;
         bool connected;
+        VehicleUDP testUDP;
 
         public UDPTest(int port) {
             this.port = port;
             connected = false;
         }
         public void test() {
-            VehicleUDP testUDP = new VehicleUDP(port);
+            testUDP = new VehicleUDP(port);
             testUDP.getData();
+            connected = true;
         }
         public bool Connected
         {
             get { return connected; }
+        }
+        public void close()
+        {
+            if (testUDP != null)
+                testUDP.close();
         }
     }
 }

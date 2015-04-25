@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EESDD.Widgets.Menu;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,8 @@ namespace EESDD.Pages
         public ExperiencePage()
         {
             InitializeComponent();
+            Tabs.setActived(TabsTitle.ExperienceTab);
         }
+
     }
 }

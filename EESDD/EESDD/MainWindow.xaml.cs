@@ -18,12 +18,18 @@ namespace EESDD
         {
             InitializeComponent();
             init();
-            setPage(PageList.Welcome);
+            setPage(PageList.SceneSelect);
         }
         void init() {
             udp = new UDPController();
         }
         public void setPage(Page page) {
+
+            if (page.Equals(PageList.SceneSelect) || page.Equals(PageList.ModeSelect) 
+                || page.Equals(PageList.GetReady) || page.Equals(PageList.Experience)){
+                PageList.CurrentExperience = page;
+            }
+            
             MainFrame.Content = page;
         }
 
@@ -31,14 +37,27 @@ namespace EESDD
             UDPTest test = new UDPTest(udp.Port);
             Thread thread = new Thread(test.test);
             thread.Start();
-
-            int i = 0;
-            while (!test.Connected) {
-                if (i++ > 100000)
-                    break;
+            if (thread.Join(TimeSpan.FromSeconds(2))) {
+                thread.Abort();
             }
-
+            test.close();
             return test.Connected;
+        }
+
+        private void MinButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = System.Windows.WindowState.Minimized;
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void MaxButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = this.WindowState == System.Windows.WindowState.Normal ? 
+                System.Windows.WindowState.Maximized : System.Windows.WindowState.Normal;
         }
     }
 
@@ -55,6 +74,11 @@ namespace EESDD
         static DataExportAuthenticationPage authentication;
         static DataExportPage dataExport;
         static AboutPage about;
+
+        static Page currentExperience;
+        static Page currentEvaluation;
+        static Page currentData;
+        static Page currentAbout;
 
         public static MainWindow Main
         {
@@ -165,6 +189,54 @@ namespace EESDD
                 return about;
             }
         }
-    }
 
+        public static Page CurrentExperience
+        {
+            get {
+                if (currentExperience == null)
+                {
+                    currentExperience = PageList.SceneSelect;
+                }
+                return PageList.currentExperience; 
+            }
+            set { PageList.currentExperience = value; 
+            }
+        }
+
+        public static Page CurrentEvaluation
+        {
+            get {
+                if (currentEvaluation == null)
+                {
+                    currentEvaluation = Evaluation;
+                }
+                return PageList.currentEvaluation; 
+            }
+            set { PageList.currentEvaluation = value;
+            }
+        }
+        
+        public static Page CurrentData
+        {
+            get {
+                if (currentData == null) {
+                    currentData = Authentication;
+                } 
+                return PageList.currentData;
+            }
+            set { PageList.currentData = value; 
+            }
+        }
+
+        public static Page CurrentAbout
+        {
+            get { 
+                if (currentAbout == null) {
+                    currentAbout = About;
+                }
+                return PageList.currentAbout;
+            }
+            set { PageList.currentAbout = value; }
+        }
+    }
 }

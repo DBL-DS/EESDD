@@ -3,11 +3,24 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:TabsTitle="clr-namespace:EESDD.Widgets.Menu"
       mc:Ignorable="d" 
       d:DesignHeight="665" d:DesignWidth="1090"
 	Title="AboutPage">
 
     <Grid>
-        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TabsTitle:TabsTitle x:Name="Tabs" Grid.Column="0" Panel.ZIndex="1"/>
+            <Grid Background="#a5a5a5" Panel.ZIndex="0" Grid.Column="1" Margin="0,20,20,20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="5" Direction="0" RenderingBias="Quality" Opacity="0.75" ShadowDepth="5"/>
+                </Grid.Effect>
+            </Grid>
+            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="498,200,0,0" TextWrapping="Wrap" Text="guanyu" VerticalAlignment="Top"/>
+        </Grid>
     </Grid>
 </Page>

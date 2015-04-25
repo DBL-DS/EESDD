@@ -28,8 +28,7 @@ namespace EESDD.Pages
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            PageList.Main.setPage(PageList.Login);
-            
+            PageList.Main.setPage(PageList.GetReady);            
         }
     }
 }

@@ -48,7 +48,14 @@ namespace EESDD.UDP
         /// </summary>
         /// <returns>一个SimulatedVehicle对象</returns>
         public SimulatedVehicle getData() {
-            socket.Receive(buffer);
+            try
+            {
+                socket.Receive(buffer);
+            }
+            catch (SocketException e)
+            {
+                return null;
+            }
             return byteToSimulatedVehicle(buffer);
         }
         /// <summary>

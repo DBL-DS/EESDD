@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EESDD.Widgets.Menu;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,17 +24,7 @@ namespace EESDD.Pages
         public GetReadyPage()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (PageList.Main.testConnection())
-            {
-                State.Text = "Connected";
-            }
-            else {
-                State.Text = "Disconnected";
-            }
+            Tabs.setActived(TabsTitle.ExperienceTab);
         }
     }
 }

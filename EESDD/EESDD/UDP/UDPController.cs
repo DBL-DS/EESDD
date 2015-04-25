@@ -12,8 +12,8 @@ namespace EESDD.UDP
         int port;
         IPAddress ip;
 
-        public UDPController() { 
-        
+        public UDPController() {
+            initDefault();
         }
 
         void initDefault() {

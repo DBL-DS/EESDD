@@ -3,15 +3,24 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:TabsTitle="clr-namespace:EESDD.Widgets.Menu"
       mc:Ignorable="d" 
       d:DesignHeight="665" d:DesignWidth="1090"
 	Title="EvaluationPage">
 
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="251,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="113" Width="461"><Run FontSize="51" Text="Evaluation"/></TextBlock>
-        <Button Content="场景选择" HorizontalAlignment="Left" Margin="820,502,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <TextBlock HorizontalAlignment="Left" Margin="76.333,190.333,0,0" TextWrapping="Wrap" Text="***，您好，您的体验记录如下" VerticalAlignment="Top"/>
-        <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="113" Margin="140,282,0,0" Stroke="Black" VerticalAlignment="Top" Width="113"/>
-        <Ellipse Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="113" Margin="315,282,0,0" Stroke="Black" VerticalAlignment="Top" Width="113"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TabsTitle:TabsTitle x:Name="Tabs" Grid.Column="0" Panel.ZIndex="1"/>
+            <Grid Background="#a5a5a5" Panel.ZIndex="0" Grid.Column="1" Margin="0,20,20,20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="5" Direction="0" RenderingBias="Quality" Opacity="0.75" ShadowDepth="5"/>
+                </Grid.Effect>
+                <TextBlock HorizontalAlignment="Left" Margin="622,156,0,0" TextWrapping="Wrap" Text="Evaluation" VerticalAlignment="Top"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

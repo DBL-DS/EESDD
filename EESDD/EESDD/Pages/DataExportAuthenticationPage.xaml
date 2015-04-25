@@ -3,14 +3,24 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:TabsTitle="clr-namespace:EESDD.Widgets.Menu"
       mc:Ignorable="d" 
       d:DesignHeight="665" d:DesignWidth="1090"
 	Title="DataExportAuthenticationPage">
 
     <Grid>
-    	<TextBlock HorizontalAlignment="Left" Margin="389.552,300,0,0" TextWrapping="Wrap" Text="密码" VerticalAlignment="Top"/>
-    	<TextBox HorizontalAlignment="Left" Height="23" Margin="465.672,299,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-    	<Button Content="确认" HorizontalAlignment="Left" Margin="659.701,300,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="0.06,-0.87"/>
-        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TabsTitle:TabsTitle x:Name="Tabs" Grid.Column="0" Panel.ZIndex="1"/>
+            <Grid Background="#a5a5a5" Panel.ZIndex="0" Grid.Column="1" Margin="0,20,20,20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="5" Direction="0" RenderingBias="Quality" Opacity="0.75" ShadowDepth="5"/>
+                </Grid.Effect>
+                <TextBlock HorizontalAlignment="Left" Margin="668,158,0,0" TextWrapping="Wrap" Text="Data" VerticalAlignment="Top"/>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

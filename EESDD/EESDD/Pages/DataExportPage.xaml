@@ -3,14 +3,23 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:TabsTitle="clr-namespace:EESDD.Widgets.Menu"
       mc:Ignorable="d" 
       d:DesignHeight="665" d:DesignWidth="1090"
 	Title="DataExportPage">
 
     <Grid>
-    	<Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="398.507" Margin="137.313,89.553,0,0" Stroke="Black" VerticalAlignment="Top" Width="586.567"/>
-    	<Button Content="导出数据" HorizontalAlignment="Left" Margin="910.821,285.074,0,0" VerticalAlignment="Top" Width="75"/>
-    	<Button Content="Done" HorizontalAlignment="Left" Margin="910.821,547.761,0,0" VerticalAlignment="Top" Width="75"/>
-        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TabsTitle:TabsTitle x:Name="Tabs" Grid.Column="0" Panel.ZIndex="1"/>
+            <Grid Background="#a5a5a5" Panel.ZIndex="0" Grid.Column="1" Margin="0,20,20,20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="5" Direction="0" RenderingBias="Quality" Opacity="0.75" ShadowDepth="5"/>
+                </Grid.Effect>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>
