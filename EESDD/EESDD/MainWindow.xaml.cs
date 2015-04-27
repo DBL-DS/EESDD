@@ -5,6 +5,7 @@ using EESDD.Pages;
 using EESDD.Control.Player;
 using EESDD.UDP;
 using System.Threading;
+using EESDD.Control.Operation;
 
 namespace EESDD
 {
@@ -14,6 +15,15 @@ namespace EESDD
     public partial class MainWindow : Window
     {
         UDPController udp;
+        UserSelections selection;
+
+        internal UserSelections Selection
+        {
+            get { return selection; }
+            set { selection = value; }
+        }
+
+
         public MainWindow()
         {
             InitializeComponent();
@@ -22,6 +32,7 @@ namespace EESDD
         }
         void init() {
             udp = new UDPController();
+            selection = new UserSelections();
         }
         public void setPage(Page page) {
 

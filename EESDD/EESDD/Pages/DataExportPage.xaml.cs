@@ -1,4 +1,5 @@
-﻿using EESDD.Widgets.Menu;
+﻿using EESDD.Widgets.Buttons;
+using EESDD.Widgets.Menu;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace EESDD.Pages
         {
             InitializeComponent();
             Tabs.setActived(TabsTitle.DataTab);
+            BackButton.ThisPage = Navigation.DataExport;
         }
     }
 }

@@ -4,22 +4,36 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:TabsTitle="clr-namespace:EESDD.Widgets.Menu"
+      xmlns:NavigationButtons="clr-namespace:EESDD.Widgets.Buttons"
       mc:Ignorable="d" 
       d:DesignHeight="665" d:DesignWidth="1090"
 	Title="SceneSelectPage">
-
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/StyleDictionary.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" ></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <TabsTitle:TabsTitle x:Name="Tabs" Grid.Column="0" Panel.ZIndex="1" />
-        <Grid Background="#a5a5a5" Panel.ZIndex="0" Grid.Column="1" Margin="0,20,20,20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <Grid.Effect>
-                <DropShadowEffect BlurRadius="5" Direction="0" RenderingBias="Quality" Opacity="0.75" ShadowDepth="5"/>
-            </Grid.Effect>
-            <TextBlock HorizontalAlignment="Left" Margin="638,250,0,0" TextWrapping="Wrap" Text="Experience" VerticalAlignment="Top"/>
-            <Button Content="Button" HorizontalAlignment="Left" Margin="793,161,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Grid Background="#a5a5a5" Panel.ZIndex="0" Grid.Column="1" Margin="0,20,20,20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource PanelShadow}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Style="{StaticResource PageTitle}" Grid.Row="0">
+                <TextBlock Style="{StaticResource TitleChinese}">场景选择</TextBlock>
+                <TextBlock Style="{StaticResource TitleEnglish}">Scene selection</TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Style="{StaticResource PageTail}">
+                <NavigationButtons:NextButton x:Name="NextButton"></NavigationButtons:NextButton>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

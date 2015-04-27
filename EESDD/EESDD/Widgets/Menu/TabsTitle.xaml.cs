@@ -28,7 +28,7 @@ namespace EESDD.Widgets.Menu
         public TabsTitle()
         {
             InitializeComponent();
-            currentTab = Evaluation;
+            currentTab = Experience;
         }
 
         private void ExperienceButton_Click(object sender, RoutedEventArgs e)
@@ -53,7 +53,6 @@ namespace EESDD.Widgets.Menu
 
         public void setActived(int tab) {
             SolidColorBrush activeBackground = new SolidColorBrush(Color.FromRgb(165, 165, 165));
-            currentTab.Background = Brushes.Transparent;
             switch (tab) { 
                 case ExperienceTab:
                     currentTab = Experience;

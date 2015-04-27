@@ -7,7 +7,13 @@
       mc:Ignorable="d" 
       d:DesignHeight="665" d:DesignWidth="1090"
 	Title="AboutPage">
-
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/StyleDictionary.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -15,12 +21,16 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TabsTitle:TabsTitle x:Name="Tabs" Grid.Column="0" Panel.ZIndex="1"/>
-            <Grid Background="#a5a5a5" Panel.ZIndex="0" Grid.Column="1" Margin="0,20,20,20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                <Grid.Effect>
-                    <DropShadowEffect BlurRadius="5" Direction="0" RenderingBias="Quality" Opacity="0.75" ShadowDepth="5"/>
-                </Grid.Effect>
+            <Grid Background="#a5a5a5" Panel.ZIndex="0" Grid.Column="1" Margin="0,20,20,20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Style="{StaticResource PanelShadow}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Style="{StaticResource PageTitle}">
+                    <TextBlock Style="{StaticResource TitleChinese}">关于</TextBlock>
+                    <TextBlock Style="{StaticResource TitleEnglish}">About</TextBlock>
+                </StackPanel>
             </Grid>
-            <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="498,200,0,0" TextWrapping="Wrap" Text="guanyu" VerticalAlignment="Top"/>
         </Grid>
     </Grid>
 </Page>

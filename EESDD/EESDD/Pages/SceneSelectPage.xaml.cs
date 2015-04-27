@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using EESDD.Widgets.Menu;
+using EESDD.Widgets.Buttons;
 
 namespace EESDD.Pages
 {
@@ -25,11 +26,7 @@ namespace EESDD.Pages
         {
             InitializeComponent();
             Tabs.setActived(TabsTitle.ExperienceTab);
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            PageList.Main.setPage(PageList.ModeSelect);
+            NextButton.ThisPage = Navigation.SceneSelect;
         }
     }
 }
