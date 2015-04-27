@@ -27,5 +27,10 @@ namespace EESDD.Pages
             Tabs.setActived(TabsTitle.ExperienceTab);
         }
 
+        private void OverButton_BtnClick(object sender, EventArgs e)
+        {
+            PageList.Main.setPage(PageList.SceneSelect);
+        }
+
     }
 }

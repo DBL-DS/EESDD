@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:TabsTitle="clr-namespace:EESDD.Widgets.Menu"
+      xmlns:nav="clr-namespace:EESDD.Widgets.Buttons"      
       mc:Ignorable="d" 
       d:DesignHeight="665" d:DesignWidth="1090"
 	Title="ExperiencePage">
@@ -24,10 +25,14 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Style="{StaticResource PageTitle}">
+            <StackPanel Orientation="Horizontal" Style="{StaticResource PageTitle}" Grid.Row="0">
                 <TextBlock Style="{StaticResource TitleChinese}">实时数据</TextBlock>
                 <TextBlock Style="{StaticResource TitleEnglish}">Real-Time Data</TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Style="{StaticResource PageTail}">
+                <nav:NavigationButton BtnClick="OverButton_BtnClick" BtnText="Over"></nav:NavigationButton>
             </StackPanel>
         </Grid>
     </Grid>

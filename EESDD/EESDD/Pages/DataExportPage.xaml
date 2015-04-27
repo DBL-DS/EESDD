@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:TabsTitle="clr-namespace:EESDD.Widgets.Menu"
-      xmlns:NavigationButtons="clr-namespace:EESDD.Widgets.Buttons"      
+      xmlns:nav="clr-namespace:EESDD.Widgets.Buttons"      
       mc:Ignorable="d" 
       d:DesignHeight="665" d:DesignWidth="1090"
 	Title="DataExportPage">
@@ -33,7 +33,7 @@
                     <TextBlock Style="{StaticResource TitleEnglish}">Data Export</TextBlock>
                 </StackPanel>
                 <StackPanel Grid.Row="2" Style="{StaticResource PageTail}">
-                    <NavigationButtons:BackButton x:Name="BackButton"></NavigationButtons:BackButton>
+                    <nav:NavigationButton BtnText="Done" BtnClick="DoneButton_BtnClick"></nav:NavigationButton>
                 </StackPanel>
             </Grid>
         </Grid>

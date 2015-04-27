@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="EESDD.Pages.LoginPage" 
       mc:Ignorable="d"
-      d:DesignHeight="665" d:DesignWidth="1090"
+      VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
 	Title="LoginPage">
     <Page.Resources>
         <ResourceDictionary>
@@ -15,20 +15,18 @@
         </ResourceDictionary>
     </Page.Resources>
 	<Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-		<Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0">
-			<Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-			</Grid.ColumnDefinitions>
-			<DataGrid Width="Auto" VerticalAlignment="Stretch" Grid.Column="0"/>
-			<DataGrid Width="Auto" VerticalAlignment="Stretch" Grid.Column="1"/>
-			<TextBox HorizontalAlignment="Left" Height="23" Margin="180.597,301.492,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-			<TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="235.597,301.492,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-			<Button Content="确认" HorizontalAlignment="Left" Margin="358.208,496.851,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
-			<Button Content="确认" Grid.Column="1" HorizontalAlignment="Left" Margin="432.612,496.851,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
-			<TextBlock HorizontalAlignment="Left" Margin="73.133,107.462,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182.507"><Run FontSize="22.5" Text="第一次使用系统"/><LineBreak/><Run/></TextBlock>
-			<TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="116.194,107.462,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="65.986" Width="239.403"><Run FontSize="22.5" Text="系统上有我的体验记录"/></TextBlock>			
-		</Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+        </Grid>
+        <Grid Grid.Column="1">
 
-	</Grid>
+        </Grid>
+    </Grid>
 </Page>

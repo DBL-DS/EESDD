@@ -26,8 +26,16 @@ namespace EESDD.Pages
         {
             InitializeComponent();
             Tabs.setActived(TabsTitle.ExperienceTab);
-            NextButton.ThisPage = BackButton.ThisPage = Navigation.ModeSelect;
         }
 
+
+        private void BackButton_BtnClick(object sender, EventArgs e)
+        {
+            PageList.Main.setPage(PageList.SceneSelect);
+        }
+        private void NextButton_BtnClick(object sender, EventArgs e)
+        {
+            PageList.Main.setPage(PageList.GetReady);
+        }
     }
 }

@@ -107,6 +107,9 @@
       <DependentUpon>BackButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Widgets\Buttons\Navigation.cs" />
+    <Compile Include="Widgets\Buttons\NavigationButton.xaml.cs">
+      <DependentUpon>NavigationButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Widgets\Buttons\NextButton.xaml.cs">
       <DependentUpon>NextButton.xaml</DependentUpon>
     </Compile>
@@ -167,6 +170,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Widgets\Buttons\BackButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widgets\Buttons\NavigationButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

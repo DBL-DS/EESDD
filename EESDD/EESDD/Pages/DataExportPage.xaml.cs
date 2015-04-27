@@ -26,7 +26,11 @@ namespace EESDD.Pages
         {
             InitializeComponent();
             Tabs.setActived(TabsTitle.DataTab);
-            BackButton.ThisPage = Navigation.DataExport;
+        }
+
+        private void DoneButton_BtnClick(object sender, EventArgs e)
+        {
+            PageList.Main.setPage(PageList.Authentication);
         }
     }
 }
