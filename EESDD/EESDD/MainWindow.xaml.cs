@@ -6,6 +6,8 @@ using EESDD.Control.Player;
 using EESDD.UDP;
 using System.Threading;
 using EESDD.Control.Operation;
+using EESDD.Control.User;
+using System.Windows.Input;
 
 namespace EESDD
 {
@@ -16,6 +18,13 @@ namespace EESDD
     {
         UDPController udp;
         UserSelections selection;
+        User user;
+
+        internal User User
+        {
+            get { return user; }
+            set { user = value; }
+        }
 
         internal UserSelections Selection
         {
@@ -28,11 +37,12 @@ namespace EESDD
         {
             InitializeComponent();
             init();
-            setPage(PageList.SceneSelect);
+            setPage(PageList.Login);
         }
         void init() {
             udp = new UDPController();
             selection = new UserSelections();
+            user = new User();
         }
         public void setPage(Page page) {
 
@@ -69,6 +79,14 @@ namespace EESDD
         {
             this.WindowState = this.WindowState == System.Windows.WindowState.Normal ? 
                 System.Windows.WindowState.Maximized : System.Windows.WindowState.Normal;
+            maxBtn.ToolTip = this.WindowState == System.Windows.WindowState.Normal ?
+                "最大化" : "恢复";
+        }
+
+        private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 
