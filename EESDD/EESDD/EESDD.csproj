@@ -113,6 +113,12 @@
     <Compile Include="Widgets\Menu\TabsTitle.xaml.cs">
       <DependentUpon>TabsTitle.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\Selector\SelectorButton.xaml.cs">
+      <DependentUpon>SelectorButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Selector\SimulationConfiguration.xaml.cs">
+      <DependentUpon>SimulationConfiguration.xaml</DependentUpon>
+    </Compile>
     <Page Include="Resources\StyleDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -178,6 +184,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Widgets\Selector\SelectorButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widgets\Selector\SimulationConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -208,7 +222,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Widgets\Activity\" />
+    <Folder Include="Data\" />
     <Folder Include="Widgets\Scene\" />
   </ItemGroup>
   <ItemGroup>
@@ -233,6 +247,7 @@
     <Resource Include="Images\Buttons\close.png" />
     <Resource Include="Images\Buttons\max.png" />
     <Resource Include="Images\Buttons\min.png" />
+    <Resource Include="Images\Operations\SuddenBrake.jpg" />
     <Content Include="Widgets\Chart\Lib\DynamicDataDisplay.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

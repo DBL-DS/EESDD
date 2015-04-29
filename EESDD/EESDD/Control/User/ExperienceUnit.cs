@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace EESDD.Control.User
 {
+    [Serializable]
     class ExperienceUnit
     {
         int sceneID;
