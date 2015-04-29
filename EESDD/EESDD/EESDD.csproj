@@ -63,9 +63,6 @@
     <Compile Include="Control\User\Evaluation.cs" />
     <Compile Include="Control\User\ExperienceUnit.cs" />
     <Compile Include="Control\User\User.cs" />
-    <Compile Include="Pages\AboutPage.xaml.cs">
-      <DependentUpon>AboutPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Pages\DataExportAuthenticationPage.xaml.cs">
       <DependentUpon>DataExportAuthenticationPage.xaml</DependentUpon>
     </Compile>
@@ -117,10 +114,6 @@
       <DependentUpon>TabsTitle.xaml</DependentUpon>
     </Compile>
     <Page Include="Resources\StyleDictionary.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
