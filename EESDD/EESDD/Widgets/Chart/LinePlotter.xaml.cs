@@ -18,7 +18,7 @@ using Microsoft.Research.DynamicDataDisplay.DataSources;
 using Microsoft.Research.DynamicDataDisplay.PointMarkers;
 using EESDD.CSV;
 using System.Threading;
-namespace TestChart
+namespace EESDD.Widgets.Chart
 {
     /// <summary>
     /// Interaction logic for LinePlotter.xaml
@@ -33,18 +33,20 @@ namespace TestChart
         private ObservableDataSource<Point> abnormalData = new ObservableDataSource<Point>();
         private PerformanceCounter cpuPerformance = new PerformanceCounter();
         private DispatcherTimer timer = new DispatcherTimer();
-		
-		
-		
-		
-        public void drawLine(List<ObservableDataSource<Point>> inData)
+
+        public void drawNormalLine(ObservableDataSource<Point> normal)
         {
-            normalData = inData[0];
-            abnormalData = inData[1];
-            plotter.AddLineGraph(normalData, Colors.Red, 2, "分心");
-            plotter.AddLineGraph(abnormalData, Colors.Green, 2, "正常");
-            timer.IsEnabled = true;
-            plotter.Viewport.FitToView();
+            plotter.AddLineGraph(normal, Color.FromRgb(124, 255, 124));
+            plotter.LegendVisible = false;
+        }
+        public void drawDistractedLine(ObservableDataSource<Point> distracted)
+        {
+            plotter.AddLineGraph(distracted, Color.FromRgb(255, 124, 124), 1, "分心 Distracted");
+        }
+
+        public void addLine(ObservableDataSource<Point> points, Color lineColor, double lineThickness, string description)
+        {
+            plotter.AddLineGraph(points, lineColor, lineThickness, description);
         }
     }
     

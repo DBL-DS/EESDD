@@ -34,6 +34,8 @@ namespace EESDD.Pages
         }
         private void NextButton_BtnClick(object sender, EventArgs e)
         {
+            PageList.Experience.startRefresh();
+            PageList.Experience.bindDataSource();
             PageList.Main.setPage(PageList.Experience);
         }
     }

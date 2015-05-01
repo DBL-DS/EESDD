@@ -85,10 +85,13 @@ namespace EESDD.Control.User
             set { userClass = value; }
         }
 
-        internal List<ExperienceUnit> Experiences
+        public void addExpUnit(ExperienceUnit unit)
         {
-            get { return experiences; }
-            set { experiences = value; }
+            experiences.Add(unit);
+        }
+        public int UnitSize
+        {
+            get { return experiences.Count; }
         }
 
         public bool NewUser
