@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:TabsTitle="clr-namespace:EESDD.Widgets.Menu"
       xmlns:nav="clr-namespace:EESDD.Widgets.Buttons"
+      xmlns:select="clr-namespace:EESDD.Widgets.Selector"
       mc:Ignorable="d" 
       d:DesignHeight="665" d:DesignWidth="1090"
 	Title="SceneSelectPage">
@@ -31,6 +32,20 @@
                 <TextBlock Style="{StaticResource TitleChinese}">场景选择</TextBlock>
                 <TextBlock Style="{StaticResource TitleEnglish}">Scene selection</TextBlock>
             </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <select:SelectorButton x:Name="practice" BtnClick="SelectorButton_BtnClick" Grid.Column="1"></select:SelectorButton>
+                <select:SelectorButton x:Name="secure_one" BtnClick="SelectorButton_BtnClick" Grid.Column="2"></select:SelectorButton>
+                <select:SelectorButton x:Name="secure_two" BtnClick="SelectorButton_BtnClick" Grid.Column="3"></select:SelectorButton>
+                <select:SelectorButton x:Name="smooth_one" BtnClick="SelectorButton_BtnClick" Grid.Column="4"></select:SelectorButton>
+            </Grid>
             <StackPanel Grid.Row="2" Style="{StaticResource PageTail}">
                 <nav:NavigationButton BtnClick="NextButton_BtnClick" BtnText="Next"></nav:NavigationButton>
             </StackPanel>

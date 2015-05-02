@@ -63,6 +63,9 @@
     <Compile Include="Control\User\Evaluation.cs" />
     <Compile Include="Control\User\ExperienceUnit.cs" />
     <Compile Include="Control\User\User.cs" />
+    <Compile Include="Pages\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\DataExportAuthenticationPage.xaml.cs">
       <DependentUpon>DataExportAuthenticationPage.xaml</DependentUpon>
     </Compile>
@@ -110,9 +113,22 @@
     <Compile Include="Widgets\Buttons\NextButton.xaml.cs">
       <DependentUpon>NextButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\Chart\LinePlotter.xaml.cs">
+      <DependentUpon>LinePlotter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Widgets\Menu\TabsTitle.xaml.cs">
       <DependentUpon>TabsTitle.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\Selector\SelectorButton.xaml.cs">
+      <DependentUpon>SelectorButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Selector\SimulationConfiguration.xaml.cs">
+      <DependentUpon>SimulationConfiguration.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Pages\AboutPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Resources\StyleDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -174,7 +190,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Widgets\Chart\LinePlotter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Widgets\Menu\TabsTitle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widgets\Selector\SelectorButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widgets\Selector\SimulationConfiguration.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -208,7 +236,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Widgets\Activity\" />
+    <Folder Include="Data\Database\" />
+    <Folder Include="Data\ExpFiles\" />
     <Folder Include="Widgets\Scene\" />
   </ItemGroup>
   <ItemGroup>
@@ -233,6 +262,7 @@
     <Resource Include="Images\Buttons\close.png" />
     <Resource Include="Images\Buttons\max.png" />
     <Resource Include="Images\Buttons\min.png" />
+    <Resource Include="Images\Operations\SuddenBrake.jpg" />
     <Content Include="Widgets\Chart\Lib\DynamicDataDisplay.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
