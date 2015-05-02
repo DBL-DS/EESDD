@@ -22,25 +22,56 @@ namespace EESDD.Control.User
         {
 
         }
-        public void setNewUser(string name) {
-            newUser = true;
+
+
+        /// <summary>
+        /// 将用户信息存入数据库，experiences序列化后存入文件，文件名存入数据库
+        /// </summary>
+        public void logIn(string name)
+        {
             this.name = name;
+
+            if (userExist())
+                setOldUser();
+            else
+                setNewUser();
+        }
+        private bool userExist()
+        {
+            return true;
+        }
+        /// <summary>
+        /// 将用户信息存入数据库，experiences序列化后存入文件，文件名存入数据库
+        /// </summary>
+        public void logOut()
+        {
+            if (experiences.Count != 0)
+            {
+                string fileName = saveExperienceListToFile();
+            }
+        }
+
+        public void setNewUser()
+        {
+            newUser = true;
             this.userClass = 0;
             experiences = new List<ExperienceUnit>();
         }
 
-        public void setOldUser(string name)
+        public void setOldUser()
         {
-            this.name = name;
             string fileName = "";
             getExperienceListFromFile(fileName);
             newUser = false;
         }
-        public void saveUser()
+        private void loadUser()
         {
-            string fileName = saveExperienceListToFile();
+            
         }
+        private void saveUser()
+        {
 
+        }
         public string saveExperienceListToFile()
         {
             string fileName = DateTime.Now.ToFileTimeUtc().ToString();
@@ -70,7 +101,6 @@ namespace EESDD.Control.User
                 experiences = (List<ExperienceUnit>)bf.Deserialize(fs);
             }
         }
-
 
 
         public string Name
