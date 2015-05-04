@@ -59,7 +59,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Control\Operation\UserSelections.cs" />
+    <Compile Include="Control\Player\BrakeActivity.cs" />
     <Compile Include="Control\Player\Player.cs" />
+    <Compile Include="Control\Player\ReactActivity.cs" />
     <Compile Include="Control\User\Evaluation.cs" />
     <Compile Include="Control\User\ExperienceUnit.cs" />
     <Compile Include="Control\User\User.cs" />
@@ -108,6 +110,9 @@
     <Compile Include="VISSIM\DataVehicle.cs" />
     <Compile Include="Widgets\Buttons\BackButton.xaml.cs">
       <DependentUpon>BackButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Buttons\CharSelectionButton.xaml.cs">
+      <DependentUpon>CharSelectionButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="Widgets\Buttons\Navigation.cs" />
     <Compile Include="Widgets\Buttons\NavigationButton.xaml.cs">
@@ -200,6 +205,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Widgets\Buttons\CharSelectionButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Widgets\Buttons\NavigationButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -287,6 +296,8 @@
     <Resource Include="Images\Operations\SuddenBrake.jpg" />
     <Resource Include="Images\Login\car.png" />
     <Resource Include="Images\Login\login.png" />
+    <Resource Include="Images\Experience\smile.png" />
+    <Resource Include="Images\Experience\shutdown.png" />
     <Content Include="Widgets\Chart\Lib\DynamicDataDisplay.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

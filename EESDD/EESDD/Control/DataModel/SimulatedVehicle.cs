@@ -9,88 +9,88 @@ namespace EESDD.Control.DataModel
     class SimulatedVehicle
     {
         float simulationTime;
+        float positionX;
+        float positionY;
+        float speed;
+        float acceleration;
+        float steeringWheel;
+        float offset;
+        float brakePedal;
+        float totalDistance;
+        float braking;
+        float reacting;
+        float gear;
 
         public float SimulationTime
         {
             get { return simulationTime; }
             set { simulationTime = value; }
         }
-        float positionX;
 
         public float PositionX
         {
             get { return positionX; }
             set { positionX = value; }
         }
-        float positionY;
-
         public float PositionY
         {
             get { return positionY; }
             set { positionY = value; }
         }
-        float speed;
 
         public float Speed
         {
             get { return speed; }
             set { speed = value; }
         }
-        float acceleration;
 
         public float Acceleration
         {
             get { return acceleration; }
             set { acceleration = value; }
         }
-        float driftAngle;
 
-        public float DriftAngle
+        public float SteeringWheel
         {
-            get { return driftAngle; }
-            set { driftAngle = value; }
+            get { return steeringWheel; }
+            set { steeringWheel = value; }
         }
-        float offset;
 
         public float Offset
         {
             get { return offset; }
             set { offset = value; }
         }
-        float wheelSpeed;
-
-        public float WheelSpeed
-        {
-            get { return wheelSpeed; }
-            set { wheelSpeed = value; }
-        }
-        float gasPedal;
-
-        public float GasPedal
-        {
-            get { return gasPedal; }
-            set { gasPedal = value; }
-        }
-        float brakePedal;
 
         public float BrakePedal
         {
             get { return brakePedal; }
             set { brakePedal = value; }
         }
-        float gear;
+
+        public float TotalDistance
+        {
+            get { return totalDistance; }
+            set { totalDistance = value; }
+        }
+        
+
+        public float Braking
+        {
+            get { return braking; }
+            set { braking = value; }
+        }
+
+        public float Reacting
+        {
+            get { return reacting; }
+            set { reacting = value; }
+        }
 
         public float Gear
         {
             get { return gear; }
             set { gear = value; }
-        }
-        float rpm;
-
-        public float Rpm
-        {
-            get { return rpm; }
-            set { rpm = value; }
         }
     }
 }

@@ -23,8 +23,7 @@ namespace EESDD
         User user;
         Player player;
         bool refreshing;
-
-
+        
         internal Player Player
         {
             get { return player; }
@@ -46,7 +45,7 @@ namespace EESDD
         {
             InitializeComponent();
             init();
-            setPage(PageList.Login);
+            setPage(PageList.Experience);
         }
         void init() {
             udpControl = new UDPController();
@@ -109,16 +108,16 @@ namespace EESDD
             while (refreshing)
             {
                 player.play(udp.getData());
-                PageList.Experience.refreshTime(player.Time);
+                PageList.Experience.refreshTextBlocks();
             }
         }
-        public void endRefresh(bool normal)
+        public void endRefreshDataSource(bool state)
         {
             refreshing = false;
             udp.close();
             udp = null;
 
-            if (normal)
+            if (state)
             {
                 ExperienceUnit unit = new ExperienceUnit();
                 unit.SceneID = selection.SceneSelect;

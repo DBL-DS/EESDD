@@ -22,12 +22,49 @@
     <Style x:Key="TabsChosenStyle" TargetType="Button" BasedOn="{StaticResource TabsStyle}">
         <Setter Property="Foreground" Value="#ffffffff"></Setter>
     </Style>
-    
-    
-    
-    <Style x:Key="TabsBorder" TargetType="Border">
+
+
+    <Style x:Key="BorderStyle" TargetType="Border" >
         <Setter Property="CornerRadius" Value="10"></Setter>
+        <Setter Property="BorderThickness" Value="2"></Setter>
+    </Style>
+    
+    <Style x:Key="TabsBorder" BasedOn="{StaticResource BorderStyle}" TargetType="Border" >
         <Setter Property="BorderBrush" Value="White"></Setter>
-        <Setter Property="BorderThickness" Value="1"></Setter>
+    </Style>
+
+    
+    
+    <Style x:Key="SelectionNormalStyle" BasedOn="{StaticResource TabsNormalStyle}" TargetType="Button">
+        
+    </Style>
+    <Style x:Key="SelectionChosenStyle" BasedOn="{StaticResource TabsStyle}" TargetType="Button">
+        <Setter Property="Foreground" Value="White"></Setter>
+    </Style>
+    
+    <Style x:Key="SelectionBorderNormalStyle" TargetType="Border" BasedOn="{StaticResource BorderStyle}">
+        <Setter Property="BorderBrush" Value="#ff666666"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="BorderBrush" Value="White"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="SelectionBorderChosenStyle" TargetType="Border" BasedOn="{StaticResource BorderStyle}">
+        <Setter Property="BorderBrush" Value="White"></Setter>
+        <Setter Property="Background" Value="#ff666666"></Setter>
+    </Style>
+
+
+    <Style x:Key="BoundaryLine" TargetType="Border">
+        <Setter Property="BorderBrush" Value="#ffb78eff"></Setter>
+    </Style>
+
+    <Style x:Key="RealStateStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="#ffaaaaaa"></Setter>
+        <Setter Property="FontFamily" Value="Monaco"></Setter>
+    </Style>
+    <Style x:Key="RealStateBorder" TargetType="Border">
+        <Setter Property="BorderBrush" Value="#ff666666"></Setter>
     </Style>
 </ResourceDictionary>
