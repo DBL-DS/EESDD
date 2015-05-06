@@ -45,7 +45,7 @@ namespace EESDD
         {
             InitializeComponent();
             init();
-            setPage(PageList.Experience);
+            setPage(PageList.SceneSelect);
         }
         void init() {
             udpControl = new UDPController();

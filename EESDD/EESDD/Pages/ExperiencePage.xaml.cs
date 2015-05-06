@@ -112,18 +112,18 @@ namespace EESDD.Pages
 
         public void refreshTextBlocks()
         {
-                this.Dispatcher.BeginInvoke((Action)delegate() {
-                    TimeDisplay.Text = PageList.Main.Player.Time;
-                    RealSpeed.Text = PageList.Main.Player.Speed;
-                    RealAcceleration.Text = PageList.Main.Player.Acceleration;
-                    DistanceDisplay.Text = PageList.Main.Player.TotalDistance;
-                    RealBrakeDistance.Text = PageList.Main.Player.BrakeDistance;
-                    BrakeDistanceStart.Text = PageList.Main.Player.BrakeDistanceStart;
-                    BrakeDistanceEnd.Text = PageList.Main.Player.BrakeDistanceEnd;
-                    RealReaction.Text = PageList.Main.Player.ReactTime;
-                    ReactTimeStart.Text = PageList.Main.Player.ReactTimeStart;
-                    ReactTimeEnd.Text = PageList.Main.Player.ReactTimeEnd;
-                });
+            this.Dispatcher.BeginInvoke((Action)delegate() {
+                TimeDisplay.Text = PageList.Main.Player.Time;
+                RealSpeed.Text = PageList.Main.Player.Speed;
+                RealAcceleration.Text = PageList.Main.Player.Acceleration;
+                DistanceDisplay.Text = PageList.Main.Player.TotalDistance;
+                RealBrakeDistance.Text = PageList.Main.Player.BrakeDistance;
+                BrakeDistanceStart.Text = PageList.Main.Player.BrakeDistanceStart;
+                BrakeDistanceEnd.Text = PageList.Main.Player.BrakeDistanceEnd;
+                RealReaction.Text = PageList.Main.Player.ReactTime;
+                ReactTimeStart.Text = PageList.Main.Player.ReactTimeStart;
+                ReactTimeEnd.Text = PageList.Main.Player.ReactTimeEnd;
+            });
         }
         public void startRefresh()
         {
@@ -141,30 +141,5 @@ namespace EESDD.Pages
         {
             endRefresh(CustomMessageBox.Show("提示","是否保存数据？") == true ? true : false);
         }
-        //public void bindDataSource()
-        //{
-        //    speedLine = null;
-        //    speedLine = new LinePlotter();
-        //    speed_data.Children.Clear();
-        //    speed_data.Children.Add(speedLine);
-        //    speedLine.drawNormalLine(PageList.Main.Player.Speed);
-        //}
-        //public void startRefresh()
-        //{
-        //    Thread refresh = new Thread(PageList.Main.refreshDataSource);
-        //    refresh.Start();
-        //}
-        //public void refreshTime(string t)
-        //{
-        //    this.Dispatcher.BeginInvoke((Action)delegate() {
-        //        Data_Time.Text = t;
-        //    });
-        //}
-        //private void OverButton_BtnClick(object sender, EventArgs e)
-        //{
-        //    PageList.Main.endRefresh(true);
-        //    PageList.Main.setPage(PageList.SceneSelect);
-        //}
-
     }
 }

@@ -7,16 +7,143 @@
       xmlns:nav="clr-namespace:EESDD.Widgets.Buttons"
       xmlns:select="clr-namespace:EESDD.Widgets.Selector"
       mc:Ignorable="d" 
-      d:DesignHeight="665" d:DesignWidth="1090"
+      d:DesignHeight="650" d:DesignWidth="1100"
+      VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
 	Title="SceneSelectPage">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resources/StyleDictionary.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/EESDD;component/Resources/UnifiedColor.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    <Grid>
-        
+    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Background="#ff342947" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Border CornerRadius="10"  Background="#dd666666"  Margin="50,50,0,50" Width="180"  Grid.Column="0">
+                <StackPanel>
+                    <Border Height="70" BorderThickness="0,0,0,2" BorderBrush="#FF898989">
+                        <TextBlock VerticalAlignment="Center" TextAlignment="Center" Foreground="LightGray" FontSize="24" FontFamily="Impact">场景选择</TextBlock>
+                    </Border>
+                    <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Click" x:Name="LittleOne"  Height="50" Margin="0,10,0,1">练习场景</Button>
+                    <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Click" x:Name="LittleTwo" Height="50" Margin="0,1">安全场景一</Button>
+                    <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Click" x:Name="LittleThree" Height="50" Margin="0,1">安全场景二</Button>
+                    <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Click" x:Name="LittleFour" Height="50" Margin="0,1">顺畅场景三</Button>
+                </StackPanel>
+
+            </Border>
+            <Border Grid.Column="1"  Margin="50,50" CornerRadius="10" Background="#ffcccccc">
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.5"></DropShadowEffect>
+                </Border.Effect>
+                <Grid >
+                    <Grid x:Name="SceneOneDetail">
+                        <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid></Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition Height="100"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.RowSpan="2">
+                            </Grid>
+                            <Button x:Name="SceneOneBtn" Click="SceneDetail_Click" Style="{StaticResource NoDefaultBlue}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,50,0">
+                                <Image Source="/EESDD;component/Images/Select/next.png" Width="50" Cursor="Hand" ></Image>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                    <Grid x:Name="SceneTwoDetail" Visibility="Hidden">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                        <Grid></Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition Height="100"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.RowSpan="2">
+
+                            </Grid>
+                            <Button x:Name="SceneTwoBtn" Click="SceneDetail_Click"  Style="{StaticResource NoDefaultBlue}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,50,0">
+                                <Image Source="/EESDD;component/Images/Select/next.png" Width="50" Cursor="Hand" ></Image>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                    <Grid x:Name="SceneThreeDetail" Visibility="Hidden">
+                        <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="70"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid></Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition Height="100"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.RowSpan="2">
+
+                            </Grid>
+                            <Button x:Name="SceneThreeBtn" Click="SceneDetail_Click"  Style="{StaticResource NoDefaultBlue}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,50,0">
+                                <Image Source="/EESDD;component/Images/Select/next.png" Width="50" Cursor="Hand" ></Image>
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                    <Grid x:Name="SceneFourDetail" Visibility="Hidden">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="70"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid></Grid>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="100"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid Grid.RowSpan="2">
+
+                                </Grid>
+                                <Button x:Name="SceneFourBtn" Click="SceneDetail_Click"  Style="{StaticResource NoDefaultBlue}" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,50,0">
+                                    <Image Source="/EESDD;component/Images/Select/next.png" Width="50" Cursor="Hand" ></Image>
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
     </Grid>
 </Page>
