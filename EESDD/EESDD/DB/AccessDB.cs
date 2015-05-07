@@ -13,27 +13,54 @@ namespace EESDDTEST.DB
         OleDbDataReader myReader = null;
         public AccessDB(string path)
         {
-            string strcon = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source = " + @path;
+            string strcon = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source = " + path;
             mycon = new OleDbConnection(strcon);
             mycon.Open();
         }
-        public void insertData(User save)
+        public void insertData(String name,int type,String path)
         {
-            string sql = "insert into [User] (usrName,usrType,experiencePath) values('" + save.Name + "'," + save.UserClass + ",'" + save.Experiences + "')";
+            string sql = "insert into [User] (usrName,usrType,experiencePath) values('" + name + "'," + type + ",'" + path + "')";
             OleDbCommand mycom = new OleDbCommand(sql, mycon);
             mycom.ExecuteReader();
         }
-
-        public User getData(string name)
+        public Boolean isExistted(String name)
         {
-            string sql = "SELECT * FROM [User] WHERE usrName = '"+name+"'";
+            string sql = "select * FROM [User] WHERE usrName = '"+name+"'";
             OleDbCommand mycom = new OleDbCommand(sql, mycon);
             myReader = mycom.ExecuteReader();
-            User outData = new User();
-            outData.Name = name;
-            outData.UserClass = myReader.GetInt32(2);
-            outData.Experiences = myReader.GetString(3);
-            return outData;
+            return myReader.HasRows;
+        }
+        public int getType(string name)
+        {
+            string sql = "SELECT usrType FROM [User] WHERE usrName = '"+name+"'";
+            OleDbCommand mycom = new OleDbCommand(sql, mycon);
+            myReader = mycom.ExecuteReader();
+            int type=-1;
+            if (myReader.HasRows)
+            {
+                myReader.Read();
+                type = myReader.GetInt32(0);
+            }
+            return type;
+        }
+        public String getPath(string name)
+        {
+            string sql = "SELECT experiencePath FROM [User] WHERE usrName = '" + name + "'";
+            OleDbCommand mycom = new OleDbCommand(sql, mycon);
+            myReader = mycom.ExecuteReader();
+            String path = null;
+            if (myReader.HasRows)
+            {
+                myReader.Read();
+                path = myReader.GetString(0);
+            }
+            return path;
+        }
+
+        public void close()
+        {
+            myReader.Close();
+            mycon.Close();
         }
     }
 }
