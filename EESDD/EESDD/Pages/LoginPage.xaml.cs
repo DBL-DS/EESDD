@@ -20,19 +20,43 @@ namespace EESDD.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
+        string nickName;
         public LoginPage()
         {
             InitializeComponent();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void NewLoginButton_BtnClick(object sender, EventArgs e)
         {
-            PageList.Main.setPage(PageList.Evaluation);
+            NewLogin();
         }
 
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void NewLogin()
         {
-            PageList.Main.setPage(PageList.Evaluation);          
+            nickName = newNick.Text.Trim();
+            if (!CheckNickName())
+            {
+                PageList.Main.User.setNewUser(nickName);
+                PageList.Main.setPage(PageList.Evaluation);
+            }
+        }
+
+        /// <summary>
+        /// 数据库中查找昵称，若存在，返回true，否则返回false
+        /// </summary>
+        /// <returns></returns>
+        private bool CheckNickName()
+        {
+
+            return false;
+        }
+
+        private void newNick_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                NewLogin();
+            }
         }
     }
 }

@@ -6,6 +6,8 @@ using EESDD.Control.Player;
 using EESDD.UDP;
 using System.Threading;
 using EESDD.Control.Operation;
+using EESDD.Control.User;
+using System.Windows.Input;
 
 namespace EESDD
 {
@@ -14,8 +16,24 @@ namespace EESDD
     /// </summary>
     public partial class MainWindow : Window
     {
-        UDPController udp;
+        UDPController udpControl;
+        VehicleUDP udp;
         UserSelections selection;
+        User user;
+        Player player;
+        bool refreshing;
+
+
+        internal Player Player
+        {
+            get { return player; }
+            set { player = value; }
+        }
+        internal User User
+        {
+            get { return user; }
+            set { user = value; }
+        }
 
         internal UserSelections Selection
         {
@@ -23,16 +41,17 @@ namespace EESDD
             set { selection = value; }
         }
 
-
         public MainWindow()
         {
             InitializeComponent();
             init();
-            setPage(PageList.SceneSelect);
+            setPage(PageList.Login);
         }
         void init() {
-            udp = new UDPController();
+            udpControl = new UDPController();
             selection = new UserSelections();
+            user = new User();
+            player = new Player();
         }
         public void setPage(Page page) {
 
@@ -45,7 +64,7 @@ namespace EESDD
         }
 
         public bool testConnection() {
-            UDPTest test = new UDPTest(udp.Port);
+            UDPTest test = new UDPTest(udpControl.Port);
             Thread thread = new Thread(test.test);
             thread.Start();
             if (thread.Join(TimeSpan.FromSeconds(2))) {
@@ -69,6 +88,52 @@ namespace EESDD
         {
             this.WindowState = this.WindowState == System.Windows.WindowState.Normal ? 
                 System.Windows.WindowState.Maximized : System.Windows.WindowState.Normal;
+            maxBtn.ToolTip = this.WindowState == System.Windows.WindowState.Normal ?
+                "最大化" : "恢复";
+        }
+
+        private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
+        public void refreshDataSource()
+        {
+            initRefresh();
+            while (refreshing)
+            {
+                player.play(udp.getData());
+                PageList.Experience.refreshTime(player.Time);
+            }
+        }
+        public void endRefresh(bool normal)
+        {
+            refreshing = false;
+            udp.close();
+            udp = null;
+
+            if (normal)
+            {
+                ExperienceUnit unit = new ExperienceUnit();
+                unit.SceneID = selection.SceneSelect;
+                unit.Mode = selection.ModeSelect;
+                unit.Vehicles = player.Vehicles;
+                Evaluation evaluation = new Evaluation();
+                unit.Evaluation = evaluation;
+
+                user.addExpUnit(unit);
+            }
+
+        }
+        private void initRefresh()
+        {
+            udp = new VehicleUDP(udpControl.Port);
+            if (player.Vehicles.Count != 0)
+            {
+                player.reset();
+            }
+            refreshing = true;
         }
     }
 

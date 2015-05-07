@@ -1,6 +1,4 @@
-﻿using EESDD.Widgets.Buttons;
-using EESDD.Widgets.Menu;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,22 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace EESDD.Pages
+namespace EESDD.Widgets.Selector
 {
     /// <summary>
-    /// DataExportPage.xaml 的交互逻辑
+    /// SimulationConfiguration.xaml 的交互逻辑
     /// </summary>
-    public partial class DataExportPage : Page
+    public partial class SimulationConfiguration : UserControl
     {
-        public DataExportPage()
+        public SimulationConfiguration()
         {
             InitializeComponent();
-            Tabs.setActived(TabsTitle.DataTab);
-        }
-
-        private void DoneButton_BtnClick(object sender, EventArgs e)
-        {
-            PageList.Main.setPage(PageList.Authentication);
         }
     }
 }

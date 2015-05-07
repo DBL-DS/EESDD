@@ -4,8 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" x:Class="EESDD.Pages.LoginPage" 
+      xmlns:nav="clr-namespace:EESDD.Widgets.Buttons"
       mc:Ignorable="d"
-      d:DesignHeight="665" d:DesignWidth="1090"
+      VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
 	Title="LoginPage">
     <Page.Resources>
         <ResourceDictionary>
@@ -15,20 +16,50 @@
         </ResourceDictionary>
     </Page.Resources>
 	<Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-		<Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Row="0">
-			<Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-			</Grid.ColumnDefinitions>
-			<DataGrid Width="Auto" VerticalAlignment="Stretch" Grid.Column="0"/>
-			<DataGrid Width="Auto" VerticalAlignment="Stretch" Grid.Column="1"/>
-			<TextBox HorizontalAlignment="Left" Height="23" Margin="180.597,301.492,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-			<TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="235.597,301.492,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-			<Button Content="确认" HorizontalAlignment="Left" Margin="358.208,496.851,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
-			<Button Content="确认" Grid.Column="1" HorizontalAlignment="Left" Margin="432.612,496.851,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
-			<TextBlock HorizontalAlignment="Left" Margin="73.133,107.462,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182.507"><Run FontSize="22.5" Text="第一次使用系统"/><LineBreak/><Run/></TextBlock>
-			<TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="116.194,107.462,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="65.986" Width="239.403"><Run FontSize="22.5" Text="系统上有我的体验记录"/></TextBlock>			
-		</Grid>
-
-	</Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Vertical" Margin="50,0,0,0" VerticalAlignment="Center">
+                <TextBlock FontFamily="/EESDD;component/Fonts/#ZHSRXT-GBK" Foreground="White" FontSize="35">第一次使用体验系统？</TextBlock>
+                <TextBlock FontFamily="/EESDD;component/Fonts/#ZHSRXT-GBK" Foreground="White" Margin="50,30,0,0" FontSize="25">New to this experience system？</TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="50,0,0,0"  HorizontalAlignment="Center">
+                <TextBlock FontFamily="/EESDD;component/Fonts/#ZHSRXT-GBK" FontSize="25" Foreground="White" Margin="-50,0,0,0">给自己取个昵称：</TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="0,30,0,0">
+                    <TextBox KeyDown="newNick_KeyDown" Name="newNick" MinWidth="200" Height="30" FontSize="20"  Foreground="#FF3f3f3f" FontFamily="/EESDD;component/Fonts/#ZHSRXT-GBK" FontWeight="Bold" ></TextBox>
+                    <nav:NavigationButton BtnText="Test" ToolTip="测试昵称是否可用"></nav:NavigationButton>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <nav:NavigationButton x:Name="newLoginBtn" BtnClick="NewLoginButton_BtnClick" BtnText="登入"></nav:NavigationButton>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Vertical" Margin="50,0,0,0" VerticalAlignment="Center">
+                <TextBlock FontFamily="/EESDD;component/Fonts/#ZHSRXT-GBK" Foreground="White" FontSize="35">系统上有你的记录？</TextBlock>
+                <TextBlock FontFamily="/EESDD;component/Fonts/#ZHSRXT-GBK" Foreground="White" Margin="50,30,0,0" FontSize="25">Logined Before?</TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="50,0,0,0"  HorizontalAlignment="Center">
+                <TextBlock FontFamily="/EESDD;component/Fonts/#ZHSRXT-GBK" FontSize="25" Foreground="White" Margin="-100,0,0,0">输入以前使用的昵称：</TextBlock>
+                <StackPanel Orientation="Horizontal" Margin="0,30,0,0">
+                    <TextBox MinWidth="200" Height="30" Foreground="#FF3f3f3f" FontFamily="/EESDD;component/Fonts/#ZHSRXT-GBK" FontSize="20" FontWeight="Bold"></TextBox>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <nav:NavigationButton BtnText="登入"></nav:NavigationButton>
+            </StackPanel>
+        </Grid>
+    </Grid>
 </Page>

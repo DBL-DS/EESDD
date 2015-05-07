@@ -4,7 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:TabsTitle="clr-namespace:EESDD.Widgets.Menu"
-      xmlns:NavigationButtons="clr-namespace:EESDD.Widgets.Buttons"
+      xmlns:nav="clr-namespace:EESDD.Widgets.Buttons"
+      xmlns:sceneBtn="clr-namespace:EESDD.Widgets.Selector"
       mc:Ignorable="d" 
       d:DesignHeight="665" d:DesignWidth="1090"
 	Title="ModeSelectPage">
@@ -33,9 +34,19 @@
                     <TextBlock Style="{StaticResource TitleChinese}">模式选择</TextBlock>
                     <TextBlock Style="{StaticResource TitleEnglish}">Mode selection</TextBlock>
                 </StackPanel>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <sceneBtn:SelectorButton BtnClick="NormalButton_Click" x:Name="normal" Grid.Column="1"></sceneBtn:SelectorButton>
+                    <sceneBtn:SelectorButton BtnClick="DistractedButton_Click" x:Name="distracted" Grid.Column="2"></sceneBtn:SelectorButton>
+                </Grid>
                 <StackPanel Grid.Row="2" Style="{StaticResource PageTail}">
-                    <NavigationButtons:BackButton x:Name="BackButton"></NavigationButtons:BackButton>
-                    <NavigationButtons:NextButton x:Name="NextButton"></NavigationButtons:NextButton>
+                    <nav:NavigationButton BtnClick="BackButton_BtnClick" BtnText="Back"></nav:NavigationButton>
+                    <nav:NavigationButton BtnClick="NextButton_BtnClick" BtnText="Next"></nav:NavigationButton>
                 </StackPanel>
             </Grid>
         </Grid>

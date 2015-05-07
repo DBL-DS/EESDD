@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:TabsTitle="clr-namespace:EESDD.Widgets.Menu"
-      xmlns:NavigationButtons="clr-namespace:EESDD.Widgets.Buttons"     
+      xmlns:nav="clr-namespace:EESDD.Widgets.Buttons"     
       mc:Ignorable="d" 
       d:DesignHeight="665" d:DesignWidth="1090"
 	Title="DataExportAuthenticationPage">
@@ -33,7 +33,7 @@
                     <TextBlock Style="{StaticResource TitleEnglish}">Authentication</TextBlock>
                 </StackPanel>
                 <StackPanel Grid.Row="2" Style="{StaticResource PageTail}">
-                    <NavigationButtons:NextButton x:Name="NextButton"></NavigationButtons:NextButton>
+                    <nav:NavigationButton BtnClick="NextButton_BtnClick" BtnText="Next"></nav:NavigationButton>
                 </StackPanel>
             </Grid>
         </Grid>

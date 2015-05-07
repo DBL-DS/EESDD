@@ -24,12 +24,13 @@
             <Grid Background="#a5a5a5" Panel.ZIndex="0" Grid.Column="1" Margin="0,20,20,20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Style="{StaticResource PanelShadow}">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal" Style="{StaticResource PageTitle}">
                     <TextBlock Style="{StaticResource TitleChinese}">评价</TextBlock>
                     <TextBlock Style="{StaticResource TitleEnglish}">Evaluation</TextBlock>
                 </StackPanel>
+                <TextBlock x:Name="WelcomeTitle" Grid.Row="1" HorizontalAlignment="Right" Foreground="White" FontFamily="/EESDD;component/Fonts/#ZHSRXT-GBK" FontSize="15" Margin="0,0,50,0" FontWeight="Bold"></TextBlock>
             </Grid>
         </Grid>
     </Grid>

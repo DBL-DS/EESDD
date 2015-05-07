@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:TabsTitle="clr-namespace:EESDD.Widgets.Menu"
+      xmlns:nav="clr-namespace:EESDD.Widgets.Buttons"   
+      xmlns:line="clr-namespace:EESDD.Widgets.Chart"
       mc:Ignorable="d" 
       d:DesignHeight="665" d:DesignWidth="1090"
 	Title="ExperiencePage">
@@ -24,10 +26,28 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Style="{StaticResource PageTitle}">
+            <StackPanel Orientation="Horizontal" Style="{StaticResource PageTitle}" Grid.Row="0">
                 <TextBlock Style="{StaticResource TitleChinese}">实时数据</TextBlock>
                 <TextBlock Style="{StaticResource TitleEnglish}">Real-Time Data</TextBlock>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="Data_Time" Grid.Row="0" Grid.Column="0" FontFamily="/EESDD;component/Fonts/#ZHSRXT-GBK" FontSize="48" FontWeight="Bold" Foreground="White">00:00:00</TextBlock>
+                <StackPanel x:Name="speed_data" Grid.Column="1" Grid.Row="0"></StackPanel>
+            </Grid>
+            <StackPanel Grid.Row="2" Style="{StaticResource PageTail}">
+                <nav:NavigationButton BtnClick="OverButton_BtnClick" BtnText="Over"></nav:NavigationButton>
             </StackPanel>
         </Grid>
     </Grid>
