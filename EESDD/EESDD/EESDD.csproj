@@ -68,6 +68,7 @@
     <Compile Include="CustomMessageBox.xaml.cs">
       <DependentUpon>CustomMessageBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Data\Database\AccessDB.cs" />
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
@@ -88,6 +89,9 @@
     </Compile>
     <Compile Include="Pages\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ModeSelect.xaml.cs">
+      <DependentUpon>ModeSelect.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ModeSelectPage.xaml.cs">
       <DependentUpon>ModeSelectPage.xaml</DependentUpon>
@@ -113,6 +117,9 @@
     </Compile>
     <Compile Include="Widgets\Buttons\CharSelectionButton.xaml.cs">
       <DependentUpon>CharSelectionButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Buttons\LittleScene.xaml.cs">
+      <DependentUpon>LittleScene.xaml</DependentUpon>
     </Compile>
     <Compile Include="Widgets\Buttons\Navigation.cs" />
     <Compile Include="Widgets\Buttons\NavigationButton.xaml.cs">
@@ -143,6 +150,10 @@
     <Page Include="Pages\AboutPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ModeSelect.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Resources\ButtonStyle.xaml">
       <SubType>Designer</SubType>
@@ -209,6 +220,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Widgets\Buttons\LittleScene.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Widgets\Buttons\NavigationButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -267,7 +282,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\Database\" />
     <Folder Include="Data\ExpFiles\" />
     <Folder Include="Widgets\Scene\" />
   </ItemGroup>
@@ -298,6 +312,17 @@
     <Resource Include="Images\Login\login.png" />
     <Resource Include="Images\Experience\smile.png" />
     <Resource Include="Images\Experience\shutdown.png" />
+    <Resource Include="Images\Select\next.png" />
+    <Resource Include="Images\Select\little_scene.png" />
+    <Resource Include="Images\Select\24dff278761ea202593eaf3f4c5bbaa2.jpg" />
+    <Resource Include="Images\Select\8c008eb29cdccdde9e2771a6932e63bb.jpg" />
+    <Resource Include="Images\Select\8f29b3f33dfd48db7d511aa61a742ca1.jpg" />
+    <Resource Include="Images\Select\fcb345067859f6522db886f64ea23789.jpg" />
+    <Resource Include="Images\Select\9d1925fd26dc309f254ad965c0dfbf75.jpeg" />
+    <Resource Include="Images\Select\2268855148fdfaa362ff3025ed61632a.jpg" />
+    <Resource Include="Images\Select\check.png" />
+    <Resource Include="Images\Select\start.png" />
+    <Resource Include="Images\Select\car_blue.png" />
     <Content Include="Widgets\Chart\Lib\DynamicDataDisplay.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

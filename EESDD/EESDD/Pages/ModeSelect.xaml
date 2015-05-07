@@ -1,0 +1,23 @@
+﻿<Window x:Class="EESDD.Pages.ModeSelect"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:select="clr-namespace:EESDD.Widgets.Selector"
+        Title="ModeSelect" Height="450" Width="700" WindowStartupLocation="CenterScreen"
+        WindowStyle="None" AllowsTransparency="True">
+    <Grid Background="#ff342947">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Button Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right" Width="20" Height="20">X</Button>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <select:SelectorButton BtnClick="SelectorButton_BtnClick" Width="250" Height="250"></select:SelectorButton>
+            <select:SelectorButton Grid.Column="1" Width="250" Height="250"></select:SelectorButton>
+        </Grid>
+    </Grid>
+</Window>

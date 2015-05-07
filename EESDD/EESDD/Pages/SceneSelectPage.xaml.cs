@@ -24,14 +24,95 @@ namespace EESDD.Pages
     /// </summary>
     public partial class SceneSelectPage : Page
     {
-        private SelectorButton chosenButton;
+        private Grid currentDetail;
+        private Button currentMode;
         public SceneSelectPage()
         {
             InitializeComponent();
             //Tabs.setActived(TabsTitle.ExperienceTab);
             //setSelectionValue();
             //setDefaultChosen();
+            init();
         }
+
+        void init()
+        {
+            currentDetail = SceneOneDetail;
+            currentMode = NormalMode;
+        }
+
+        private void Little_Enter(object sender, RoutedEventArgs e)
+        {
+            Button clickBtn = (Button)sender;
+            if (clickBtn.Name.Equals("LittleOne"))
+            {
+                changeDetail(SceneOneDetail);
+            }
+            else if (clickBtn.Name.Equals("LittleTwo"))
+            {
+                changeDetail(SceneTwoDetail);
+            }
+            else if (clickBtn.Name.Equals("LittleThree"))
+            {
+                changeDetail(SceneThreeDetail);
+            }
+            else if (clickBtn.Name.Equals("LittleFour"))
+            {
+                changeDetail(SceneFourDetail);
+            }
+        }
+
+        private void changeDetail(Grid toChange)
+        {
+            if (!toChange.Equals(currentDetail))
+            {
+                currentDetail.Visibility = System.Windows.Visibility.Hidden;
+                currentDetail = toChange;
+                currentDetail.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
+        private void SceneDetail_Click(object sender, RoutedEventArgs e)
+        {
+            switch (((Button)sender).Name)
+            {
+                case "SceneOneBtn" :
+                    PageList.Main.Selection.SceneSelect = UserSelections.ScenePractice;
+                    break;
+                case "SceneTwoBtn" :
+                    PageList.Main.Selection.SceneSelect = UserSelections.SceneSecurityOne;
+                    break;
+                case "SceneThreeButton":
+                    PageList.Main.Selection.SceneSelect = UserSelections.SceneSecurityTwo;
+                    break;
+                case "SceneFourutton":
+                    PageList.Main.Selection.SceneSelect = UserSelections.SceneSmoothOne;
+                    break;
+            }
+            ModeSelect.show();
+        }
+
+        private void ModeSelect_Click(object sender, RoutedEventArgs e)
+        {
+            if (!((Button)sender).Equals(currentMode))
+            {
+                currentMode = (Button)sender;
+                switch (((Button)sender).Name)
+                {
+                    case "NormalMode":
+                        NormalCheck.Visibility = System.Windows.Visibility.Visible;
+                        DistractedCheck.Visibility = System.Windows.Visibility.Hidden;
+                        PageList.Main.Selection.ModeSelect = UserSelections.NormalMode;
+                        break;
+                    case "DistractedMode":
+                        NormalCheck.Visibility = System.Windows.Visibility.Hidden;
+                        DistractedCheck.Visibility = System.Windows.Visibility.Visible;
+                        PageList.Main.Selection.ModeSelect = UserSelections.DistractedMode;
+                        break;
+                }
+            }
+        }
+
         //private void setDefaultChosen() {
         //    chosenButton = practice;
         //    chosenButton.changeState(true);
