@@ -2,46 +2,56 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="EESDD.MainWindow"
+        xmlns:tabs="clr-namespace:EESDD.Widgets.Buttons"
         Title="MainWindow" Height="700" Width="1100" MinHeight="600" MinWidth="900" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" ResizeMode="CanResizeWithGrip" Background="{x:Null}"
-        MouseDown="Window_MouseDown">
+        >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources/StyleDictionary.xaml"/>
+                <ResourceDictionary Source="/EESDD;component/Resources/UnifiedColor.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
     
-    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FF3F3F3F" Margin="5,5,5,5">
-        <Grid.Effect>
-            <DropShadowEffect BlurRadius="3" Direction="-90" RenderingBias="Quality" ShadowDepth="0.5" Color="#FF5833FF"/>
-        </Grid.Effect>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="#FFffffff" Margin="5,5,5,5">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Height="50">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition></ColumnDefinition>
-				<ColumnDefinition Width="Auto"></ColumnDefinition>
-			</Grid.ColumnDefinitions>
-            <TextBlock FontSize="15" Margin="20,0,0,0" VerticalAlignment="Center" Foreground="White" FontFamily="/EESDD;component/Fonts/#ZHSRXT-GBK">分心驾驶体验与评估系统</TextBlock>
-            <StackPanel Width="Auto" Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right" Margin="0,0,20,0">
-                <Button Width="30" Height="25" Margin="0,0,0,25" BorderBrush="{x:Null}" Style="{StaticResource TitleButton}" Click="MinButton_Click" ToolTip="最小化">
-                    <Image Source="Images/Buttons/min.png" Width="10" Height="10"/>
-                </Button>
-                <Button x:Name="maxBtn" Width="30" Height="25" Margin="0,0,0,25" BorderBrush="{x:Null}" Style="{StaticResource TitleButton}" Click="MaxButton_Click" ToolTip="最大化">
-                    <Image Source="Images/Buttons/max.png" Width="10" Height="10" />
-                </Button>
-                <Button Width="30" Height="25" Margin="0,0,0,25" BorderBrush="{x:Null}" Style="{StaticResource TitleButton}" Click="CloseButton_Click">
-                    <Image Source="Images/Buttons/close.png" Width="10" Height="10" ToolTip="关闭" />
-                </Button>
-            </StackPanel>
+        <Grid Panel.ZIndex="100" MouseDown="TitleBar_MouseDown" Background="Black" Name="TitleBar">
+            <Grid.Effect>
+                <DropShadowEffect ShadowDepth="5" BlurRadius="5" Opacity="0.25" Direction="-90"></DropShadowEffect>
+            </Grid.Effect>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Margin="20,0,40,0" Name="Logo" Width="100" VerticalAlignment="Center" FontFamily="/EESDD;component/Fonts/#AF TOMMY HILFIGER" FontSize="24" FontWeight="Bold" Foreground="#FF999999" TextAlignment="Center">EESDD</TextBlock>
+            <Grid  Grid.Column="1" Name="Tabs" VerticalAlignment="Center" Width="400">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <tabs:TabsButton Grid.Column="0" x:Name="exp" BtnText="EXPERIENCE" BtnClick="exp_BtnClick"></tabs:TabsButton>
+                <tabs:TabsButton Grid.Column="1" x:Name="eva" BtnText="EVALUATION" BtnClick="eva_BtnClick"></tabs:TabsButton>
+                <tabs:TabsButton Grid.Column="2" x:Name="data" BtnText="EXPORT DATA" BtnClick="data_BtnClick"></tabs:TabsButton>
+            </Grid>
+            <Border Grid.Column="2" Name="Line" BorderBrush="#ff999999" Margin="10,0" Height="25" Width="1" VerticalAlignment="Center" BorderThickness="0.5"></Border>
+            <Grid Grid.Column="3" VerticalAlignment="Stretch" Width="500" HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" ToolTip="Help Document" Style="{StaticResource TabsNormalStyle}">Help</Button>
+                <Button Grid.Column="2" Style="{StaticResource TabsNormalStyle}">About us</Button>
+                <Button Grid.Column="3" Click="CloseButton_Click" ToolTip="Close the application" Style="{StaticResource TabsNormalStyle}">Close</Button>
+            </Grid>
         </Grid>
-        <Frame Background="#FF777777" Content="Frame" Margin="20,0,20,15" x:Name="MainFrame" NavigationUIVisibility="Hidden" Grid.Row="1">
-            <Frame.Effect>
-                <DropShadowEffect BlurRadius="20" Direction="-90" RenderingBias="Quality" ShadowDepth="2" Opacity="0.2"/>
-            </Frame.Effect>
-        </Frame>
+        <Frame NavigationUIVisibility="Hidden" Name="MainFrame" Grid.Row="1"></Frame>
     </Grid>
 </Window>

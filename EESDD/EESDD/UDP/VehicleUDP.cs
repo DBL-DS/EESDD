@@ -81,13 +81,13 @@ namespace EESDD.UDP
             s.PositionY = getFloat(buffer, UDPOffset.PositionY);
             s.Speed = getFloat(buffer, UDPOffset.Speed);
             s.Acceleration = getFloat(buffer, UDPOffset.Acceleration);
-            s.DriftAngle = getFloat(buffer, UDPOffset.DriftAngle);
+            s.SteeringWheel = getFloat(buffer, UDPOffset.SteeringWheel);
             s.Offset = getFloat(buffer, UDPOffset.Offset);
-            s.WheelSpeed = getFloat(buffer, UDPOffset.RotationalSpeed);
-            s.GasPedal = getFloat(buffer, UDPOffset.GasPedal);
             s.BrakePedal = getFloat(buffer, UDPOffset.BrakePedal);
+            s.TotalDistance = getFloat(buffer, UDPOffset.TotalDistance);
+            s.Braking = getFloat(buffer, UDPOffset.Braking);
+            s.Reacting = getFloat(buffer, UDPOffset.Reacting);
             s.Gear = getFloat(buffer, UDPOffset.Gear);
-            s.Rpm = getFloat(buffer, UDPOffset.Rpm);
 
             return s;
         }
