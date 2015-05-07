@@ -314,6 +314,15 @@
     <Resource Include="Images\Experience\shutdown.png" />
     <Resource Include="Images\Select\next.png" />
     <Resource Include="Images\Select\little_scene.png" />
+    <Resource Include="Images\Select\24dff278761ea202593eaf3f4c5bbaa2.jpg" />
+    <Resource Include="Images\Select\8c008eb29cdccdde9e2771a6932e63bb.jpg" />
+    <Resource Include="Images\Select\8f29b3f33dfd48db7d511aa61a742ca1.jpg" />
+    <Resource Include="Images\Select\fcb345067859f6522db886f64ea23789.jpg" />
+    <Resource Include="Images\Select\9d1925fd26dc309f254ad965c0dfbf75.jpeg" />
+    <Resource Include="Images\Select\2268855148fdfaa362ff3025ed61632a.jpg" />
+    <Resource Include="Images\Select\check.png" />
+    <Resource Include="Images\Select\start.png" />
+    <Resource Include="Images\Select\car_blue.png" />
     <Content Include="Widgets\Chart\Lib\DynamicDataDisplay.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

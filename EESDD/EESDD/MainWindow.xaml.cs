@@ -23,6 +23,13 @@ namespace EESDD
         User user;
         Player player;
         bool refreshing;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            init();
+            setPage(PageList.SceneSelect);
+        }
         
         internal Player Player
         {
@@ -41,12 +48,7 @@ namespace EESDD
             set { selection = value; }
         }
 
-        public MainWindow()
-        {
-            InitializeComponent();
-            init();
-            setPage(PageList.SceneSelect);
-        }
+
         void init() {
             udpControl = new UDPController();
             selection = new UserSelections();
@@ -146,19 +148,41 @@ namespace EESDD
 
         private void exp_BtnClick(object sender, EventArgs e)
         {
-            setChosen((TabsButton)sender);
+            if (user.Name != null)
+            {            
+                setChosen((TabsButton)sender);
+                PageList.Main.setPage(PageList.ModeSelect);
+            }
+            else
+            {
+                CustomMessageBox.Show("提示","请登录后查看！");
+            }
         }
 
         private void eva_BtnClick(object sender, EventArgs e)
         {
-            setChosen((TabsButton)sender);
-
+            if (user.Name != null)
+            {
+                setChosen((TabsButton)sender);
+                PageList.Main.setPage(PageList.Evaluation);
+            }
+            else
+            {
+                CustomMessageBox.Show("提示", "请登录后查看！");
+            }
         }
 
         private void data_BtnClick(object sender, EventArgs e)
         {
-            setChosen((TabsButton)sender);
-            
+            if (user.Name != null)
+            {
+                setChosen((TabsButton)sender);
+                PageList.Main.setPage(PageList.Authentication);
+            }
+            else
+            {
+                CustomMessageBox.Show("提示", "请登录后查看！");
+            }
         }
 
         private void setChosen(TabsButton t)
