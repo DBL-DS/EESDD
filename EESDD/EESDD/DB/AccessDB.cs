@@ -17,9 +17,16 @@ namespace EESDDTEST.DB
             mycon = new OleDbConnection(strcon);
             mycon.Open();
         }
-        public void insertData(String name,int type,String path)
+        public void insertData(String name,int type,String path,String reg,String login,int count)
         {
-            string sql = "insert into [User] (usrName,usrType,experiencePath) values('" + name + "'," + type + ",'" + path + "')";
+            string sql = "insert into [User] (usrName,usrType,experiencePath,registerDate,loginDate,accessCount) values('" + name + "'," + type + ",'" + path + "','"+reg+"','"+login+"',"+count+")";
+            OleDbCommand mycom = new OleDbCommand(sql, mycon);
+            mycom.ExecuteReader();
+        }
+
+        public void updateData(String name,String path,String reg,String login,int count)
+        {
+            string sql = "UPDATE [User] SET experiencesPath ='" + path + "',registerDate='" + reg + "',loginDate='" + login + "',accessCount=" + count + "WHERE usrName='" + name + "'";
             OleDbCommand mycom = new OleDbCommand(sql, mycon);
             mycom.ExecuteReader();
         }
@@ -56,7 +63,45 @@ namespace EESDDTEST.DB
             }
             return path;
         }
-
+        public String getRegister(string name)
+        {
+            string sql = "SELECT registerDate FROM [User] WHERE usrName = '" + name + "'";
+            OleDbCommand mycom = new OleDbCommand(sql, mycon);
+            myReader = mycom.ExecuteReader();
+            String path = null;
+            if (myReader.HasRows)
+            {
+                myReader.Read();
+                path = myReader.GetString(0);
+            }
+            return path;
+        }
+        public String getLogin(string name)
+        {
+            string sql = "SELECT loginDate FROM [User] WHERE usrName = '" + name + "'";
+            OleDbCommand mycom = new OleDbCommand(sql, mycon);
+            myReader = mycom.ExecuteReader();
+            String path = null;
+            if (myReader.HasRows)
+            {
+                myReader.Read();
+                path = myReader.GetString(0);
+            }
+            return path;
+        }
+        public int getAccessCount(string name)
+        {
+            string sql = "SELECT accessCount FROM [User] WHERE usrName = '" + name + "'";
+            OleDbCommand mycom = new OleDbCommand(sql, mycon);
+            myReader = mycom.ExecuteReader();
+            int type = -1;
+            if (myReader.HasRows)
+            {
+                myReader.Read();
+                type = myReader.GetInt32(0);
+            }
+            return type;
+        }
         public void close()
         {
             myReader.Close();
