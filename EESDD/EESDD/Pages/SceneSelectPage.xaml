@@ -80,9 +80,9 @@
                             </Grid.Background>
                             <Border Margin="0,20,20,0" CornerRadius="5" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#77000000">  
                                 <Border.Effect>
-                                    <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="20"></DropShadowEffect>                                    
+                                    <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="5"></DropShadowEffect>                                    
                                 </Border.Effect>
-                                <Border VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">                                    
+                                <Border HorizontalAlignment="Center" Width="250" VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">                                    
                                     <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
                                 </Border>
                             </Border>
@@ -92,7 +92,7 @@
                                 <ImageBrush ImageSource="/EESDD;component/Images/Select/8c008eb29cdccdde9e2771a6932e63bb.jpg" Stretch="UniformToFill"/>
                             </Grid.Background>
                             <Border Margin="0,20,20,0" CornerRadius="5" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#77000000">
-                                <Border VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
+                                <Border HorizontalAlignment="Center" Width="250" VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
                                     <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
                                 </Border>
                             </Border>
@@ -102,7 +102,7 @@
                                 <ImageBrush ImageSource="/EESDD;component/Images/Select/8f29b3f33dfd48db7d511aa61a742ca1.jpg" Stretch="UniformToFill"/>
                             </Grid.Background>
                             <Border Margin="0,20,20,0" CornerRadius="5" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#77000000">
-                                <Border VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
+                                <Border HorizontalAlignment="Center" Width="250"  VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
                                     <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
                                 </Border>
                             </Border>
@@ -112,7 +112,7 @@
                                 <ImageBrush ImageSource="/EESDD;component/Images/Select/fcb345067859f6522db886f64ea23789.jpg" Stretch="UniformToFill"/>
                             </Grid.Background>
                             <Border Margin="0,20,20,0" CornerRadius="5" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#77000000">
-                                <Border VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
+                                <Border HorizontalAlignment="Center" Width="250"  VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
                                     <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
                                 </Border>
                             </Border>
@@ -147,7 +147,7 @@
                             </Grid>
                             
                         </Button>
-                        <Button Style="{StaticResource StartButtonStyle}" Cursor="Hand" Grid.Column="2" Width="180" Height="70">
+                        <Button Click="Start_Click" Style="{StaticResource StartButtonStyle}" Cursor="Hand" Grid.Column="2" Width="180" Height="70">
                             <Button.Background>
                                 <ImageBrush ImageSource="/EESDD;component/Images/Select/start.png" Stretch="UniformToFill"/>
                             </Button.Background>

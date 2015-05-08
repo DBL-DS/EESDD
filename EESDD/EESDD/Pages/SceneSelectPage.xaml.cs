@@ -29,9 +29,6 @@ namespace EESDD.Pages
         public SceneSelectPage()
         {
             InitializeComponent();
-            //Tabs.setActived(TabsTitle.ExperienceTab);
-            //setSelectionValue();
-            //setDefaultChosen();
             init();
         }
 
@@ -39,6 +36,8 @@ namespace EESDD.Pages
         {
             currentDetail = SceneOneDetail;
             currentMode = NormalMode;
+            PageList.Main.Selection.SceneSelect = UserSelections.ScenePractice;
+            PageList.Main.Selection.ModeSelect = UserSelections.NormalMode;
         }
 
         private void Little_Enter(object sender, RoutedEventArgs e)
@@ -47,18 +46,22 @@ namespace EESDD.Pages
             if (clickBtn.Name.Equals("LittleOne"))
             {
                 changeDetail(SceneOneDetail);
+                PageList.Main.Selection.SceneSelect = UserSelections.ScenePractice;
             }
             else if (clickBtn.Name.Equals("LittleTwo"))
             {
                 changeDetail(SceneTwoDetail);
+                PageList.Main.Selection.SceneSelect = UserSelections.SceneSecurityOne;
             }
             else if (clickBtn.Name.Equals("LittleThree"))
             {
                 changeDetail(SceneThreeDetail);
+                PageList.Main.Selection.SceneSelect = UserSelections.SceneSecurityTwo;
             }
             else if (clickBtn.Name.Equals("LittleFour"))
             {
                 changeDetail(SceneFourDetail);
+                PageList.Main.Selection.SceneSelect = UserSelections.SceneSmoothOne;
             }
         }
 
@@ -70,26 +73,6 @@ namespace EESDD.Pages
                 currentDetail = toChange;
                 currentDetail.Visibility = System.Windows.Visibility.Visible;
             }
-        }
-
-        private void SceneDetail_Click(object sender, RoutedEventArgs e)
-        {
-            switch (((Button)sender).Name)
-            {
-                case "SceneOneBtn" :
-                    PageList.Main.Selection.SceneSelect = UserSelections.ScenePractice;
-                    break;
-                case "SceneTwoBtn" :
-                    PageList.Main.Selection.SceneSelect = UserSelections.SceneSecurityOne;
-                    break;
-                case "SceneThreeButton":
-                    PageList.Main.Selection.SceneSelect = UserSelections.SceneSecurityTwo;
-                    break;
-                case "SceneFourutton":
-                    PageList.Main.Selection.SceneSelect = UserSelections.SceneSmoothOne;
-                    break;
-            }
-            ModeSelect.show();
         }
 
         private void ModeSelect_Click(object sender, RoutedEventArgs e)
@@ -113,29 +96,10 @@ namespace EESDD.Pages
             }
         }
 
-        //private void setDefaultChosen() {
-        //    chosenButton = practice;
-        //    chosenButton.changeState(true);
-        //}
-
-        //private void NextButton_BtnClick(object sender, EventArgs e)
-        //{
-        //    PageList.Main.Selection.SceneSelect = chosenButton.SelectionValue;
-        //    PageList.Main.setPage(PageList.ModeSelect);
-        //}
-        //private void setSelectionValue()
-        //{
-        //    practice.SelectionValue = UserSelections.ScenePractice;
-        //    secure_one.SelectionValue = UserSelections.SceneSecurityOne;
-        //    secure_two.SelectionValue = UserSelections.SceneSecurityTwo;
-        //    smooth_one.SelectionValue = UserSelections.SceneSmoothOne;
-        //}
-
-        //private void SelectorButton_BtnClick(object sender, EventArgs e)
-        //{
-        //    chosenButton.changeState(false);
-        //    chosenButton= ((SelectorButton)sender);
-        //    chosenButton.changeState(true);
-        //}
+        private void Start_Click(object sender, RoutedEventArgs e)
+        {
+            PageList.Main.setPage(PageList.NewExperience);
+            PageList.Experience.startRefresh();
+        }
     }
 }

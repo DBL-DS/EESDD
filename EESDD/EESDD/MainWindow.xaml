@@ -47,6 +47,7 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Click="LogOutButton_Click" ToolTip="Log out" Style="{StaticResource TabsNormalStyle}">Log out</Button>
                 <Button Grid.Column="1" ToolTip="Help Document" Style="{StaticResource TabsNormalStyle}">Help</Button>
                 <Button Grid.Column="2" Style="{StaticResource TabsNormalStyle}">About us</Button>
                 <Button Grid.Column="3" Click="CloseButton_Click" ToolTip="Close the application" Style="{StaticResource TabsNormalStyle}">Close</Button>
