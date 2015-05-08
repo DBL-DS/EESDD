@@ -31,9 +31,12 @@ namespace EESDD.Pages
         }
         private void ToLogin()
         {
-            //string nickName LoginName.Text.Trim();
-            //PageList.Main.User.logIn(nickName);
-            PageList.Main.setPage(PageList.Evaluation);
+            string nickName = LoginName.Text.Trim();
+            PageList.Main.User.logIn(nickName);
+            PageList.Main.setPage(PageList.SceneSelect);
+            PageList.Main.setDefaultChosen();
+            //string path = System.IO.Directory.GetCurrentDirectory();
+            //MessageBox.Show(path);
         }
         private void LoginName_KeyDown(object sender, KeyEventArgs e)
         {

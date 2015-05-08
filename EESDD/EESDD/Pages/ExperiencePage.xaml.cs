@@ -26,19 +26,19 @@ namespace EESDD.Pages
     {
         private LinePlotter currentLine;
         private ChartSelectionButton currentBtn;
-        private bool refreshingText;
+        private bool used;
         public ExperiencePage()
         {
             InitializeComponent();
             init();
             bindChartSource();
-            startRefresh();
         }
 
         private void init() {
             ChangeButtonChosen(speed);
             ChangeMainChart(SpeedChart);
             ChangeMainChartTitle("Speed-Time");
+            used = false;
         }
 
         private void MainChartChange(object sender, EventArgs e)
@@ -127,6 +127,7 @@ namespace EESDD.Pages
         }
         public void startRefresh()
         {
+            used = true;
             Thread refreshData = new Thread(PageList.Main.refreshDataSource);
             refreshData.Start();
         }
@@ -134,12 +135,17 @@ namespace EESDD.Pages
         public void endRefresh(bool state)
         {
             PageList.Main.endRefreshDataSource(state);
-            refreshingText = false;
         }
         
         private void ShutDown_Click(object sender, RoutedEventArgs e)
         {
             endRefresh(CustomMessageBox.Show("提示","是否保存数据？") == true ? true : false);
+            PageList.Main.setPage(PageList.SceneSelect);
+        }
+
+        public bool Used
+        {
+            get { return used; }
         }
     }
 }

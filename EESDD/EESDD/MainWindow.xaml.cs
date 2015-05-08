@@ -28,7 +28,7 @@ namespace EESDD
         {
             InitializeComponent();
             init();
-            setPage(PageList.SceneSelect);
+            setPage(PageList.Login);
         }
         
         internal Player Player
@@ -55,6 +55,7 @@ namespace EESDD
             user = new User();
             player = new Player();
         }
+
         public void setPage(Page page) {
 
             if (page.Equals(PageList.SceneSelect) || page.Equals(PageList.ModeSelect) 
@@ -76,33 +77,24 @@ namespace EESDD
             return test.Connected;
         }
 
-        //private void MinButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    this.WindowState = System.Windows.WindowState.Minimized;
-        //}
-
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            if (CustomMessageBox.Show( "Confirmation","Do you want to close this window?")
-                == true)
-            {
-                Application.Current.Shutdown();
-            }
+            shutdownApp();
         }
 
-        //private void MaxButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    this.WindowState = this.WindowState == System.Windows.WindowState.Normal ? 
-        //        System.Windows.WindowState.Maximized : System.Windows.WindowState.Normal;
-        //    //maxBtn.ToolTip = this.WindowState == System.Windows.WindowState.Normal ?
-        //    //    "最大化" : "恢复";
-        //}
-
-        //private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        //{
-        //    if (e.ChangedButton == MouseButton.Left)
-        //        this.DragMove();
-        //}
+        private void shutdownApp()
+        {
+            if (CustomMessageBox.Show("Confirmation", "Do you want to close this window?")
+                == true)
+            {
+                this.Close();
+            }
+        }
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            Environment.Exit(0);
+            base.OnClosing(e);
+        }
 
         public void refreshDataSource()
         {
@@ -151,7 +143,7 @@ namespace EESDD
             if (user.Name != null)
             {            
                 setChosen((TabsButton)sender);
-                PageList.Main.setPage(PageList.ModeSelect);
+                PageList.Main.setPage(PageList.CurrentExperience);
             }
             else
             {
@@ -164,7 +156,7 @@ namespace EESDD
             if (user.Name != null)
             {
                 setChosen((TabsButton)sender);
-                PageList.Main.setPage(PageList.Evaluation);
+                PageList.Main.setPage(PageList.CurrentEvaluation);
             }
             else
             {
@@ -177,7 +169,7 @@ namespace EESDD
             if (user.Name != null)
             {
                 setChosen((TabsButton)sender);
-                PageList.Main.setPage(PageList.Authentication);
+                PageList.Main.setPage(PageList.CurrentData);
             }
             else
             {
@@ -196,13 +188,21 @@ namespace EESDD
             if (!t.Equals(data))
                 data.Chosen = false;
         }
-
+        public void setDefaultChosen()
+        {
+            setChosen(exp);
+        }
         private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
                 this.DragMove();
             }
+        }
+
+        private void LogOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 
@@ -298,6 +298,16 @@ namespace EESDD
                 {
                     experience = new ExperiencePage();
                 }
+                return experience;
+            }
+        }
+
+        public static ExperiencePage NewExperience
+        {
+            get
+            {
+                if (experience == null || experience.Used)
+                    experience = new ExperiencePage();
                 return experience;
             }
         }
