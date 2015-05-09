@@ -8,6 +8,7 @@ using System.Threading;
 using EESDD.Control.Operation;
 using EESDD.Control.User;
 using System.Windows.Input;
+using EESDD.Widgets.Buttons;
 
 namespace EESDD
 {
@@ -22,8 +23,7 @@ namespace EESDD
         User user;
         Player player;
         bool refreshing;
-
-
+        
         internal Player Player
         {
             get { return player; }
@@ -45,7 +45,7 @@ namespace EESDD
         {
             InitializeComponent();
             init();
-            setPage(PageList.Login);
+            setPage(PageList.Experience);
         }
         void init() {
             udpControl = new UDPController();
@@ -74,29 +74,33 @@ namespace EESDD
             return test.Connected;
         }
 
-        private void MinButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = System.Windows.WindowState.Minimized;
-        }
+        //private void MinButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.WindowState = System.Windows.WindowState.Minimized;
+        //}
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.Shutdown();
+            if (CustomMessageBox.Show( "Confirmation","Do you want to close this window?")
+                == true)
+            {
+                Application.Current.Shutdown();
+            }
         }
 
-        private void MaxButton_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = this.WindowState == System.Windows.WindowState.Normal ? 
-                System.Windows.WindowState.Maximized : System.Windows.WindowState.Normal;
-            maxBtn.ToolTip = this.WindowState == System.Windows.WindowState.Normal ?
-                "最大化" : "恢复";
-        }
+        //private void MaxButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.WindowState = this.WindowState == System.Windows.WindowState.Normal ? 
+        //        System.Windows.WindowState.Maximized : System.Windows.WindowState.Normal;
+        //    //maxBtn.ToolTip = this.WindowState == System.Windows.WindowState.Normal ?
+        //    //    "最大化" : "恢复";
+        //}
 
-        private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-                this.DragMove();
-        }
+        //private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        //{
+        //    if (e.ChangedButton == MouseButton.Left)
+        //        this.DragMove();
+        //}
 
         public void refreshDataSource()
         {
@@ -104,16 +108,16 @@ namespace EESDD
             while (refreshing)
             {
                 player.play(udp.getData());
-                PageList.Experience.refreshTime(player.Time);
+                PageList.Experience.refreshTextBlocks();
             }
         }
-        public void endRefresh(bool normal)
+        public void endRefreshDataSource(bool state)
         {
             refreshing = false;
             udp.close();
             udp = null;
 
-            if (normal)
+            if (state)
             {
                 ExperienceUnit unit = new ExperienceUnit();
                 unit.SceneID = selection.SceneSelect;
@@ -134,6 +138,47 @@ namespace EESDD
                 player.reset();
             }
             refreshing = true;
+        }
+
+        private void click() {
+            exp.Chosen = true;
+        }
+
+        private void exp_BtnClick(object sender, EventArgs e)
+        {
+            setChosen((TabsButton)sender);
+        }
+
+        private void eva_BtnClick(object sender, EventArgs e)
+        {
+            setChosen((TabsButton)sender);
+
+        }
+
+        private void data_BtnClick(object sender, EventArgs e)
+        {
+            setChosen((TabsButton)sender);
+            
+        }
+
+        private void setChosen(TabsButton t)
+        {
+            t.Chosen = true;
+
+            if (!t.Equals(exp))
+                exp.Chosen = false;
+            if (!t.Equals(eva))
+                eva.Chosen = false;
+            if (!t.Equals(data))
+                data.Chosen = false;
+        }
+
+        private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
         }
     }
 

@@ -37,16 +37,19 @@ namespace EESDD.Widgets.Chart
         public void drawNormalLine(ObservableDataSource<Point> normal)
         {
             plotter.AddLineGraph(normal, Color.FromRgb(124, 255, 124));
-            plotter.LegendVisible = false;
+            plotter.LegendVisible = false;            
         }
         public void drawDistractedLine(ObservableDataSource<Point> distracted)
         {
             plotter.AddLineGraph(distracted, Color.FromRgb(255, 124, 124), 1, "分心 Distracted");
+            plotter.LegendVisible = false;
+
         }
 
         public void addLine(ObservableDataSource<Point> points, Color lineColor, double lineThickness, string description)
         {
             plotter.AddLineGraph(points, lineColor, lineThickness, description);
+            plotter.LegendVisible = false;
         }
     }
     

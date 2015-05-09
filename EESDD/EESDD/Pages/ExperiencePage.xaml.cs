@@ -1,4 +1,5 @@
-﻿using EESDD.Widgets.Chart;
+﻿using EESDD.Widgets.Buttons;
+using EESDD.Widgets.Chart;
 using EESDD.Widgets.Menu;
 using System;
 using System.Collections.Generic;
@@ -23,36 +24,147 @@ namespace EESDD.Pages
     /// </summary>
     public partial class ExperiencePage : Page
     {
-        LinePlotter speedLine;
+        private LinePlotter currentLine;
+        private ChartSelectionButton currentBtn;
+        private bool refreshingText;
         public ExperiencePage()
         {
             InitializeComponent();
-            Tabs.setActived(TabsTitle.ExperienceTab);
+            init();
+            bindChartSource();
+            startRefresh();
         }
-        public void bindDataSource()
+
+        private void init() {
+            ChangeButtonChosen(speed);
+            ChangeMainChart(SpeedChart);
+            ChangeMainChartTitle("Speed-Time");
+        }
+
+        private void MainChartChange(object sender, EventArgs e)
         {
-            speedLine = null;
-            speedLine = new LinePlotter();
-            speed_data.Children.Clear();
-            speed_data.Children.Add(speedLine);
-            speedLine.drawNormalLine(PageList.Main.Player.Speed);
+            ChartSelectionButton select = (ChartSelectionButton)sender;
+
+            ChangeButtonChosen(select);
+
+            if (select.Name.Equals("speed"))
+            {
+                ChangeMainChartTitle("Speed-Time");
+                ChangeMainChart(SpeedChart);
+            }
+            else if (select.Name.Equals("acc"))
+            {
+                ChangeMainChartTitle("Acceleration-Time");
+                ChangeMainChart(AccelerationChart);
+            }
+            else if (select.Name.Equals("brake"))
+            {
+                ChangeMainChartTitle("Brake-Time");
+                ChangeMainChart(BrakeChart);
+            }
+            else if (select.Name.Equals("offset"))
+            {
+                ChangeMainChartTitle("Offset Middle Line-Time");
+                ChangeMainChart(OffsetChart);
+            }
+        }
+
+        private void ChangeButtonChosen(ChartSelectionButton toChange)
+        {
+            if (currentBtn == null || !currentBtn.Equals(toChange))
+            {
+                if (currentBtn != null)
+                    currentBtn.Chosen = false;
+                currentBtn = toChange;
+                currentBtn.Chosen = true;
+            }
+        }
+        private void ChangeMainChartTitle(string Title)
+        {
+            MainChartTitle.Text = Title;
+        }
+
+        private void ChangeMainChart(LinePlotter toChange)
+        {
+            if (currentLine == null || !currentLine.Equals(toChange))
+            {
+                if (currentLine != null)
+                    currentLine.Visibility = System.Windows.Visibility.Hidden;
+                currentLine = toChange;
+                currentLine.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
+        private void bindChartSource()
+        {
+            SpeedChart.drawNormalLine(PageList.Main.Player.SpeedPoints);
+            LittleSpeed.drawNormalLine(PageList.Main.Player.SpeedPoints);
+
+            AccelerationChart.drawNormalLine(PageList.Main.Player.AcceleratePoints);
+            LittleAcc.drawNormalLine(PageList.Main.Player.AcceleratePoints);
+
+            OffsetChart.drawNormalLine(PageList.Main.Player.OffsetPoints);
+            LittleOffset.drawNormalLine(PageList.Main.Player.OffsetPoints);
+
+            BrakeChart.drawNormalLine(PageList.Main.Player.BrakePoints);
+            LittleBrake.drawNormalLine(PageList.Main.Player.BrakePoints);
+        }
+
+        public void refreshTextBlocks()
+        {
+                this.Dispatcher.BeginInvoke((Action)delegate() {
+                    TimeDisplay.Text = PageList.Main.Player.Time;
+                    RealSpeed.Text = PageList.Main.Player.Speed;
+                    RealAcceleration.Text = PageList.Main.Player.Acceleration;
+                    DistanceDisplay.Text = PageList.Main.Player.TotalDistance;
+                    RealBrakeDistance.Text = PageList.Main.Player.BrakeDistance;
+                    BrakeDistanceStart.Text = PageList.Main.Player.BrakeDistanceStart;
+                    BrakeDistanceEnd.Text = PageList.Main.Player.BrakeDistanceEnd;
+                    RealReaction.Text = PageList.Main.Player.ReactTime;
+                    ReactTimeStart.Text = PageList.Main.Player.ReactTimeStart;
+                    ReactTimeEnd.Text = PageList.Main.Player.ReactTimeEnd;
+                });
         }
         public void startRefresh()
         {
-            Thread refresh = new Thread(PageList.Main.refreshDataSource);
-            refresh.Start();
+            Thread refreshData = new Thread(PageList.Main.refreshDataSource);
+            refreshData.Start();
         }
-        public void refreshTime(string t)
+
+        public void endRefresh(bool state)
         {
-            this.Dispatcher.BeginInvoke((Action)delegate() {
-                Data_Time.Text = t;
-            });
+            PageList.Main.endRefreshDataSource(state);
+            refreshingText = false;
         }
-        private void OverButton_BtnClick(object sender, EventArgs e)
+        
+        private void ShutDown_Click(object sender, RoutedEventArgs e)
         {
-            PageList.Main.endRefresh(true);
-            PageList.Main.setPage(PageList.SceneSelect);
+            endRefresh(CustomMessageBox.Show("提示","是否保存数据？") == true ? true : false);
         }
+        //public void bindDataSource()
+        //{
+        //    speedLine = null;
+        //    speedLine = new LinePlotter();
+        //    speed_data.Children.Clear();
+        //    speed_data.Children.Add(speedLine);
+        //    speedLine.drawNormalLine(PageList.Main.Player.Speed);
+        //}
+        //public void startRefresh()
+        //{
+        //    Thread refresh = new Thread(PageList.Main.refreshDataSource);
+        //    refresh.Start();
+        //}
+        //public void refreshTime(string t)
+        //{
+        //    this.Dispatcher.BeginInvoke((Action)delegate() {
+        //        Data_Time.Text = t;
+        //    });
+        //}
+        //private void OverButton_BtnClick(object sender, EventArgs e)
+        //{
+        //    PageList.Main.endRefresh(true);
+        //    PageList.Main.setPage(PageList.SceneSelect);
+        //}
 
     }
 }

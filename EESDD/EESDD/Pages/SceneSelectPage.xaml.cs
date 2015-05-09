@@ -28,33 +28,33 @@ namespace EESDD.Pages
         public SceneSelectPage()
         {
             InitializeComponent();
-            Tabs.setActived(TabsTitle.ExperienceTab);
-            setSelectionValue();
-            setDefaultChosen();
+            //Tabs.setActived(TabsTitle.ExperienceTab);
+            //setSelectionValue();
+            //setDefaultChosen();
         }
-        private void setDefaultChosen() {
-            chosenButton = practice;
-            chosenButton.changeState(true);
-        }
+        //private void setDefaultChosen() {
+        //    chosenButton = practice;
+        //    chosenButton.changeState(true);
+        //}
 
-        private void NextButton_BtnClick(object sender, EventArgs e)
-        {
-            PageList.Main.Selection.SceneSelect = chosenButton.SelectionValue;
-            PageList.Main.setPage(PageList.ModeSelect);
-        }
-        private void setSelectionValue()
-        {
-            practice.SelectionValue = UserSelections.ScenePractice;
-            secure_one.SelectionValue = UserSelections.SceneSecurityOne;
-            secure_two.SelectionValue = UserSelections.SceneSecurityTwo;
-            smooth_one.SelectionValue = UserSelections.SceneSmoothOne;
-        }
+        //private void NextButton_BtnClick(object sender, EventArgs e)
+        //{
+        //    PageList.Main.Selection.SceneSelect = chosenButton.SelectionValue;
+        //    PageList.Main.setPage(PageList.ModeSelect);
+        //}
+        //private void setSelectionValue()
+        //{
+        //    practice.SelectionValue = UserSelections.ScenePractice;
+        //    secure_one.SelectionValue = UserSelections.SceneSecurityOne;
+        //    secure_two.SelectionValue = UserSelections.SceneSecurityTwo;
+        //    smooth_one.SelectionValue = UserSelections.SceneSmoothOne;
+        //}
 
-        private void SelectorButton_BtnClick(object sender, EventArgs e)
-        {
-            chosenButton.changeState(false);
-            chosenButton= ((SelectorButton)sender);
-            chosenButton.changeState(true);
-        }
+        //private void SelectorButton_BtnClick(object sender, EventArgs e)
+        //{
+        //    chosenButton.changeState(false);
+        //    chosenButton= ((SelectorButton)sender);
+        //    chosenButton.changeState(true);
+        //}
     }
 }

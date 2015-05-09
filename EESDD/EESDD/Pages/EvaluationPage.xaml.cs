@@ -24,29 +24,29 @@ namespace EESDD.Pages
         public EvaluationPage()
         {
             InitializeComponent();
-            Tabs.setActived(TabsTitle.EvaluationTab);
-            setWelcomeTitle();
+            //Tabs.setActived(TabsTitle.EvaluationTab);
+            //setWelcomeTitle();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            PageList.Main.setPage(PageList.SceneSelect);
-        }
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    PageList.Main.setPage(PageList.SceneSelect);
+        //}
 
-        private void setWelcomeTitle()
-        {
-            StringBuilder title = new StringBuilder();
-            title.Append(PageList.Main.User.Name+",");
+        //private void setWelcomeTitle()
+        //{
+        //    StringBuilder title = new StringBuilder();
+        //    title.Append(PageList.Main.User.Name+",");
 
-            if (PageList.Main.User.NewUser)
-            {
-                title.Append("欢迎您体验！");
-            }
-            else
-            {
-                title.Append("欢迎您再度体验！");
-            }
-            WelcomeTitle.Text = title.ToString();
-        }
+        //    if (PageList.Main.User.NewUser)
+        //    {
+        //        title.Append("欢迎您体验！");
+        //    }
+        //    else
+        //    {
+        //        title.Append("欢迎您再度体验！");
+        //    }
+        //    WelcomeTitle.Text = title.ToString();
+        //}
     }
 }

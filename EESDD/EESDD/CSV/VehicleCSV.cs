@@ -29,13 +29,13 @@ namespace EESDD.CSV
                     s.PositionY = Convert.ToSingle(reader.get(CSVCloumnName.PositionY));
                     s.Speed = Convert.ToSingle(reader.get(CSVCloumnName.Speed));
                     s.Acceleration = Convert.ToSingle(reader.get(CSVCloumnName.Acceleration));
-                    s.DriftAngle = Convert.ToSingle(reader.get(CSVCloumnName.DriftAngle));
+                    s.SteeringWheel = Convert.ToSingle(reader.get(CSVCloumnName.SteeringWheel));
                     s.Offset = Convert.ToSingle(reader.get(CSVCloumnName.Offset));
-                    s.WheelSpeed = Convert.ToSingle(reader.get(CSVCloumnName.WheelSpeed));
-                    s.GasPedal = Convert.ToSingle(reader.get(CSVCloumnName.GasPedal));
                     s.BrakePedal = Convert.ToSingle(reader.get(CSVCloumnName.BrakePedal));
+                    s.TotalDistance = Convert.ToSingle(reader.get(CSVCloumnName.TotalDistance));
+                    s.Braking = Convert.ToSingle(reader.get(CSVCloumnName.Braking));
+                    s.Reacting = Convert.ToSingle(reader.get(CSVCloumnName.Reacting));
                     s.Gear = Convert.ToSingle(reader.get(CSVCloumnName.Gear));
-                    s.Rpm = Convert.ToSingle(reader.get(CSVCloumnName.Rpm));
 
                     dataList.Add(s);
                     s = null;

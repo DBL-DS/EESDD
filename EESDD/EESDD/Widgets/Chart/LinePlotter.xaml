@@ -4,9 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
               xmlns:d3="http://research.microsoft.com/DynamicDataDisplay/1.0"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-    <Grid Margin="0,15,15,20">
-        <d3:ChartPlotter Background="{x:Null}" Foreground="White" BorderBrush="White" FontSize="7" BorderThickness="0,1,1,0" x:Name="plotter" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></d3:ChartPlotter>
+    <Grid>
+        <d3:ChartPlotter Background="{x:Null}" Foreground="White" BorderBrush="White" FontSize="7" BorderThickness="0,1,0.5,0" x:Name="plotter" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"></d3:ChartPlotter>
     </Grid>
 </UserControl>
