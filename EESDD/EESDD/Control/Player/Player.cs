@@ -1,4 +1,7 @@
 ﻿using EESDD.Control.DataModel;
+using EESDD.Control.User;
+using EESDD.UDP;
+using EESDD.VISSIM;
 using Microsoft.Research.DynamicDataDisplay.DataSources;
 using System.Collections.Generic;
 using System.Text;
@@ -21,8 +24,13 @@ namespace EESDD.Control.Player
          BrakeActivity brakeActivity;
          ReactActivity reactActivity;
 
+         BJUTVissim vissim;
+         VehicleUDP udp;
+
          bool braking;
          bool reacting;
+
+         bool refreshing;
 
          public Player() {
              init();
@@ -42,6 +50,7 @@ namespace EESDD.Control.Player
 
              braking = false;
              reacting = false;
+             refreshing = false;
          }
         
          public void reset() {
@@ -74,6 +83,56 @@ namespace EESDD.Control.Player
                  setBrake(vehicle);
                  setReact(vehicle);
              }
+         }
+
+         public void UseVissim()
+         {
+             vissim = new BJUTVissim();
+             vissim.Run();
+         }
+
+         public void refreshDataSource()
+         {
+             initRefresh();
+             while (refreshing)
+             {
+                 play(udp.getData());
+                 PageList.Experience.refreshTextBlocks();
+
+                 if (vissim != null)
+                 {
+                    vissim.set(currentVehicle);
+                 }
+
+             }
+         }
+         public void endRefreshDataSource(bool state)
+         {
+             refreshing = false;
+             udp.close();
+             udp = null;
+
+             if (state)
+             {
+                 ExperienceUnit unit = new ExperienceUnit();
+                 unit.SceneID = PageList.Main.Selection.SceneSelect;
+                 unit.Mode = PageList.Main.Selection.ModeSelect;
+                 unit.Vehicles = PageList.Main.Player.Vehicles;
+                 Evaluation evaluation = new Evaluation();
+                 unit.Evaluation = evaluation;
+
+                 PageList.Main.User.addExpUnit(unit);
+             }
+
+         }
+         private void initRefresh()
+         {
+             udp = new VehicleUDP(PageList.Main.UdpControl.Port);
+             if (vehicles.Count != 0)
+             {
+                 reset();
+             }
+             refreshing = true;
          }
 
          private void setBrake(SimulatedVehicle vehicle)
@@ -119,6 +178,8 @@ namespace EESDD.Control.Player
                  }
              }
          }
+
+
 
          internal SimulatedVehicle CurrentVehicle
          {

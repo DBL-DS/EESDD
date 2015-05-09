@@ -1,4 +1,5 @@
-﻿using EESDD.Widgets.Buttons;
+﻿using EESDD.VISSIM;
+using EESDD.Widgets.Buttons;
 using EESDD.Widgets.Chart;
 using EESDD.Widgets.Menu;
 using System;
@@ -125,16 +126,24 @@ namespace EESDD.Pages
                 ReactTimeEnd.Text = PageList.Main.Player.ReactTimeEnd;
             });
         }
-        public void startRefresh()
+        public void startRefresh(bool vissim)
         {
             used = true;
-            Thread refreshData = new Thread(PageList.Main.refreshDataSource);
+            Thread refreshData = new Thread(PageList.Main.Player.refreshDataSource);
             refreshData.Start();
+
+            if (vissim)
+            {
+                Thread vissimRun = new Thread(PageList.Main.Player.UseVissim);
+                vissimRun.Start();
+            }
         }
+
+
 
         public void endRefresh(bool state)
         {
-            PageList.Main.endRefreshDataSource(state);
+            PageList.Main.Player.endRefreshDataSource(state);
         }
         
         private void ShutDown_Click(object sender, RoutedEventArgs e)

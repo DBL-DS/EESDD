@@ -21,6 +21,8 @@ namespace EESDD.Control.DataModel
         float braking;
         float reacting;
         float gear;
+        float distanceToNext;
+        float lane;
 
         public float SimulationTime
         {
@@ -92,6 +94,18 @@ namespace EESDD.Control.DataModel
         {
             get { return gear; }
             set { gear = value; }
+        }
+
+        public float DistanceToNext
+        {
+            get { return distanceToNext; }
+            set { distanceToNext = value; }
+        }
+
+        public float Lane
+        {
+            get { return lane; }
+            set { lane = value; }
         }
     }
 }

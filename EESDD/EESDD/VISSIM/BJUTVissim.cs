@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using VISSIM_COMSERVERLib;
-using EESDDTEST.VISSIM;
+using EESDD.VISSIM;
+using EESDD.Control.DataModel;
+
 namespace EESDD.VISSIM
 {
     class BJUTVissim
@@ -20,16 +22,13 @@ namespace EESDD.VISSIM
         SignalController signalcontroller;
         SignalGroup signalgroup;
 
-
         //需要获取的变量
         private double speed;
 
-
+        private int laneInVissim;           //初始化时获取这个参数，init中现默认4
         private int lane;
-
-       
-
-        
+        private int lastLane;
+        private bool dataIn;
 
         //路灯1为红色，3为绿灯，4为黄灯
         private int signalState;
@@ -37,6 +36,8 @@ namespace EESDD.VISSIM
 
         //计时器
         private double count = 0;
+
+        private string vissimMapFilePath;
 
         public double Count
         {
@@ -50,7 +51,7 @@ namespace EESDD.VISSIM
             set { signalState = value; }
         }
 
-
+        
         
         public double Speed
         {
@@ -79,14 +80,7 @@ namespace EESDD.VISSIM
             get { return vehicle; }
             set { vehicle = value; }
         }
-
-       
-       
-        public Net Net
-        {
-            get { return net; }
-            set { net = value; }
-        }
+         
         private Simulation simulation;
 
         public Simulation Simulation
@@ -99,16 +93,29 @@ namespace EESDD.VISSIM
             get { return vissim; }
             set { vissim = value; }
         }
-        public BJUTVissim(String path)
+        public BJUTVissim()
         {
             over = false;
-            initNet(path);
+            initRoot();
+            initNet();
         }
 
-        void initNet(String path)
+        private void initRoot() {
+            vissimMapFilePath = System.IO.Directory.GetCurrentDirectory() + "\\vissim\\map\\2015-01-31.inp";
+        }
+
+        private void initData()
+        {
+            speed = 0;
+            lane = 1;
+            dataIn = false;
+            lastLane = 1;
+            laneInVissim = 4;
+        }
+        void initNet()
         {
             vissim = new Vissim();
-            vissim.LoadNet(path);
+            vissim.LoadNet(vissimMapFilePath);
             net = vissim.Net;
             simulation = vissim.Simulation;
             //signalcontroller = net.SignalControllers.GetSignalControllerByNumber(5);
@@ -152,12 +159,12 @@ namespace EESDD.VISSIM
         public void Run()
         {
             //signalgroup.set_AttValue("State", 1);
-            while (/*(vehicle = getVehicle(3)) != null && */count!=-1)
+            while (/*(vehicle = getVehicle(3)) != null && */count!=-1 && dataIn)
             {
                 vehicle.set_AttValue("SPEED", speed);
                 vehicle.set_AttValue("LANE", lane);
                 vehicle.set_AttValue("DESIREDSPEED", -1000);
-                Console.WriteLine(vehicle.get_AttValue("LENGTH"));
+                //Console.WriteLine(vehicle.get_AttValue("LENGTH"));
                 RunSingle();
             }
             
@@ -169,6 +176,24 @@ namespace EESDD.VISSIM
             eval.set_AttValue("QUEUECOUNTER", true);
             eval.set_AttValue("VEHICLERECORD", true);
             //eval.DelayEvaluation.set_AttValue("FILE", true);
+        }
+
+        public void set(SimulatedVehicle vehicle)
+        {
+            if (!dataIn)
+            {
+                lastLane = (int)vehicle.Lane;
+            }
+            else
+            {
+                int laneToChange = (int)vehicle.Lane - lastLane + lane;
+                lane = laneToChange <= laneInVissim && laneToChange > 0 ? laneToChange : lane;
+                lastLane = (int)vehicle.Lane;
+            }
+
+            dataIn = true;
+            speed = vehicle.Speed;
+            
         }
     }
 }

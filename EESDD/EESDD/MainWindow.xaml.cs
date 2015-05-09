@@ -48,6 +48,11 @@ namespace EESDD
             set { selection = value; }
         }
 
+        internal UDPController UdpControl
+        {
+            get { return udpControl; }
+            set { udpControl = value; }
+        }
 
         void init() {
             udpControl = new UDPController();
@@ -95,44 +100,6 @@ namespace EESDD
         {
             Environment.Exit(0);
             base.OnClosing(e);
-        }
-
-        public void refreshDataSource()
-        {
-            initRefresh();
-            while (refreshing)
-            {
-                player.play(udp.getData());
-                PageList.Experience.refreshTextBlocks();
-            }
-        }
-        public void endRefreshDataSource(bool state)
-        {
-            refreshing = false;
-            udp.close();
-            udp = null;
-
-            if (state)
-            {
-                ExperienceUnit unit = new ExperienceUnit();
-                unit.SceneID = selection.SceneSelect;
-                unit.Mode = selection.ModeSelect;
-                unit.Vehicles = player.Vehicles;
-                Evaluation evaluation = new Evaluation();
-                unit.Evaluation = evaluation;
-
-                user.addExpUnit(unit);
-            }
-
-        }
-        private void initRefresh()
-        {
-            udp = new VehicleUDP(udpControl.Port);
-            if (player.Vehicles.Count != 0)
-            {
-                player.reset();
-            }
-            refreshing = true;
         }
 
         private void click() {
