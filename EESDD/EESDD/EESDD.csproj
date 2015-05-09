@@ -112,6 +112,7 @@
     <Compile Include="UDP\VehicleUDP.cs" />
     <Compile Include="VISSIM\BJUTVissim.cs" />
     <Compile Include="VISSIM\DataVehicle.cs" />
+    <Compile Include="VISSIM\VissimDB.cs" />
     <Compile Include="Widgets\Buttons\BackButton.xaml.cs">
       <DependentUpon>BackButton.xaml</DependentUpon>
     </Compile>
@@ -324,6 +325,17 @@
     <Resource Include="Images\Select\start.png" />
     <Resource Include="Images\Select\car_blue.png" />
     <Content Include="Widgets\Chart\Lib\DynamicDataDisplay.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="VISSIM_COMSERVERLib">
+      <Guid>{0416FEA8-57DB-4EC7-926C-7CCC4288E1F7}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.5\Microsoft.Expression.Blend.WPF.targets" />
