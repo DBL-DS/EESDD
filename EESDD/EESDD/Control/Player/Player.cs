@@ -59,7 +59,7 @@ namespace EESDD.Control.Player
         }
 
          public void play(SimulatedVehicle vehicle) {
-             if (vehicle != null)
+             if (vehicle != null && vehicle.SimulationTime > 0.000001)
              {
                  Dispatcher dispatcher = PageList.Main.Dispatcher;
                  currentVehicle = vehicle;
@@ -71,7 +71,8 @@ namespace EESDD.Control.Player
                  accelerate.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
                  brake.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
 
-
+                 setBrake(vehicle);
+                 setReact(vehicle);
              }
          }
 
@@ -92,6 +93,7 @@ namespace EESDD.Control.Player
                  {
                      braking = false;
                      brakeActivity.BrakeEnd = vehicle.TotalDistance;
+                     brakeActivity.BrakeDistance = vehicle.TotalDistance - brakeActivity.BrakeStart;
                  }
              }
          }
@@ -113,6 +115,7 @@ namespace EESDD.Control.Player
                  {
                      reacting = false;
                      reactActivity.TimeEnd = vehicle.SimulationTime;
+                     reactActivity.ReactTime = vehicle.SimulationTime - reactActivity.TimeStart;
                  }
              }
          }

@@ -43,11 +43,11 @@
                         <TextBox KeyDown="LoginName_KeyDown" x:Name="LoginName" Width="180" Height="30" FontSize="20" FontFamily="Monaco" ToolTip="Please input your nickname"></TextBox>
                     </StackPanel>                
                     <Border Grid.Row="3"  Background="#ffcccccc" CornerRadius="0,0,10,10">                        
-                        <Border CornerRadius="5"  Background="#ff0097c2" Margin="120,0,0,0"  Width="100" Height="40" Cursor="Hand">
+                        <Border CornerRadius="5"  Background="#ff0097c2" Margin="120,0,0,0"  Width="100" Height="40">
                             <Border.Effect>
                                 <DropShadowEffect Color="#FF6CDFFF" ShadowDepth="0" BlurRadius="3"></DropShadowEffect>
                             </Border.Effect>
-                            <Button Click="Login_Click" FontFamily="Arial" Content="Sign in" Style="{StaticResource NoDefaultBlue}" Foreground="White" FontSize="15"/>
+                            <Button Cursor="Hand" Click="Login_Click" FontFamily="Arial" Content="Sign in" Style="{StaticResource NoDefaultBlue}" Foreground="White" FontSize="15"/>
                         </Border>
                     </Border>
                 </Grid>

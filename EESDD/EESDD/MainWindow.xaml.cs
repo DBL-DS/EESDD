@@ -23,6 +23,13 @@ namespace EESDD
         User user;
         Player player;
         bool refreshing;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            init();
+            setPage(PageList.Login);
+        }
         
         internal Player Player
         {
@@ -41,20 +48,17 @@ namespace EESDD
             set { selection = value; }
         }
 
-        public MainWindow()
-        {
-            InitializeComponent();
-            init();
-            setPage(PageList.Experience);
-        }
+
         void init() {
             udpControl = new UDPController();
             selection = new UserSelections();
             user = new User();
             player = new Player();
-        }
-        public void setPage(Page page) {
 
+            LogOutButtonInvisiable();
+        }
+
+        public void setPage(Page page) {
             if (page.Equals(PageList.SceneSelect) || page.Equals(PageList.ModeSelect) 
                 || page.Equals(PageList.GetReady) || page.Equals(PageList.Experience)){
                 PageList.CurrentExperience = page;
@@ -74,33 +78,24 @@ namespace EESDD
             return test.Connected;
         }
 
-        //private void MinButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    this.WindowState = System.Windows.WindowState.Minimized;
-        //}
-
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            if (CustomMessageBox.Show( "Confirmation","Do you want to close this window?")
-                == true)
-            {
-                Application.Current.Shutdown();
-            }
+            shutdownApp();
         }
 
-        //private void MaxButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    this.WindowState = this.WindowState == System.Windows.WindowState.Normal ? 
-        //        System.Windows.WindowState.Maximized : System.Windows.WindowState.Normal;
-        //    //maxBtn.ToolTip = this.WindowState == System.Windows.WindowState.Normal ?
-        //    //    "最大化" : "恢复";
-        //}
-
-        //private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        //{
-        //    if (e.ChangedButton == MouseButton.Left)
-        //        this.DragMove();
-        //}
+        private void shutdownApp()
+        {
+            if (CustomMessageBox.Show("Confirmation", "Do you want to close this window?")
+                == true)
+            {
+                this.Close();
+            }
+        }
+        protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
+        {
+            Environment.Exit(0);
+            base.OnClosing(e);
+        }
 
         public void refreshDataSource()
         {
@@ -146,19 +141,41 @@ namespace EESDD
 
         private void exp_BtnClick(object sender, EventArgs e)
         {
-            setChosen((TabsButton)sender);
+            if (user.Name != null)
+            {            
+                setChosen((TabsButton)sender);
+                PageList.Main.setPage(PageList.CurrentExperience);
+            }
+            else
+            {
+                CustomMessageBox.Show("提示","请登录后查看！");
+            }
         }
 
         private void eva_BtnClick(object sender, EventArgs e)
         {
-            setChosen((TabsButton)sender);
-
+            if (user.Name != null)
+            {
+                setChosen((TabsButton)sender);
+                PageList.Main.setPage(PageList.CurrentEvaluation);
+            }
+            else
+            {
+                CustomMessageBox.Show("提示", "请登录后查看！");
+            }
         }
 
         private void data_BtnClick(object sender, EventArgs e)
         {
-            setChosen((TabsButton)sender);
-            
+            if (user.Name != null)
+            {
+                setChosen((TabsButton)sender);
+                PageList.Main.setPage(PageList.CurrentData);
+            }
+            else
+            {
+                CustomMessageBox.Show("提示", "请登录后查看！");
+            }
         }
 
         private void setChosen(TabsButton t)
@@ -172,13 +189,33 @@ namespace EESDD
             if (!t.Equals(data))
                 data.Chosen = false;
         }
-
+        public void setDefaultChosen()
+        {
+            setChosen(exp);
+        }
         private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
                 this.DragMove();
             }
+        }
+
+        private void LogOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            LogOutButtonInvisiable();
+            PageList.Main.setPage(PageList.Login);
+            PageList.Main.User.logOut();
+            PageList.Main.User = new User();
+        }
+        public void LogOutButtonVisiable()
+        {
+            LogOutBtn.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        public void LogOutButtonInvisiable()
+        {
+            LogOutBtn.Visibility = System.Windows.Visibility.Hidden;
         }
     }
 
@@ -274,6 +311,16 @@ namespace EESDD
                 {
                     experience = new ExperiencePage();
                 }
+                return experience;
+            }
+        }
+
+        public static ExperiencePage NewExperience
+        {
+            get
+            {
+                if (experience == null || experience.Used)
+                    experience = new ExperiencePage();
                 return experience;
             }
         }

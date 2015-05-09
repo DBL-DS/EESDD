@@ -24,37 +24,82 @@ namespace EESDD.Pages
     /// </summary>
     public partial class SceneSelectPage : Page
     {
-        private SelectorButton chosenButton;
+        private Grid currentDetail;
+        private Button currentMode;
         public SceneSelectPage()
         {
             InitializeComponent();
-            //Tabs.setActived(TabsTitle.ExperienceTab);
-            //setSelectionValue();
-            //setDefaultChosen();
+            init();
         }
-        //private void setDefaultChosen() {
-        //    chosenButton = practice;
-        //    chosenButton.changeState(true);
-        //}
 
-        //private void NextButton_BtnClick(object sender, EventArgs e)
-        //{
-        //    PageList.Main.Selection.SceneSelect = chosenButton.SelectionValue;
-        //    PageList.Main.setPage(PageList.ModeSelect);
-        //}
-        //private void setSelectionValue()
-        //{
-        //    practice.SelectionValue = UserSelections.ScenePractice;
-        //    secure_one.SelectionValue = UserSelections.SceneSecurityOne;
-        //    secure_two.SelectionValue = UserSelections.SceneSecurityTwo;
-        //    smooth_one.SelectionValue = UserSelections.SceneSmoothOne;
-        //}
+        void init()
+        {
+            currentDetail = SceneOneDetail;
+            currentMode = NormalMode;
+            PageList.Main.Selection.SceneSelect = UserSelections.ScenePractice;
+            PageList.Main.Selection.ModeSelect = UserSelections.NormalMode;
+        }
 
-        //private void SelectorButton_BtnClick(object sender, EventArgs e)
-        //{
-        //    chosenButton.changeState(false);
-        //    chosenButton= ((SelectorButton)sender);
-        //    chosenButton.changeState(true);
-        //}
+        private void Little_Enter(object sender, RoutedEventArgs e)
+        {
+            Button clickBtn = (Button)sender;
+            if (clickBtn.Name.Equals("LittleOne"))
+            {
+                changeDetail(SceneOneDetail);
+                PageList.Main.Selection.SceneSelect = UserSelections.ScenePractice;
+            }
+            else if (clickBtn.Name.Equals("LittleTwo"))
+            {
+                changeDetail(SceneTwoDetail);
+                PageList.Main.Selection.SceneSelect = UserSelections.SceneSecurityOne;
+            }
+            else if (clickBtn.Name.Equals("LittleThree"))
+            {
+                changeDetail(SceneThreeDetail);
+                PageList.Main.Selection.SceneSelect = UserSelections.SceneSecurityTwo;
+            }
+            else if (clickBtn.Name.Equals("LittleFour"))
+            {
+                changeDetail(SceneFourDetail);
+                PageList.Main.Selection.SceneSelect = UserSelections.SceneSmoothOne;
+            }
+        }
+
+        private void changeDetail(Grid toChange)
+        {
+            if (!toChange.Equals(currentDetail))
+            {
+                currentDetail.Visibility = System.Windows.Visibility.Hidden;
+                currentDetail = toChange;
+                currentDetail.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
+        private void ModeSelect_Click(object sender, RoutedEventArgs e)
+        {
+            if (!((Button)sender).Equals(currentMode))
+            {
+                currentMode = (Button)sender;
+                switch (((Button)sender).Name)
+                {
+                    case "NormalMode":
+                        NormalCheck.Visibility = System.Windows.Visibility.Visible;
+                        DistractedCheck.Visibility = System.Windows.Visibility.Hidden;
+                        PageList.Main.Selection.ModeSelect = UserSelections.NormalMode;
+                        break;
+                    case "DistractedMode":
+                        NormalCheck.Visibility = System.Windows.Visibility.Hidden;
+                        DistractedCheck.Visibility = System.Windows.Visibility.Visible;
+                        PageList.Main.Selection.ModeSelect = UserSelections.DistractedMode;
+                        break;
+                }
+            }
+        }
+
+        private void Start_Click(object sender, RoutedEventArgs e)
+        {
+            PageList.Main.setPage(PageList.NewExperience);
+            PageList.Experience.startRefresh();
+        }
     }
 }

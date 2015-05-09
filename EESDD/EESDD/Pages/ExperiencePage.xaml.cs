@@ -26,19 +26,19 @@ namespace EESDD.Pages
     {
         private LinePlotter currentLine;
         private ChartSelectionButton currentBtn;
-        private bool refreshingText;
+        private bool used;
         public ExperiencePage()
         {
             InitializeComponent();
             init();
             bindChartSource();
-            startRefresh();
         }
 
         private void init() {
             ChangeButtonChosen(speed);
             ChangeMainChart(SpeedChart);
             ChangeMainChartTitle("Speed-Time");
+            used = false;
         }
 
         private void MainChartChange(object sender, EventArgs e)
@@ -112,21 +112,22 @@ namespace EESDD.Pages
 
         public void refreshTextBlocks()
         {
-                this.Dispatcher.BeginInvoke((Action)delegate() {
-                    TimeDisplay.Text = PageList.Main.Player.Time;
-                    RealSpeed.Text = PageList.Main.Player.Speed;
-                    RealAcceleration.Text = PageList.Main.Player.Acceleration;
-                    DistanceDisplay.Text = PageList.Main.Player.TotalDistance;
-                    RealBrakeDistance.Text = PageList.Main.Player.BrakeDistance;
-                    BrakeDistanceStart.Text = PageList.Main.Player.BrakeDistanceStart;
-                    BrakeDistanceEnd.Text = PageList.Main.Player.BrakeDistanceEnd;
-                    RealReaction.Text = PageList.Main.Player.ReactTime;
-                    ReactTimeStart.Text = PageList.Main.Player.ReactTimeStart;
-                    ReactTimeEnd.Text = PageList.Main.Player.ReactTimeEnd;
-                });
+            this.Dispatcher.BeginInvoke((Action)delegate() {
+                TimeDisplay.Text = PageList.Main.Player.Time;
+                RealSpeed.Text = PageList.Main.Player.Speed;
+                RealAcceleration.Text = PageList.Main.Player.Acceleration;
+                DistanceDisplay.Text = PageList.Main.Player.TotalDistance;
+                RealBrakeDistance.Text = PageList.Main.Player.BrakeDistance;
+                BrakeDistanceStart.Text = PageList.Main.Player.BrakeDistanceStart;
+                BrakeDistanceEnd.Text = PageList.Main.Player.BrakeDistanceEnd;
+                RealReaction.Text = PageList.Main.Player.ReactTime;
+                ReactTimeStart.Text = PageList.Main.Player.ReactTimeStart;
+                ReactTimeEnd.Text = PageList.Main.Player.ReactTimeEnd;
+            });
         }
         public void startRefresh()
         {
+            used = true;
             Thread refreshData = new Thread(PageList.Main.refreshDataSource);
             refreshData.Start();
         }
@@ -134,37 +135,17 @@ namespace EESDD.Pages
         public void endRefresh(bool state)
         {
             PageList.Main.endRefreshDataSource(state);
-            refreshingText = false;
         }
         
         private void ShutDown_Click(object sender, RoutedEventArgs e)
         {
             endRefresh(CustomMessageBox.Show("提示","是否保存数据？") == true ? true : false);
+            PageList.Main.setPage(PageList.SceneSelect);
         }
-        //public void bindDataSource()
-        //{
-        //    speedLine = null;
-        //    speedLine = new LinePlotter();
-        //    speed_data.Children.Clear();
-        //    speed_data.Children.Add(speedLine);
-        //    speedLine.drawNormalLine(PageList.Main.Player.Speed);
-        //}
-        //public void startRefresh()
-        //{
-        //    Thread refresh = new Thread(PageList.Main.refreshDataSource);
-        //    refresh.Start();
-        //}
-        //public void refreshTime(string t)
-        //{
-        //    this.Dispatcher.BeginInvoke((Action)delegate() {
-        //        Data_Time.Text = t;
-        //    });
-        //}
-        //private void OverButton_BtnClick(object sender, EventArgs e)
-        //{
-        //    PageList.Main.endRefresh(true);
-        //    PageList.Main.setPage(PageList.SceneSelect);
-        //}
 
+        public bool Used
+        {
+            get { return used; }
+        }
     }
 }

@@ -13,11 +13,11 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Border x:Name="border"  Width="100" Height="100" Background="{x:Null}" CornerRadius="5">
+    <Border x:Name="border" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{x:Null}" CornerRadius="5">
         <Border.Effect>
             <DropShadowEffect BlurRadius="10" Direction="-90" RenderingBias="Quality" ShadowDepth="0" Opacity="0.75"/>
         </Border.Effect>
-        <Button Style="{StaticResource NoDefaultHover}" x:Name="btn" Click="Button_Click" Width="92" Height="92" Background="#ff777777">
+        <Button Style="{StaticResource NoDefaultHover}" x:Name="btn" Click="Button_Click" Background="#ff777777">
             <Image Source="{Binding ImageSource, ElementName=OpBtn}" x:Name="image" Stretch="Fill"></Image>
         </Button>
     </Border>

@@ -27,13 +27,15 @@ namespace EESDD.Pages
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
+            PageList.Main.LogOutButtonVisiable();
             ToLogin();
         }
         private void ToLogin()
         {
-            //string nickName LoginName.Text.Trim();
-            //PageList.Main.User.logIn(nickName);
-            PageList.Main.setPage(PageList.Evaluation);
+            string nickName = LoginName.Text.Trim();
+            PageList.Main.User.logIn(nickName);
+            PageList.Main.setPage(PageList.SceneSelect);
+            PageList.Main.setDefaultChosen();
         }
         private void LoginName_KeyDown(object sender, KeyEventArgs e)
         {

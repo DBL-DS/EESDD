@@ -1,4 +1,5 @@
 ﻿using EESDD.Control.DataModel;
+using EESDD.Data.DataBase;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,17 +14,29 @@ namespace EESDD.Control.User
     {
         string name;
         int userClass;
+        int loginCount;
         List<ExperienceUnit> experiences;
         bool newUser;
+        bool experienceChanged;
 
-        const string rootName = "/Data/";
+        string databaseFilePath;
+        string expFilesRoot;
 
         public User()
         {
-
+            init();
         }
 
-
+        private void initRoot() {
+            databaseFilePath = System.IO.Directory.GetCurrentDirectory() + "\\data\\database\\EESDD.accdb";
+            expFilesRoot = System.IO.Directory.GetCurrentDirectory() + "\\data\\";
+        }
+        private void init()
+        {
+            initRoot();
+            experienceChanged = false;
+            loginCount = 0;
+        }
         /// <summary>
         /// 将用户信息存入数据库，experiences序列化后存入文件，文件名存入数据库
         /// </summary>
@@ -31,38 +44,66 @@ namespace EESDD.Control.User
         {
             this.name = name;
 
-            if (userExist())
+            if (userExist(name))
                 setOldUser();
             else
                 setNewUser();
         }
-        private bool userExist()
+        private bool userExist(string name)
         {
-            return true;
+            AccessDB database = new AccessDB(databaseFilePath);
+            bool result = database.isExisted(name);
+            database.Close();
+
+            return result;
         }
         /// <summary>
         /// 将用户信息存入数据库，experiences序列化后存入文件，文件名存入数据库
         /// </summary>
         public void logOut()
         {
-            if (experiences.Count != 0)
+            string fileName = "";
+            if (experiences != null && experiences.Count != 0 && experienceChanged)
             {
-                string fileName = saveExperienceListToFile();
+                fileName = saveExperienceListToFile();
             }
+            AccessDB database = new AccessDB(databaseFilePath);
+
+            if (newUser)
+            {
+                string time = DateTime.Now.ToShortDateString();
+                database.insertData(name, userClass, fileName, time, time, 1);
+            }
+            else
+            {
+                string time = DateTime.Now.ToShortDateString();
+                database.insertData(name, userClass, fileName, database.getRegisterDate(name), time, loginCount);
+            }
+
+            database.Close();
         }
 
         public void setNewUser()
         {
             newUser = true;
+            loginCount ++;
             this.userClass = 0;
             experiences = new List<ExperienceUnit>();
         }
 
         public void setOldUser()
         {
-            string fileName = "";
-            getExperienceListFromFile(fileName);
+            string fileName;
             newUser = false;
+
+            AccessDB database = new AccessDB(databaseFilePath);
+
+            loginCount = database.getLoginTime(name) + 1;
+            fileName = database.getExperienceFileName(name);
+            setExperienceListFromFile(fileName);
+            userClass = database.getUserClass(name);
+
+            database.Close();
         }
         private void loadUser()
         {
@@ -70,12 +111,23 @@ namespace EESDD.Control.User
         }
         private void saveUser()
         {
+            AccessDB database = new AccessDB(databaseFilePath);
+
+            if (newUser)
+            {
+                //database.insertData(name,userClass,)
+            }
+
+            database.Close();
+        }
+        private void saveUser(string fileName)
+        {
 
         }
         public string saveExperienceListToFile()
         {
             string fileName = DateTime.Now.ToFileTimeUtc().ToString();
-            string filePath = rootName + fileName;
+            string filePath = expFilesRoot + fileName;
 
             BinaryFormatter bf = new BinaryFormatter();
             if (experiences != null && experiences.Count != 0)
@@ -89,14 +141,14 @@ namespace EESDD.Control.User
             return null;
         }
 
-        public void getExperienceListFromFile(string fileName)
+        public void setExperienceListFromFile(string fileName)
         {
-            string filePath = rootName + fileName;
-
-            experiences = null;
-
+            if (fileName == null || fileName.Equals(""))
+                return;
+            
+            string filePath = expFilesRoot + fileName;
             BinaryFormatter bf = new BinaryFormatter();
-            using (FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+            using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 experiences = (List<ExperienceUnit>)bf.Deserialize(fs);
             }
@@ -117,6 +169,7 @@ namespace EESDD.Control.User
 
         public void addExpUnit(ExperienceUnit unit)
         {
+            experienceChanged = true;
             experiences.Add(unit);
         }
         public int UnitSize

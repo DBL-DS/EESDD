@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace EESDD.Control.User
 {
+    [Serializable]
     class Evaluation
     {
+
     }
 }
