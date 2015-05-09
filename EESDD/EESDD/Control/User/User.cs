@@ -14,22 +14,29 @@ namespace EESDD.Control.User
     {
         string name;
         int userClass;
+        int loginCount;
         List<ExperienceUnit> experiences;
         bool newUser;
+        bool experienceChanged;
 
         string databaseFilePath;
         string expFilesRoot;
 
         public User()
         {
-            initRoot();
+            init();
         }
 
         private void initRoot() {
             databaseFilePath = System.IO.Directory.GetCurrentDirectory() + "\\data\\database\\EESDD.accdb";
             expFilesRoot = System.IO.Directory.GetCurrentDirectory() + "\\data\\";
         }
-
+        private void init()
+        {
+            initRoot();
+            experienceChanged = false;
+            loginCount = 0;
+        }
         /// <summary>
         /// 将用户信息存入数据库，experiences序列化后存入文件，文件名存入数据库
         /// </summary>
@@ -45,7 +52,7 @@ namespace EESDD.Control.User
         private bool userExist(string name)
         {
             AccessDB database = new AccessDB(databaseFilePath);
-            bool result = database.isExisted(name);
+            bool result = database.isExistted(name);
             database.close();
 
             return result;
@@ -55,16 +62,31 @@ namespace EESDD.Control.User
         /// </summary>
         public void logOut()
         {
-            if (experiences.Count != 0)
+            string fileName = "";
+            if (experiences.Count != 0 && experienceChanged)
             {
-                string fileName = saveExperienceListToFile();
+                fileName = saveExperienceListToFile();
+            }
+            AccessDB database = new AccessDB(databaseFilePath);
+
+            if (newUser)
+            {
+                string time = DateTime.Now.ToShortDateString();
+                database.insertData(name, userClass, fileName, time, time, 1);
+            }
+            else
+            {
+                string time = DateTime.Now.ToShortDateString();
+                database.insertData(name, userClass, fileName, database.getRegister(name), time, loginCount);
             }
 
+            database.close();
         }
 
         public void setNewUser()
         {
             newUser = true;
+            loginCount ++;
             this.userClass = 0;
             experiences = new List<ExperienceUnit>();
         }
@@ -74,6 +96,10 @@ namespace EESDD.Control.User
             string fileName = "";
             getExperienceListFromFile(fileName);
             newUser = false;
+
+            AccessDB database = new AccessDB(databaseFilePath);
+            loginCount = database.getAccessCount(name) + 1;
+            database.close();
         }
         private void loadUser()
         {
@@ -139,6 +165,7 @@ namespace EESDD.Control.User
 
         public void addExpUnit(ExperienceUnit unit)
         {
+            experienceChanged = true;
             experiences.Add(unit);
         }
         public int UnitSize

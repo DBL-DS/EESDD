@@ -202,7 +202,8 @@ namespace EESDD
 
         private void LogOutButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            PageList.Main.User.logOut();
+            PageList.Main.User = new User();
         }
     }
 

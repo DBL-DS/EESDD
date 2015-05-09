@@ -35,8 +35,6 @@ namespace EESDD.Pages
             PageList.Main.User.logIn(nickName);
             PageList.Main.setPage(PageList.SceneSelect);
             PageList.Main.setDefaultChosen();
-            //string path = System.IO.Directory.GetCurrentDirectory();
-            //MessageBox.Show(path);
         }
         private void LoginName_KeyDown(object sender, KeyEventArgs e)
         {
