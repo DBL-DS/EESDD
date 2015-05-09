@@ -27,6 +27,7 @@ namespace EESDD.Pages
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
+            PageList.Main.LogOutButtonVisiable();
             ToLogin();
         }
         private void ToLogin()

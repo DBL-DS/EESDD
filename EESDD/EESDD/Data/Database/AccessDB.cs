@@ -30,14 +30,14 @@ namespace EESDD.Data.DataBase
             OleDbCommand mycom = new OleDbCommand(sql, mycon);
             mycom.ExecuteReader();
         }
-        public Boolean isExistted(String name)
+        public Boolean isExisted(String name)
         {
             string sql = "select * FROM [User] WHERE usrName = '"+name+"'";
             OleDbCommand mycom = new OleDbCommand(sql, mycon);
             myReader = mycom.ExecuteReader();
             return myReader.HasRows;
         }
-        public int getType(string name)
+        public int getUserClass(string name)
         {
             string sql = "SELECT usrType FROM [User] WHERE usrName = '"+name+"'";
             OleDbCommand mycom = new OleDbCommand(sql, mycon);
@@ -50,9 +50,9 @@ namespace EESDD.Data.DataBase
             }
             return type;
         }
-        public String getPath(string name)
+        public String getExperienceFileName(string name)
         {
-            string sql = "SELECT experiencePath FROM [User] WHERE usrName = '" + name + "'";
+            string sql = "SELECT experiencesPath FROM [User] WHERE usrName = '" + name + "'";
             OleDbCommand mycom = new OleDbCommand(sql, mycon);
             myReader = mycom.ExecuteReader();
             String path = null;
@@ -63,7 +63,7 @@ namespace EESDD.Data.DataBase
             }
             return path;
         }
-        public String getRegister(string name)
+        public String getRegisterDate(string name)
         {
             string sql = "SELECT registerDate FROM [User] WHERE usrName = '" + name + "'";
             OleDbCommand mycom = new OleDbCommand(sql, mycon);
@@ -76,7 +76,7 @@ namespace EESDD.Data.DataBase
             }
             return path;
         }
-        public String getLogin(string name)
+        public String getLastLoginDate(string name)
         {
             string sql = "SELECT loginDate FROM [User] WHERE usrName = '" + name + "'";
             OleDbCommand mycom = new OleDbCommand(sql, mycon);
@@ -89,7 +89,7 @@ namespace EESDD.Data.DataBase
             }
             return path;
         }
-        public int getAccessCount(string name)
+        public int getLoginTime(string name)
         {
             string sql = "SELECT accessCount FROM [User] WHERE usrName = '" + name + "'";
             OleDbCommand mycom = new OleDbCommand(sql, mycon);
@@ -102,7 +102,7 @@ namespace EESDD.Data.DataBase
             }
             return type;
         }
-        public void close()
+        public void Close()
         {
             if (myReader != null) {         
                 myReader.Close();

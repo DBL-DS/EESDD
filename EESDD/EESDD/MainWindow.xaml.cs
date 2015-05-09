@@ -54,10 +54,11 @@ namespace EESDD
             selection = new UserSelections();
             user = new User();
             player = new Player();
+
+            LogOutButtonInvisiable();
         }
 
         public void setPage(Page page) {
-
             if (page.Equals(PageList.SceneSelect) || page.Equals(PageList.ModeSelect) 
                 || page.Equals(PageList.GetReady) || page.Equals(PageList.Experience)){
                 PageList.CurrentExperience = page;
@@ -202,8 +203,19 @@ namespace EESDD
 
         private void LogOutButton_Click(object sender, RoutedEventArgs e)
         {
+            LogOutButtonInvisiable();
+            PageList.Main.setPage(PageList.Login);
             PageList.Main.User.logOut();
             PageList.Main.User = new User();
+        }
+        public void LogOutButtonVisiable()
+        {
+            LogOutBtn.Visibility = System.Windows.Visibility.Visible;
+        }
+
+        public void LogOutButtonInvisiable()
+        {
+            LogOutBtn.Visibility = System.Windows.Visibility.Hidden;
         }
     }
 
