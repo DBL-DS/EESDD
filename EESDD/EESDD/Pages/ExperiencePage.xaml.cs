@@ -134,6 +134,7 @@ namespace EESDD.Pages
 
             if (vissim)
             {
+                PageList.Main.Player.initVissim();
                 Thread vissimRun = new Thread(PageList.Main.Player.UseVissim);
                 vissimRun.Start();
             }

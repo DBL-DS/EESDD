@@ -18,15 +18,17 @@ namespace EESDD.VISSIM
         private Net net;
         private DataVehicle data;
         private bool over;
-        SignalHead head;
-        SignalController signalcontroller;
-        SignalGroup signalgroup;
+        SignalHead head1,head2,head3;
+        SignalController signalController;
+        SignalGroup signalGroup;
 
         //需要获取的变量
         private double speed;
 
         private int laneInVissim;           //初始化时获取这个参数，init中现默认4
         private int lane;
+        private double coord;
+        private int link;
         private int lastLane;
         private bool dataIn;
 
@@ -101,7 +103,7 @@ namespace EESDD.VISSIM
         }
 
         private void initRoot() {
-            vissimMapFilePath = System.IO.Directory.GetCurrentDirectory() + "\\vissim\\map\\2015-01-31.inp";
+            vissimMapFilePath = System.IO.Directory.GetCurrentDirectory() + "\\vissim\\map\\最新路口.inp";
         }
 
         private void initData()
@@ -111,6 +113,9 @@ namespace EESDD.VISSIM
             dataIn = false;
             lastLane = 1;
             laneInVissim = 4;
+            signalState = 0;
+            coord = 1;
+            link = 1;
         }
         void initNet()
         {
@@ -118,11 +123,23 @@ namespace EESDD.VISSIM
             vissim.LoadNet(vissimMapFilePath);
             net = vissim.Net;
             simulation = vissim.Simulation;
-            //signalcontroller = net.SignalControllers.GetSignalControllerByNumber(5);
-            //signalgroup = signalcontroller.SignalGroups.GetSignalGroupByNumber(6);
-            //head = signalgroup.SignalHeads.GetSignalHeadByNumber(9);
+            simulation.Resolution = 4;
+
+            
+
+            
+            if (net.SignalControllers.Count!=0)
+            {
+                signalController = net.SignalControllers.GetSignalControllerByNumber(1);
+                signalGroup = signalController.SignalGroups.GetSignalGroupByNumber(1);
+                head1 = signalGroup.SignalHeads.GetSignalHeadByNumber(1);
+                head2 = signalGroup.SignalHeads.GetSignalHeadByNumber(2);
+                head3 = signalGroup.SignalHeads.GetSignalHeadByNumber(3);
+            }
+
+
             check();
-            while ((vehicle = getVehicle(3)) == null)
+            while ((vehicle = getVehicle(1)) == null)
             {
                 RunSingle();
             }
@@ -159,13 +176,28 @@ namespace EESDD.VISSIM
         public void Run()
         {
             //signalgroup.set_AttValue("State", 1);
-            while (/*(vehicle = getVehicle(3)) != null && */count!=-1 && dataIn)
+            while (/*(vehicle = getVehicle(3)) != null && */count!=-1)
             {
-                vehicle.set_AttValue("SPEED", speed);
-                vehicle.set_AttValue("LANE", lane);
-                vehicle.set_AttValue("DESIREDSPEED", -1000);
-                //Console.WriteLine(vehicle.get_AttValue("LENGTH"));
-                RunSingle();
+                if (dataIn && getVehicle(1) != null)
+                {
+                    vehicle.set_AttValue("SPEED", speed);
+                    //vehicle.set_AttValue("LANE", lane);
+                    if(link!=2)
+                    {
+                        vehicle.MoveToLinkCoordinate(link,1,coord);
+                    }
+                    vehicle.set_AttValue("DESIREDSPEED", -1000);
+                    //Console.WriteLine(vehicle.get_AttValue("LENGTH"));
+
+                }
+
+                if (signalState != 0 && net.SignalControllers.Count != 0)
+                {
+
+                    setSignal(signalState);
+                }
+                RunSingle();   
+                Thread.Sleep(250);
             }
             
         }
@@ -180,20 +212,53 @@ namespace EESDD.VISSIM
 
         public void set(SimulatedVehicle vehicle)
         {
-            if (!dataIn)
+            if (vehicle != null)
             {
-                lastLane = (int)vehicle.Lane;
-            }
-            else
-            {
-                int laneToChange = (int)vehicle.Lane - lastLane + lane;
-                lane = laneToChange <= laneInVissim && laneToChange > 0 ? laneToChange : lane;
-                lastLane = (int)vehicle.Lane;
-            }
+                if (!dataIn)
+                {
+                    lastLane = (int)vehicle.Lane;
+                }
+                else
+                {
+                    int laneToChange = (int)vehicle.Lane - lastLane + lane;
+                    lane = laneToChange <= laneInVissim && laneToChange > 0 ? laneToChange : lane;
+                    lastLane = (int)vehicle.Lane;
+                }
 
-            dataIn = true;
-            speed = vehicle.Speed;
+                dataIn = true;
+                speed = vehicle.Speed;
+                if (vehicle.PositionX>1206.141 && vehicle.PositionX <= 1736.125)
+                {
+                    link = 1;
+                    coord = 529.984-(vehicle.PositionX - 1206.720);
+                }
+                if (vehicle.PositionX > 1190.628 && vehicle.PositionX <= 1206.141)
+                {
+                    link = 10001;
+                    coord = 15.00 - Math.Abs(vehicle.PositionX - 1190.628);
+                }
+                if (vehicle.PositionX > 1151.405 && vehicle.PositionX <= 1190.628)
+                {
+                    link = 3;
+                    coord = 39.323 - Math.Abs(vehicle.PositionX - 1151.405);
+                }
+                if (vehicle.PositionX < 1151.405)
+                {
+                    link = 2;
+                }
+                signalState = (int)vehicle.TrafficLight;
+                    
+            }                       
+        }
+
+        private void setSignal(int state)
+        {
             
+                //head1.set_AttValue("STATE", state);
+                //head2.set_AttValue("STATE", state);
+                //head3.set_AttValue("STATE", state);
+            signalGroup.set_AttValue("STATE", state);
+
         }
     }
 }

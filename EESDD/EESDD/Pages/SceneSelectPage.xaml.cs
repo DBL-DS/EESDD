@@ -99,7 +99,7 @@ namespace EESDD.Pages
         private void Start_Click(object sender, RoutedEventArgs e)
         {
             PageList.Main.setPage(PageList.NewExperience);
-            PageList.Experience.startRefresh(false);
+            PageList.Experience.startRefresh(true);
         }
     }
 }

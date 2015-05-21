@@ -22,6 +22,9 @@ namespace EESDD.UDP
         public static int TotalDistance = 156;
         public static int Braking = 160;
         public static int Reacting = 164;
-        public static int Gear = 170;
+        public static int Gear = 168;
+        public static int DistanceToNext = 172;
+        public static int Lane = 176;
+        public static int TrafficLight = 180;
     }
 }

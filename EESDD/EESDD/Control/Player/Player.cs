@@ -87,10 +87,12 @@ namespace EESDD.Control.Player
 
          public void UseVissim()
          {
-             vissim = new BJUTVissim();
              vissim.Run();
          }
-
+         public void initVissim()
+         {
+             vissim = new BJUTVissim();
+         }
          public void refreshDataSource()
          {
              initRefresh();
