@@ -324,6 +324,7 @@
     <Resource Include="Images\Select\check.png" />
     <Resource Include="Images\Select\start.png" />
     <Resource Include="Images\Select\car_blue.png" />
+    <Resource Include="Images\Select\distracted_driving.jpg" />
     <Content Include="Widgets\Chart\Lib\DynamicDataDisplay.dll" />
   </ItemGroup>
   <ItemGroup>
