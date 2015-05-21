@@ -61,7 +61,7 @@ namespace EESDD.Pages
             else if (clickBtn.Name.Equals("LittleFour"))
             {
                 changeDetail(SceneFourDetail);
-                PageList.Main.Selection.SceneSelect = UserSelections.SceneSmoothOne;
+                PageList.Main.Selection.SceneSelect = UserSelections.SceneIntersection;
             }
         }
 

@@ -20,7 +20,7 @@ namespace EESDD.Control.Operation
         public const int ScenePractice = 3;         //Default Scene Selection
         public const int SceneBrake = 4;
         public const int SceneLaneChange = 5;
-        public const int SceneSmoothOne = 6;
+        public const int SceneIntersection = 6;
         public const int NormalMode = 0;            //Default Mode Selection
         public const int LowDistractedMode = 1;
         public const int HighDistractedMode = 2;
