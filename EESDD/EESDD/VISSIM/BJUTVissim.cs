@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using VISSIM_COMSERVERLib;
 using EESDD.VISSIM;
 using EESDD.Control.DataModel;
+using EESDD.Control.Operation;
 
 namespace EESDD.VISSIM
 {
@@ -103,7 +104,19 @@ namespace EESDD.VISSIM
         }
 
         private void initRoot() {
-            vissimMapFilePath = System.IO.Directory.GetCurrentDirectory() + "\\vissim\\map\\最新路口.inp";
+            int scene = PageList.Main.Selection.SceneSelect;
+            switch (scene)
+            {
+                case UserSelections.ScenePractice:
+                    vissimMapFilePath = System.IO.Directory.GetCurrentDirectory() + "\\vissim\\map\\2015-01-31.inp";
+                    break;
+                case UserSelections.SceneBrake:
+                    vissimMapFilePath = System.IO.Directory.GetCurrentDirectory() + "\\vissim\\map\\2015-01-31.inp";
+                    break;
+                case UserSelections.SceneIntersection:
+                    vissimMapFilePath = System.IO.Directory.GetCurrentDirectory() + "\\vissim\\map\\2015-01-31.inp";
+                    break;
+            }
         }
 
         private void initData()
