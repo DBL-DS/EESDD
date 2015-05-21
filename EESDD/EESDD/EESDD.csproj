@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F73CC3B6-4389-42FA-A266-C90BBFCEF203}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EESDD</RootNamespace>
+    <AssemblyName>EESDD</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <ExpressionBlendVersion>12.0.51020.0</ExpressionBlendVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>EESDD.Startup</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DynamicDataDisplay, Version=0.3.0.0, Culture=neutral, PublicKeyToken=5b7d744a7263923f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\..\Users\Hugh\Desktop\DynamicDataDisplay v0.3 Binaries &amp; Samples\DynamicDataDisplay\DynamicDataDisplay.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Drawing" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Control\Operation\UserSelections.cs" />
+    <Compile Include="Control\Player\BrakeActivity.cs" />
+    <Compile Include="Control\Player\Player.cs" />
+    <Compile Include="Control\Player\ReactActivity.cs" />
+    <Compile Include="Control\User\Evaluation.cs" />
+    <Compile Include="Control\User\ExperienceUnit.cs" />
+    <Compile Include="Control\User\User.cs" />
+    <Compile Include="CustomMessageBox.xaml.cs">
+      <DependentUpon>CustomMessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Database\AccessDB.cs" />
+    <Compile Include="Pages\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DataExportAuthenticationPage.xaml.cs">
+      <DependentUpon>DataExportAuthenticationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\DataExportPage.xaml.cs">
+      <DependentUpon>DataExportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EvaluationPage.xaml.cs">
+      <DependentUpon>EvaluationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ExperiencePage.xaml.cs">
+      <DependentUpon>ExperiencePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\GetReadyPage.xaml.cs">
+      <DependentUpon>GetReadyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ModeSelect.xaml.cs">
+      <DependentUpon>ModeSelect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ModeSelectPage.xaml.cs">
+      <DependentUpon>ModeSelectPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SceneSelectPage.xaml.cs">
+      <DependentUpon>SceneSelectPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\WelcomePage.xaml.cs">
+      <DependentUpon>WelcomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="CSV\CSVCloumnName.cs" />
+    <Compile Include="CSV\CSVReader.cs" />
+    <Compile Include="CSV\VehicleCSV.cs" />
+    <Compile Include="UDP\UDPController.cs" />
+    <Compile Include="UDP\UDPOffset.cs" />
+    <Compile Include="UDP\UDPTest.cs" />
+    <Compile Include="UDP\VehicleUDP.cs" />
+    <Compile Include="VISSIM\BJUTVissim.cs" />
+    <Compile Include="VISSIM\DataVehicle.cs" />
+    <Compile Include="VISSIM\VissimDB.cs" />
+    <Compile Include="Widgets\Buttons\BackButton.xaml.cs">
+      <DependentUpon>BackButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Buttons\CharSelectionButton.xaml.cs">
+      <DependentUpon>CharSelectionButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Buttons\LittleScene.xaml.cs">
+      <DependentUpon>LittleScene.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Buttons\Navigation.cs" />
+    <Compile Include="Widgets\Buttons\NavigationButton.xaml.cs">
+      <DependentUpon>NavigationButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Buttons\NextButton.xaml.cs">
+      <DependentUpon>NextButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Buttons\TabsButton.xaml.cs">
+      <DependentUpon>TabsButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Chart\LinePlotter.xaml.cs">
+      <DependentUpon>LinePlotter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Menu\TabsTitle.xaml.cs">
+      <DependentUpon>TabsTitle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Selector\SelectorButton.xaml.cs">
+      <DependentUpon>SelectorButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Widgets\Selector\SimulationConfiguration.xaml.cs">
+      <DependentUpon>SimulationConfiguration.xaml</DependentUpon>
+    </Compile>
+    <Page Include="CustomMessageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\AboutPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\ModeSelect.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\ButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\StyleDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\DataExportAuthenticationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\DataExportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\EvaluationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ExperiencePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\GetReadyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Control\DataModel\SimulatedVehicle.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Pages\ModeSelectPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SceneSelectPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\WelcomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\UnifiedColor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widgets\Buttons\BackButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widgets\Buttons\CharSelectionButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widgets\Buttons\LittleScene.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widgets\Buttons\NavigationButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widgets\Buttons\NextButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widgets\Buttons\TabsButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widgets\Chart\LinePlotter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Widgets\Menu\TabsTitle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widgets\Selector\SelectorButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Widgets\Selector\SimulationConfiguration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\DataSources\EESDD.DataModel.SimulatedVehicle.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\ExpFiles\" />
+    <Folder Include="Widgets\Scene\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BlendEmbeddedFont Include="Fonts\AF TOMMY HILFIGER.TTF">
+      <IsSystemFont>True</IsSystemFont>
+      <All>True</All>
+      <AutoFill>True</AutoFill>
+      <Uppercase>True</Uppercase>
+      <Lowercase>True</Lowercase>
+      <Numbers>True</Numbers>
+      <Punctuation>True</Punctuation>
+    </BlendEmbeddedFont>
+    <BlendEmbeddedFont Include="Fonts\张海山锐线体简.ttf">
+      <IsSystemFont>True</IsSystemFont>
+      <All>True</All>
+      <AutoFill>True</AutoFill>
+      <Uppercase>True</Uppercase>
+      <Lowercase>True</Lowercase>
+      <Numbers>True</Numbers>
+      <Punctuation>True</Punctuation>
+    </BlendEmbeddedFont>
+    <Resource Include="Images\Buttons\close.png" />
+    <Resource Include="Images\Buttons\max.png" />
+    <Resource Include="Images\Buttons\min.png" />
+    <Resource Include="Images\Operations\SuddenBrake.jpg" />
+    <Resource Include="Images\Login\car.png" />
+    <Resource Include="Images\Login\login.png" />
+    <Resource Include="Images\Experience\smile.png" />
+    <Resource Include="Images\Experience\shutdown.png" />
+    <Resource Include="Images\Select\next.png" />
+    <Resource Include="Images\Select\little_scene.png" />
+    <Resource Include="Images\Select\24dff278761ea202593eaf3f4c5bbaa2.jpg" />
+    <Resource Include="Images\Select\8c008eb29cdccdde9e2771a6932e63bb.jpg" />
+    <Resource Include="Images\Select\8f29b3f33dfd48db7d511aa61a742ca1.jpg" />
+    <Resource Include="Images\Select\fcb345067859f6522db886f64ea23789.jpg" />
+    <Resource Include="Images\Select\9d1925fd26dc309f254ad965c0dfbf75.jpeg" />
+    <Resource Include="Images\Select\2268855148fdfaa362ff3025ed61632a.jpg" />
+    <Resource Include="Images\Select\check.png" />
+    <Resource Include="Images\Select\start.png" />
+    <Resource Include="Images\Select\car_blue.png" />
+    <Resource Include="Images\Select\distracted_driving.jpg" />
+    <Content Include="Widgets\Chart\Lib\DynamicDataDisplay.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="VISSIM_COMSERVERLib">
+      <Guid>{0416FEA8-57DB-4EC7-926C-7CCC4288E1F7}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.5\Microsoft.Expression.Blend.WPF.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

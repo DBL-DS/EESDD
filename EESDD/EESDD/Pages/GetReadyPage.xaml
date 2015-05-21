@@ -1,0 +1,46 @@
+﻿<Page x:Class="EESDD.Pages.GetReadyPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:TabsTitle="clr-namespace:EESDD.Widgets.Menu"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:nav="clr-namespace:EESDD.Widgets.Buttons"     
+      xmlns:op="clr-namespace:EESDD.Widgets.Selector"
+      mc:Ignorable="d" 
+      d:DesignHeight="665" d:DesignWidth="1090"
+	Title="GetReadyPage">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/StyleDictionary.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TabsTitle:TabsTitle x:Name="Tabs" Grid.Column="0" Panel.ZIndex="1"/>
+            <Grid Background="#a5a5a5" Panel.ZIndex="0" Grid.Column="1" Margin="0,20,20,20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Style="{StaticResource PanelShadow}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Style="{StaticResource PageTitle}" Grid.Row="0">
+                    <TextBlock Style="{StaticResource TitleChinese}">准备操作</TextBlock>
+                    <TextBlock Style="{StaticResource TitleEnglish}">Get Ready</TextBlock>
+                </StackPanel>
+                <Grid Grid.Row="1">
+                    <op:SelectorButton ImageSource="/Images/Operations/SuddenBrake.jpg" ></op:SelectorButton>
+                </Grid>
+                <StackPanel Grid.Row="2" Style="{StaticResource PageTail}">
+                    <nav:NavigationButton BtnClick="BackButton_BtnClick" BtnText="Back"></nav:NavigationButton>
+                    <nav:NavigationButton BtnClick="NextButton_BtnClick" BtnText="Next"></nav:NavigationButton>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

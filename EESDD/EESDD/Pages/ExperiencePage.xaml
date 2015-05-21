@@ -1,0 +1,295 @@
+﻿<Page x:Class="EESDD.Pages.ExperiencePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:TabsTitle="clr-namespace:EESDD.Widgets.Menu"
+      xmlns:line="clr-namespace:EESDD.Widgets.Chart"
+      xmlns:btn="clr-namespace:EESDD.Widgets.Buttons"
+      mc:Ignorable="d" 
+      d:DesignHeight="665" d:DesignWidth="1090"
+	Title="ExperiencePage">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/EESDD;component/Resources/UnifiedColor.xaml"></ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="White" Panel.ZIndex="10">
+            <Grid.Effect>
+                <DropShadowEffect ShadowDepth="0" Opacity="0.5" BlurRadius="10" Direction="-90"></DropShadowEffect>
+            </Grid.Effect>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Margin="100,0,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Center" Grid.Column="0">
+                    <TextBlock Foreground="#ff666666" VerticalAlignment="Bottom" TextAlignment="Center" Grid.Column="0" FontFamily="Monaco" FontWeight="Bold">Welcome</TextBlock>
+                    <TextBlock Foreground="#ff666666" VerticalAlignment="Top" TextAlignment="Center" x:Name="UserName" FontFamily="Monaco" FontWeight="Bold">User Name</TextBlock>
+                </StackPanel>
+               <Image Grid.Column="1" Source="/EESDD;component/Images/Experience/smile.png"></Image>
+            </Grid>
+            <Grid Grid.Column="1" Margin="0,0,100,0">
+
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="160"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Background="#ff342947" Panel.ZIndex="5">
+                <Grid.Effect>
+                    <DropShadowEffect BlurRadius="20" Opacity="0.5"></DropShadowEffect>
+                </Grid.Effect>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="4*"></RowDefinition>
+                    <RowDefinition Height="5*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Style="{StaticResource BoundaryLine}" BorderThickness="0,0,0,0.5">
+                    <Grid Name="MainChart">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="50"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="30"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Margin="30,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Grid.Column="0" x:Name="MainChartTitle" FontFamily="Monaco" FontSize="13">Main Chart Title</TextBlock>
+                            <Grid Margin="0,0,30,0" Grid.Column="1" x:Name="ChartSelections" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                <StackPanel x:Name="ChartSelectionsSet" Orientation="Horizontal">
+                                    <btn:ChartSelectionButton BtnClick="MainChartChange" Margin="5,0" x:Name="speed" BtnText="Speed"></btn:ChartSelectionButton>
+                                    <btn:ChartSelectionButton BtnClick="MainChartChange" Margin="5,0" x:Name="acc" BtnText="Accleration"></btn:ChartSelectionButton>
+                                    <btn:ChartSelectionButton BtnClick="MainChartChange" Margin="5,0" x:Name="brake" BtnText="Brake"></btn:ChartSelectionButton>
+                                    <btn:ChartSelectionButton BtnClick="MainChartChange" Margin="5,0" x:Name="offset" BtnText="Offset Middle Line"></btn:ChartSelectionButton>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <line:LinePlotter x:Name="SpeedChart" Margin="30,0"></line:LinePlotter>
+                            <line:LinePlotter x:Name="AccelerationChart" Visibility="Hidden" Margin="30,0"></line:LinePlotter>
+                            <line:LinePlotter x:Name="OffsetChart" Visibility="Hidden" Margin="30,0"></line:LinePlotter>
+                            <line:LinePlotter x:Name="BrakeChart" Visibility="Hidden" Margin="30,0"></line:LinePlotter>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <StackPanel Margin="30,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                <Line Margin="40,0,10,0" VerticalAlignment="Center" Width="30" Stroke="#ffe0ff7d" X2="30" ></Line>
+                                <TextBlock Foreground="White" FontFamily="Monaco">Normal</TextBlock>
+                                <Line Margin="40,0,10,0" VerticalAlignment="Center" Width="30" Stroke="#ffff751d" X2="30" ></Line>
+                                <TextBlock Foreground="White" FontFamily="Monaco">Distracted</TextBlock>
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Border>
+                <Grid Name="SubCharts" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="100"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Style="{StaticResource BoundaryLine}" BorderThickness="0,0,0.5,0.5">
+                            <Grid Name="MapUnit">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock VerticalAlignment="Center" Margin="30,0,0,0" Name="MapTitle" FontFamily="Monaco" FontSize="13" Foreground="White">Map Title</TextBlock>
+                            </Grid>
+                        </Border>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Name="TimeUnit" Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Margin="30,0,0,0" VerticalAlignment="Bottom" Name="TimeUnitTitle" Foreground="White" FontFamily="Monaco">Time</TextBlock>
+                                <TextBlock Margin="30,0,0,0" Grid.Row="1" x:Name="TimeDisplay" Foreground="White" FontSize="35" FontFamily="Monaco">00:00:00</TextBlock>
+                            </Grid>
+                            <Border Grid.Column="1" Style="{StaticResource BoundaryLine}" BorderThickness="0.5,0,0.5,0">
+                                <Grid Name="DistanceUnit" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.ColumnSpan="2" Margin="30,0,0,0" VerticalAlignment="Bottom" Name="DistanceUnitTitle" Foreground="White" FontFamily="Monaco">Total Distance</TextBlock>
+                                    <TextBlock Margin="30,0,0,0" Grid.Row="1" Grid.Column="0" x:Name="DistanceDisplay" Foreground="White" FontSize="35" FontFamily="Monaco">0</TextBlock>
+                                    <TextBlock Margin="10,0,0,0" Grid.Row="1" Grid.Column="1" x:Name="UnitOfDistance" Foreground="White" FontSize="35" FontFamily="Monaco">M</TextBlock>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid Name="LittleSpeedUnit" Grid.Row="0" Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock VerticalAlignment="Bottom" Grid.Row="0" Margin="10,0,0,0" Foreground="White" FontFamily="Monaco">Speed</TextBlock>
+                            <line:LinePlotter x:Name="LittleSpeed" Margin="10" Grid.Row="1"></line:LinePlotter>
+                        </Grid>
+                        <Grid Name="LittleAccelerationUnit"  Grid.Row="0" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock VerticalAlignment="Bottom" Grid.Row="0" Margin="10,0,0,0" Foreground="White" FontFamily="Monaco">Acceleration</TextBlock>
+                            <line:LinePlotter x:Name="LittleAcc" Margin="10" Grid.Row="1"></line:LinePlotter>
+                        </Grid>
+                        <Grid Name="LittleOffsetUnit"  Grid.Row="1" Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock VerticalAlignment="Bottom" Grid.Row="0" Margin="10,0,0,0" Foreground="White" FontFamily="Monaco">Middle Line Offset</TextBlock>
+                            <line:LinePlotter x:Name="LittleOffset" Margin="10" Grid.Row="1"></line:LinePlotter>
+                        </Grid>
+                        <Grid Name="LittleBrakeUnit"  Grid.Row="1" Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <TextBlock VerticalAlignment="Bottom" Grid.Row="0" Margin="10,0,0,0" Foreground="White" FontFamily="Monaco">Brake</TextBlock>
+                            <line:LinePlotter x:Name="LittleBrake" Margin="10" Grid.Row="1"></line:LinePlotter>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="1" Background="#ff4a4a4a">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition Height="135"></RowDefinition>
+                    <RowDefinition Height="135"></RowDefinition>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Style="{StaticResource RealStateBorder}" BorderThickness="0,0,0,1.5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource RealStateStyle}" Grid.ColumnSpan="2" Grid.Row="0" VerticalAlignment="Bottom" Margin="30,0,0,0" FontSize="13" FontWeight="Bold">Speed</TextBlock>
+                        <TextBlock Style="{StaticResource RealStateStyle}" VerticalAlignment="Center" Margin="30,0,10,0"  FontSize="20" x:Name="RealSpeed" Grid.Row="1">0.00</TextBlock>
+                        <TextBlock Style="{StaticResource RealStateStyle}" VerticalAlignment="Center"  FontSize="20" Grid.Row="1" Grid.Column="1">KM/H</TextBlock>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="1"  Style="{StaticResource RealStateBorder}" BorderThickness="0,0,0,1.5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource RealStateStyle}" Grid.ColumnSpan="2" Grid.Row="0" VerticalAlignment="Bottom" Margin="30,0,0,0" FontSize="13" FontWeight="Bold">Acceleration</TextBlock>
+                        <TextBlock Style="{StaticResource RealStateStyle}" Margin="30,0,10,0" VerticalAlignment="Center"  FontSize="20" x:Name="RealAcceleration" Grid.Row="1">0.00</TextBlock>
+                        <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1">
+                            <TextBlock Style="{StaticResource RealStateStyle}" VerticalAlignment="Center"  FontSize="20" Grid.Row="1" Grid.Column="1">M/S</TextBlock>
+                            <TextBlock Style="{StaticResource RealStateStyle}" Margin="3,10,0,0" FontSize="15">2</TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="2"  Style="{StaticResource RealStateBorder}" BorderThickness="0,0,0,1.5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource RealStateStyle}" Grid.ColumnSpan="2" Grid.Row="0" VerticalAlignment="Bottom" Margin="30,0,0,0" FontSize="13" FontWeight="Bold">Brake Distance</TextBlock>
+                        <TextBlock Style="{StaticResource RealStateStyle}" VerticalAlignment="Center" Margin="30,0,10,0"  FontSize="30" x:Name="RealBrakeDistance" Grid.Row="1">0</TextBlock>
+                        <TextBlock Style="{StaticResource RealStateStyle}" VerticalAlignment="Center" FontSize="25" Grid.Row="1" Grid.Column="1">M</TextBlock>
+                        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Bottom">
+                            <TextBlock Width="40" TextAlignment="Right" Margin="30,0,0,0" Foreground="#ffff751d" FontFamily="Monaco">Start</TextBlock>
+                            <TextBlock x:Name="BrakeDistanceStart" Margin="10,0,10,0" Style="{StaticResource RealStateStyle}">0</TextBlock>
+                            <TextBlock Style="{StaticResource RealStateStyle}">M</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="3" VerticalAlignment="Top">
+                            <TextBlock Width="40" TextAlignment="Right" Margin="30,0,0,0" Foreground="#ffe0ff7d" FontFamily="Monaco">End</TextBlock>
+                            <TextBlock x:Name="BrakeDistanceEnd" Margin="10,0,10,0" Style="{StaticResource RealStateStyle}">0</TextBlock>
+                            <TextBlock Style="{StaticResource RealStateStyle}">M</TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="3"  Style="{StaticResource RealStateBorder}" BorderThickness="0,0,0,1.5">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource RealStateStyle}" Grid.ColumnSpan="2" Grid.Row="0" VerticalAlignment="Bottom" Margin="30,0,0,0" FontSize="13" FontWeight="Bold">Reaction Time</TextBlock>
+                        <TextBlock Style="{StaticResource RealStateStyle}" VerticalAlignment="Center" Margin="30,0,10,0"  FontSize="30" x:Name="RealReaction" Grid.Row="1">0</TextBlock>
+                        <TextBlock Style="{StaticResource RealStateStyle}" VerticalAlignment="Center" FontSize="25" Grid.Row="1" Grid.Column="1">MS</TextBlock>
+                        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="2" VerticalAlignment="Bottom">
+                            <TextBlock Width="40" TextAlignment="Right" Margin="30,0,0,0" Foreground="#ffff751d" FontFamily="Monaco">Start</TextBlock>
+                            <TextBlock x:Name="ReactTimeStart" Margin="10,0,10,0" Style="{StaticResource RealStateStyle}">00:00:00</TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Row="3" VerticalAlignment="Top">
+                            <TextBlock Width="40" TextAlignment="Right" Margin="30,0,0,0" Foreground="#ffe0ff7d" FontFamily="Monaco">End</TextBlock>
+                            <TextBlock x:Name="ReactTimeEnd" Margin="10,0,10,0" Style="{StaticResource RealStateStyle}">00:00:00</TextBlock>
+                        </StackPanel>
+                    </Grid>
+
+                </Border>
+                <Button Click="ShutDown_Click" Style="{StaticResource NoDefaultBlue}" Grid.Row="4">
+                    <Button.Effect>
+                        <DropShadowEffect ShadowDepth="0" Opacity="0.5" BlurRadius="15"></DropShadowEffect>
+                    </Button.Effect>
+                    <Image Cursor="Hand" Source="/EESDD;component/Images/Experience/shutdown.png" ></Image>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>
