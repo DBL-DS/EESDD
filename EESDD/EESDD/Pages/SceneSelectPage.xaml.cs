@@ -51,12 +51,12 @@ namespace EESDD.Pages
             else if (clickBtn.Name.Equals("LittleTwo"))
             {
                 changeDetail(SceneTwoDetail);
-                PageList.Main.Selection.SceneSelect = UserSelections.SceneSecurityOne;
+                PageList.Main.Selection.SceneSelect = UserSelections.SceneBrake;
             }
             else if (clickBtn.Name.Equals("LittleThree"))
             {
                 changeDetail(SceneThreeDetail);
-                PageList.Main.Selection.SceneSelect = UserSelections.SceneSecurityTwo;
+                PageList.Main.Selection.SceneSelect = UserSelections.SceneLaneChange;
             }
             else if (clickBtn.Name.Equals("LittleFour"))
             {
@@ -80,17 +80,22 @@ namespace EESDD.Pages
             if (!((Button)sender).Equals(currentMode))
             {
                 currentMode = (Button)sender;
+                NormalCheck.Visibility = System.Windows.Visibility.Hidden;
+                LowDistractedCheck.Visibility = System.Windows.Visibility.Hidden;
+                HighDistractedCheck.Visibility = System.Windows.Visibility.Hidden;
                 switch (((Button)sender).Name)
                 {
                     case "NormalMode":
                         NormalCheck.Visibility = System.Windows.Visibility.Visible;
-                        DistractedCheck.Visibility = System.Windows.Visibility.Hidden;
                         PageList.Main.Selection.ModeSelect = UserSelections.NormalMode;
                         break;
-                    case "DistractedMode":
-                        NormalCheck.Visibility = System.Windows.Visibility.Hidden;
-                        DistractedCheck.Visibility = System.Windows.Visibility.Visible;
-                        PageList.Main.Selection.ModeSelect = UserSelections.DistractedMode;
+                    case "LowDistractedMode":
+                        LowDistractedCheck.Visibility = System.Windows.Visibility.Visible;
+                        PageList.Main.Selection.ModeSelect = UserSelections.LowDistractedMode;
+                        break;
+                    case "HighDistractedMode":
+                        HighDistractedCheck.Visibility = System.Windows.Visibility.Visible;
+                        PageList.Main.Selection.ModeSelect = UserSelections.HighDistractedMode;
                         break;
                 }
             }
@@ -99,7 +104,7 @@ namespace EESDD.Pages
         private void Start_Click(object sender, RoutedEventArgs e)
         {
             PageList.Main.setPage(PageList.NewExperience);
-            PageList.Experience.startRefresh(false);
+            PageList.Experience.startRefresh();
         }
     }
 }

@@ -17,13 +17,13 @@ namespace EESDD.Control.Operation
             modeSelect = 0;
         }
 
-        public const int ScenePractice = 0;         //Default Scene Selection
-        public const int SceneSecurityOne = 1;
-        public const int SceneSecurityTwo = 2;
-        public const int SceneSecurityThree = 3;
-        public const int SceneSmoothOne = 4;
+        public const int ScenePractice = 3;         //Default Scene Selection
+        public const int SceneBrake = 4;
+        public const int SceneLaneChange = 5;
+        public const int SceneSmoothOne = 6;
         public const int NormalMode = 0;            //Default Mode Selection
-        public const int DistractedMode = 1;
+        public const int LowDistractedMode = 1;
+        public const int HighDistractedMode = 2;
 
         public int SceneSelect
         {

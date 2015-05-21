@@ -40,7 +40,7 @@ namespace EESDD.Pages
         private void NextButton_BtnClick(object sender, EventArgs e)
         {
             PageList.Main.Selection.ModeSelect = normalSelected ?
-                UserSelections.NormalMode : UserSelections.DistractedMode;         
+                UserSelections.NormalMode : UserSelections.LowDistractedMode;         
             PageList.Main.setPage(PageList.GetReady);
         }
 
