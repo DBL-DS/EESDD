@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="EESDD.MainWindow"
         xmlns:tabs="clr-namespace:EESDD.Widgets.Buttons"
         Title="MainWindow" Height="700" Width="1100" MinHeight="600" MinWidth="900" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" ResizeMode="CanResizeWithGrip" Background="{x:Null}"
+        StateChanged="WindowStateChange"
         >
     <Window.Resources>
         <ResourceDictionary>
@@ -46,11 +47,13 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Button Height="25" Width="80" Grid.Column="0" x:Name="LogOutBtn" Click="LogOutButton_Click" ToolTip="Log out" Style="{StaticResource TabsNormalStyle}">Log out</Button>
                 <Button Height="25" Width="80" Grid.Column="1" ToolTip="Help Document" Style="{StaticResource TabsNormalStyle}">Help</Button>
                 <Button Height="25" Width="80" Grid.Column="2" Style="{StaticResource TabsNormalStyle}">About us</Button>
-                <Button Height="25" Width="80" Grid.Column="3" Click="CloseButton_Click" ToolTip="Close the application" Style="{StaticResource TabsNormalStyle}">Close</Button>
+                <Button Height="25" Width="80" Grid.Column="3" Click="Resize_Click" x:Name="ResizeBtn" ToolTip="Maximum the window" Style="{StaticResource TabsNormalStyle}">Full Screen</Button>
+                <Button Height="25" Width="80" Grid.Column="4" Click="CloseButton_Click" ToolTip="Close the application" Style="{StaticResource TabsNormalStyle}">Close</Button>
             </Grid>
         </Grid>
         <Frame NavigationUIVisibility="Hidden" Name="MainFrame" Grid.Row="1"></Frame>

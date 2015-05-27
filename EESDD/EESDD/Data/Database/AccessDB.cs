@@ -26,7 +26,7 @@ namespace EESDD.Data.DataBase
 
         public void updateData(String name,String path,String reg,String login,int count)
         {
-            string sql = "UPDATE [User] SET experiencesPath ='" + path + "',registerDate='" + reg + "',loginDate='" + login + "',accessCount=" + count + "WHERE usrName='" + name + "'";
+            string sql = "UPDATE [User] SET experiencesPath ='" + path + "',registerDate='" + reg + "',loginDate='" + login + "',accessCount=" + count + " WHERE usrName='" + name + "'";
             OleDbCommand mycom = new OleDbCommand(sql, mycon);
             mycom.ExecuteReader();
         }
@@ -46,7 +46,8 @@ namespace EESDD.Data.DataBase
             if (myReader.HasRows)
             {
                 myReader.Read();
-                type = myReader.GetInt32(0);
+                if (myReader.Depth != 0)
+                    type = myReader.GetInt32(0);
             }
             return type;
         }
@@ -59,7 +60,8 @@ namespace EESDD.Data.DataBase
             if (myReader.HasRows)
             {
                 myReader.Read();
-                path = myReader.GetString(0);
+                if (myReader.Depth != 0)
+                    path = myReader.GetString(0);
             }
             return path;
         }
@@ -72,7 +74,8 @@ namespace EESDD.Data.DataBase
             if (myReader.HasRows)
             {
                 myReader.Read();
-                path = myReader.GetString(0);
+                if (myReader.Depth != 0)
+                    path = myReader.GetString(0);
             }
             return path;
         }
@@ -85,7 +88,8 @@ namespace EESDD.Data.DataBase
             if (myReader.HasRows)
             {
                 myReader.Read();
-                path = myReader.GetString(0);
+                if (myReader.Depth != 0)
+                    path = myReader.GetString(0);
             }
             return path;
         }
@@ -98,7 +102,8 @@ namespace EESDD.Data.DataBase
             if (myReader.HasRows)
             {
                 myReader.Read();
-                type = myReader.GetInt32(0);
+                if (myReader.Depth != 0)
+                    type = myReader.GetInt32(0);
             }
             return type;
         }

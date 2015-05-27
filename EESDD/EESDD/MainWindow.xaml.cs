@@ -64,8 +64,7 @@ namespace EESDD
         }
 
         public void setPage(Page page) {
-            if (page.Equals(PageList.SceneSelect) || page.Equals(PageList.ModeSelect) 
-                || page.Equals(PageList.GetReady) || page.Equals(PageList.Experience)){
+            if (page.Equals(PageList.SceneSelect) || page.Equals(PageList.Experience)){
                 PageList.CurrentExperience = page;
             }
             
@@ -170,10 +169,9 @@ namespace EESDD
 
         private void LogOutButton_Click(object sender, RoutedEventArgs e)
         {
-            LogOutButtonInvisiable();
-            PageList.Main.setPage(PageList.Login);
-            PageList.Main.User.logOut();
-            PageList.Main.User = new User();
+            this.setPage(PageList.Login);
+            this.User.logOut();
+            this.init();
         }
         public void LogOutButtonVisiable()
         {
@@ -184,6 +182,34 @@ namespace EESDD
         {
             LogOutBtn.Visibility = System.Windows.Visibility.Hidden;
         }
+
+        private void Resize_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState != System.Windows.WindowState.Maximized)
+            {
+                this.WindowState = System.Windows.WindowState.Maximized;
+            }
+            else
+            {
+                this.WindowState = System.Windows.WindowState.Normal;
+            }
+        }
+
+        private void WindowStateChange(object sender, EventArgs e)
+        {
+            if (this.WindowState == System.Windows.WindowState.Maximized)
+            {
+                ResizeBtn.Content = "Resize";
+                ResizeBtn.ToolTip = "Resize the window";
+            }
+            else
+            {
+                ResizeBtn.Content = "Full Screen";
+                ResizeBtn.ToolTip = "Maximum the window";
+            }           
+        }
+
+        
     }
 
     public static class PageList
@@ -193,8 +219,6 @@ namespace EESDD
         static LoginPage login;
         static EvaluationPage evaluation;
         static SceneSelectPage sceneSelect;
-        static ModeSelectPage modeSelect;
-        static GetReadyPage getReady;
         static ExperiencePage experience;
         static DataExportAuthenticationPage authentication;
         static DataExportPage dataExport;
@@ -225,6 +249,7 @@ namespace EESDD
                 {
                     login = new LoginPage();
                 }
+                login.ToDefault();
                 return login; 
             }
         }
@@ -246,28 +271,6 @@ namespace EESDD
                     sceneSelect = new SceneSelectPage();
                 }
                 return sceneSelect;
-            }
-        }
-        public static ModeSelectPage ModeSelect
-        {
-            get
-            {
-                if (modeSelect == null)
-                {
-                    modeSelect = new ModeSelectPage();
-                }
-                return modeSelect;
-            }
-        }
-        public static GetReadyPage GetReady
-        {
-            get
-            {
-                if (getReady == null)
-                {
-                    getReady = new GetReadyPage();
-                }
-                return getReady;
             }
         }
         public static ExperiencePage Experience

@@ -20,7 +20,7 @@ namespace EESDD.VISSIM
        
         public double getAvgDelayTime()
         {
-            string sql = "SELECT AVG(Delay) FROM [2015_01_31_DELAYTIMES]";
+            string sql = "SELECT AVG(Delay) FROM [DELAYTIMES]";
             OleDbCommand mycom = new OleDbCommand(sql, mycon);
             myReader = mycom.ExecuteReader();
             double type = -1;
@@ -33,7 +33,7 @@ namespace EESDD.VISSIM
         }
         public double getAvgQueueLengh()
         {
-            string sql = "SELECT AVG(Avg_) FROM [2015_01_31_QUEUELENGTH]";
+            string sql = "SELECT AVG(Avg_) FROM [QUEUELENGTH]";
             OleDbCommand mycom = new OleDbCommand(sql, mycon);
             myReader = mycom.ExecuteReader();
             double  type = -1;
@@ -46,7 +46,7 @@ namespace EESDD.VISSIM
         }
         public double getAvgVelocity()
         {
-            string sql = "SELECT AVG(v) FROM [2015_01_31_VEH_RECORD]";
+            string sql = "SELECT AVG(v) FROM [VEH_RECORD]";
             OleDbCommand mycom = new OleDbCommand(sql, mycon);
             myReader = mycom.ExecuteReader();
             double type = -1;

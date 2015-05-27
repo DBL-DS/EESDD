@@ -25,10 +25,5 @@ namespace EESDD.Pages
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            PageList.Main.setPage(PageList.GetReady);            
-        }
     }
 }

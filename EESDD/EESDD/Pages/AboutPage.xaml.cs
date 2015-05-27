@@ -24,7 +24,6 @@ namespace EESDD.Pages
         public AboutPage()
         {
             InitializeComponent();
-            Tabs.setActived(TabsTitle.AboutTab);
         }
     }
 }

@@ -77,7 +77,7 @@ namespace EESDD.Control.User
             else
             {
                 string time = DateTime.Now.ToShortDateString();
-                database.insertData(name, userClass, fileName, database.getRegisterDate(name), time, loginCount);
+                database.updateData(name, fileName, database.getRegisterDate(name), time, loginCount);
             }
 
             database.Close();
@@ -170,6 +170,8 @@ namespace EESDD.Control.User
         public void addExpUnit(ExperienceUnit unit)
         {
             experienceChanged = true;
+            if (experiences == null)
+                experiences = new List<ExperienceUnit>();
             experiences.Add(unit);
         }
         public int UnitSize

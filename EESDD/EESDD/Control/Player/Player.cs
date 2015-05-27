@@ -114,6 +114,9 @@ namespace EESDD.Control.Player
              udp.close();
              udp = null;
 
+             if (vissim != null)
+                vissim.Stop();
+
              if (state)
              {
                  ExperienceUnit unit = new ExperienceUnit();

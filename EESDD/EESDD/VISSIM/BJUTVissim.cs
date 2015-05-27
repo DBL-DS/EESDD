@@ -19,7 +19,6 @@ namespace EESDD.VISSIM
         private Net net;
         private DataVehicle data;
         private bool over;
-        SignalHead head1,head2,head3;
         SignalController signalController;
         SignalGroup signalGroup;
 
@@ -32,6 +31,8 @@ namespace EESDD.VISSIM
         private int link;
         private int lastLane;
         private bool dataIn;
+        private int scene;
+        private bool running;
 
         //路灯1为红色，3为绿灯，4为黄灯
         private int signalState;
@@ -101,20 +102,21 @@ namespace EESDD.VISSIM
             over = false;
             initRoot();
             initNet();
+            initData();
         }
 
         private void initRoot() {
-            int scene = PageList.Main.Selection.SceneSelect;
+            scene = PageList.Main.Selection.SceneSelect;
             switch (scene)
             {
                 case UserSelections.ScenePractice:
                     vissimMapFilePath = System.IO.Directory.GetCurrentDirectory() + "\\vissim\\map\\2015-01-31.inp";
                     break;
                 case UserSelections.SceneBrake:
-                    vissimMapFilePath = System.IO.Directory.GetCurrentDirectory() + "\\vissim\\map\\2015-01-31.inp";
+                    vissimMapFilePath = System.IO.Directory.GetCurrentDirectory() + "\\vissim\\map\\wangheqiao.inp";
                     break;
                 case UserSelections.SceneIntersection:
-                    vissimMapFilePath = System.IO.Directory.GetCurrentDirectory() + "\\vissim\\map\\2015-01-31.inp";
+                    vissimMapFilePath = System.IO.Directory.GetCurrentDirectory() + "\\vissim\\map\\zuixinlukou.inp";
                     break;
             }
         }
@@ -136,18 +138,12 @@ namespace EESDD.VISSIM
             vissim.LoadNet(vissimMapFilePath);
             net = vissim.Net;
             simulation = vissim.Simulation;
-            simulation.Resolution = 4;
-
-            
-
+            simulation.Resolution = 4;         
             
             if (net.SignalControllers.Count!=0)
             {
                 signalController = net.SignalControllers.GetSignalControllerByNumber(1);
                 signalGroup = signalController.SignalGroups.GetSignalGroupByNumber(1);
-                head1 = signalGroup.SignalHeads.GetSignalHeadByNumber(1);
-                head2 = signalGroup.SignalHeads.GetSignalHeadByNumber(2);
-                head3 = signalGroup.SignalHeads.GetSignalHeadByNumber(3);
             }
 
 
@@ -183,24 +179,26 @@ namespace EESDD.VISSIM
         }
         public void Stop()
         {
+            running = false;
             simulation.Stop();
             vissim.Exit();
         }
         public void Run()
         {
-            //signalgroup.set_AttValue("State", 1);
-            while (/*(vehicle = getVehicle(3)) != null && */count!=-1)
+            running = true;
+            while (count!=-1 && running)
             {
                 if (dataIn && getVehicle(1) != null)
                 {
                     vehicle.set_AttValue("SPEED", speed);
                     //vehicle.set_AttValue("LANE", lane);
-                    if(link!=2)
+                    if (link != 2 && scene == UserSelections.SceneBrake)
                     {
                         vehicle.MoveToLinkCoordinate(link,1,coord);
                     }
                     vehicle.set_AttValue("DESIREDSPEED", -1000);
-                    //Console.WriteLine(vehicle.get_AttValue("LENGTH"));
+
+                    RunSingle();
 
                 }
 
@@ -208,8 +206,7 @@ namespace EESDD.VISSIM
                 {
 
                     setSignal(signalState);
-                }
-                RunSingle();   
+                }   
                 Thread.Sleep(250);
             }
             
@@ -266,10 +263,6 @@ namespace EESDD.VISSIM
 
         private void setSignal(int state)
         {
-            
-                //head1.set_AttValue("STATE", state);
-                //head2.set_AttValue("STATE", state);
-                //head3.set_AttValue("STATE", state);
             signalGroup.set_AttValue("STATE", state);
 
         }

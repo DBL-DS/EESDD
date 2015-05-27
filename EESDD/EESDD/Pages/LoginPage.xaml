@@ -47,7 +47,9 @@
                             <Border.Effect>
                                 <DropShadowEffect Color="#FF6CDFFF" ShadowDepth="0" BlurRadius="3"></DropShadowEffect>
                             </Border.Effect>
-                            <Button Cursor="Hand" Click="Login_Click" FontFamily="Arial" Content="Sign in" Style="{StaticResource NoDefaultBlue}" Foreground="White" FontSize="15"/>
+                            <Button Cursor="Hand" Click="Login_Click" FontFamily="Arial" Style="{StaticResource NoDefaultBlue}" Foreground="White" FontSize="15">
+                                <TextBlock TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="100" Height="35" Text="Sign in" Padding="10" />
+                            </Button>
                         </Border>
                     </Border>
                 </Grid>

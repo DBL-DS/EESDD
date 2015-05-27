@@ -27,20 +27,33 @@ namespace EESDD.Pages
 
         private void Login_Click(object sender, RoutedEventArgs e)
         {
-            PageList.Main.LogOutButtonVisiable();
             ToLogin();
         }
         private void ToLogin()
         {
             string nickName = LoginName.Text.Trim();
-            PageList.Main.User.logIn(nickName);
-            PageList.Main.setPage(PageList.SceneSelect);
-            PageList.Main.setDefaultChosen();
+            if (nickName != "")
+            {
+                PageList.Main.LogOutButtonVisiable();
+                PageList.Main.User.logIn(nickName);
+                PageList.Main.setPage(PageList.SceneSelect);
+                PageList.Main.setDefaultChosen();
+            }
+            else
+            {
+                CustomMessageBox.Show("提示","用户名不能为空！");
+            }
         }
         private void LoginName_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
                 ToLogin();
+        }
+
+        public void ToDefault()
+        {
+            LoginName.Text = "";
+            LoginName.Focus();
         }
     }
 }
