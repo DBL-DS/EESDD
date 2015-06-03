@@ -25,12 +25,6 @@ namespace EESDD.Pages
         public DataExportAuthenticationPage()
         {
             InitializeComponent();
-            Tabs.setActived(TabsTitle.DataTab);
-        }
-
-        private void NextButton_BtnClick(object sender, EventArgs e)
-        {
-            PageList.Main.setPage(PageList.DataExport);
         }
     }
 }

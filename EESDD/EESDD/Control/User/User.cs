@@ -12,121 +12,163 @@ namespace EESDD.Control.User
 {
     class User
     {
-        string name;
-        int userClass;
-        int loginCount;
-        List<ExperienceUnit> experiences;
-        bool newUser;
-        bool experienceChanged;
-
-        string databaseFilePath;
-        string expFilesRoot;
+        private static string experiencesFileNameFormat = "yyyyMMddHHmmss";
+        private static string loginTimeFormat = "yyyy-MM-dd HH:mm:ss";
+        private static string expFilesRoot = System.IO.Directory.GetCurrentDirectory() + "\\data\\";
 
         public User()
         {
-            init();
         }
 
-        private void initRoot() {
-            databaseFilePath = System.IO.Directory.GetCurrentDirectory() + "\\data\\database\\EESDD.accdb";
-            expFilesRoot = System.IO.Directory.GetCurrentDirectory() + "\\data\\";
-        }
-        private void init()
+        private string loginName;
+
+        public string LoginName
         {
-            initRoot();
-            experienceChanged = false;
-            loginCount = 0;
+            get { return loginName; }
+            set { loginName = value; }
+        }
+
+        private string realName;
+
+        public string RealName
+        {
+            get { return realName; }
+            set { realName = value; }
+        }
+
+        private string gender;
+
+        public string Gender
+        {
+            get { return gender; }
+            set { gender = value; }
+        }
+
+        private float height;
+
+        public float Height
+        {
+            get { return height; }
+            set { height = value; }
+        }
+
+        private float weight;
+
+        public float Weight
+        {
+            get { return weight; }
+            set { weight = value; }
+        }
+
+        private int age;
+
+        public int Age
+        {
+            get { return age; }
+            set { age = value; }
+        }
+
+        private int drivingAge;
+
+        public int DrivingAge
+        {
+            get { return drivingAge; }
+            set { drivingAge = value; }
+        }
+
+        private string career;
+
+        public string Career
+        {
+            get { return career; }
+            set { career = value; }
+        }
+
+        private string contact;
+
+        public string Contact
+        {
+            get { return contact; }
+            set { contact = value; }
+        }
+
+        private int userClass;
+
+        public int UserClass
+        {
+            get { return userClass; }
+            set { userClass = value; }
+        }
+
+        private int loginCount;
+
+        public int LoginCount
+        {
+            get { return loginCount; }
+            set { loginCount = value; }
+        }
+
+        private string registerDate;
+
+        public string RegisterDate
+        {
+            get { return registerDate; }
+            set { registerDate = value; }
+        }
+
+        private string lastLoginDate;
+
+        public string LastLoginDate
+        {
+            get { return lastLoginDate; }
+            set { lastLoginDate = value; }
+        }
+
+        private string experiencesFileName;
+
+        public string ExperiencesFileName
+        {
+            get {
+                return experiencesFileName; 
+            }
+            set { 
+                experiencesFileName = value;
+            }
+        }
+
+        private List<ExperienceUnit> experiences;
+
+        public List<ExperienceUnit> Experiences
+        {
+            get { return experiences; }
+            set { experiences = value; }
+        }
+        public ExperienceUnit NewExperience
+        {
+            set
+            {
+                if (experiences == null)
+                {
+                    experiences = new List<ExperienceUnit>();                 
+                }
+                experiences.Add(value);
+            }
         }
         /// <summary>
-        /// 将用户信息存入数据库，experiences序列化后存入文件，文件名存入数据库
+        /// 1. count of login times plus
+        /// 2. update last login time
+        /// 3. set experiences depend on experiencesFileName
         /// </summary>
-        public void logIn(string name)
+        public void newLogin()
         {
-            this.name = name;
-
-            if (userExist(name))
-                setOldUser();
-            else
-                setNewUser();
-        }
-        private bool userExist(string name)
-        {
-            AccessDB database = new AccessDB(databaseFilePath);
-            bool result = database.isExisted(name);
-            database.Close();
-
-            return result;
-        }
-        /// <summary>
-        /// 将用户信息存入数据库，experiences序列化后存入文件，文件名存入数据库
-        /// </summary>
-        public void logOut()
-        {
-            string fileName = "";
-            if (experiences != null && experiences.Count != 0 && experienceChanged)
-            {
-                fileName = saveExperienceListToFile();
-            }
-            AccessDB database = new AccessDB(databaseFilePath);
-
-            if (newUser)
-            {
-                string time = DateTime.Now.ToShortDateString();
-                database.insertData(name, userClass, fileName, time, time, 1);
-            }
-            else
-            {
-                string time = DateTime.Now.ToShortDateString();
-                database.insertData(name, userClass, fileName, database.getRegisterDate(name), time, loginCount);
-            }
-
-            database.Close();
+            loginCount++;
+            lastLoginDate = DateTime.Now.ToString(loginTimeFormat);
+            setExperienceListFromFile();
         }
 
-        public void setNewUser()
+        public bool saveExperienceListToFile()
         {
-            newUser = true;
-            loginCount ++;
-            this.userClass = 0;
-            experiences = new List<ExperienceUnit>();
-        }
-
-        public void setOldUser()
-        {
-            string fileName;
-            newUser = false;
-
-            AccessDB database = new AccessDB(databaseFilePath);
-
-            loginCount = database.getLoginTime(name) + 1;
-            fileName = database.getExperienceFileName(name);
-            setExperienceListFromFile(fileName);
-            userClass = database.getUserClass(name);
-
-            database.Close();
-        }
-        private void loadUser()
-        {
-            
-        }
-        private void saveUser()
-        {
-            AccessDB database = new AccessDB(databaseFilePath);
-
-            if (newUser)
-            {
-                //database.insertData(name,userClass,)
-            }
-
-            database.Close();
-        }
-        private void saveUser(string fileName)
-        {
-
-        }
-        public string saveExperienceListToFile()
-        {
-            string fileName = DateTime.Now.ToFileTimeUtc().ToString();
+            string fileName = DateTime.Now.ToString(experiencesFileNameFormat);
             string filePath = expFilesRoot + fileName;
 
             BinaryFormatter bf = new BinaryFormatter();
@@ -136,51 +178,26 @@ namespace EESDD.Control.User
                 {
                     bf.Serialize(fs, experiences);
                 }
-                return fileName;
-            }
-            return null;
-        }
 
-        public void setExperienceListFromFile(string fileName)
+                experiencesFileName = fileName;             //if success, update experiencesFileName
+
+                return true;
+            }
+            return false;
+        }
+        private bool setExperienceListFromFile()
         {
-            if (fileName == null || fileName.Equals(""))
-                return;
-            
-            string filePath = expFilesRoot + fileName;
+            if (experiencesFileName == null || experiencesFileName.Equals(""))
+                return false;
+
+            string filePath = expFilesRoot + experiencesFileName;
             BinaryFormatter bf = new BinaryFormatter();
             using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 experiences = (List<ExperienceUnit>)bf.Deserialize(fs);
             }
-        }
 
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
-
-        public int UserClass
-        {
-            get { return userClass; }
-            set { userClass = value; }
-        }
-
-        public void addExpUnit(ExperienceUnit unit)
-        {
-            experienceChanged = true;
-            experiences.Add(unit);
-        }
-        public int UnitSize
-        {
-            get { return experiences.Count; }
-        }
-
-        public bool NewUser
-        {
-            get { return newUser; }
-            set { newUser = value; }
+            return true;
         }
     }
 }

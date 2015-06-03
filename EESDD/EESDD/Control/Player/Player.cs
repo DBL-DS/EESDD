@@ -114,6 +114,9 @@ namespace EESDD.Control.Player
              udp.close();
              udp = null;
 
+             if (vissim != null)
+                vissim.Stop();
+
              if (state)
              {
                  ExperienceUnit unit = new ExperienceUnit();
@@ -123,7 +126,7 @@ namespace EESDD.Control.Player
                  Evaluation evaluation = new Evaluation();
                  unit.Evaluation = evaluation;
 
-                 PageList.Main.User.addExpUnit(unit);
+                 //PageList.Main.User.addExpUnit(unit);
              }
 
          }
