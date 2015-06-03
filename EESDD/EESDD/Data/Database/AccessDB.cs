@@ -5,114 +5,106 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.OleDb;
 using EESDD.Control.User;
+using System.Data;
 namespace EESDD.Data.DataBase
 {
+    //连接数据库通用类
     class AccessDB
     {
-        OleDbConnection mycon = null;
-        OleDbDataReader myReader = null;
+        private OleDbConnection connection;
+        private OleDbCommand command;
+        private string strcon;
+
+
         public AccessDB(string path)
         {
-            string strcon = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source = " + path;
-            mycon = new OleDbConnection(strcon);
-            mycon.Open();
-        }
-        public void insertData(String name,int type,String path,String reg,String login,int count)
-        {
-            string sql = "insert into [User] (usrName,usrType,experiencesPath,registerDate,loginDate,accessCount) values('" + name + "'," + type + ",'" + path + "','"+reg+"','"+login+"',"+count+")";
-            OleDbCommand mycom = new OleDbCommand(sql, mycon);
-            mycom.ExecuteReader();
+            init(path);
         }
 
-        public void updateData(String name,String path,String reg,String login,int count)
+
+        private void init(string path)
         {
-            string sql = "UPDATE [User] SET experiencesPath ='" + path + "',registerDate='" + reg + "',loginDate='" + login + "',accessCount=" + count + " WHERE usrName='" + name + "'";
-            OleDbCommand mycom = new OleDbCommand(sql, mycon);
-            mycom.ExecuteReader();
+            connection = new OleDbConnection();
+            command = new OleDbCommand();
+            strcon = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source = " + path;
         }
-        public Boolean isExisted(String name)
-        {
-            string sql = "select * FROM [User] WHERE usrName = '"+name+"'";
-            OleDbCommand mycom = new OleDbCommand(sql, mycon);
-            myReader = mycom.ExecuteReader();
-            return myReader.HasRows;
+
+
+
+        private void openConnection() {           
+            if (connection.State == System.Data.ConnectionState.Closed) {
+                connection.ConnectionString = strcon;
+                command.Connection = connection;
+                try 
+	            {	        
+		            connection.Open();
+	            }
+	            catch (Exception e)
+	            {
+		            throw new Exception(e.Message);
+	            }
+            }   
         }
-        public int getUserClass(string name)
+
+        public void closeConnection()
         {
-            string sql = "SELECT usrType FROM [User] WHERE usrName = '"+name+"'";
-            OleDbCommand mycom = new OleDbCommand(sql, mycon);
-            myReader = mycom.ExecuteReader();
-            int type=-1;
-            if (myReader.HasRows)
+            if (connection.State == System.Data.ConnectionState.Open)
             {
-                myReader.Read();
-                if (myReader.Depth != 0)
-                    type = myReader.GetInt32(0);
+                try
+                {
+                    connection.Dispose();
+                    command.Dispose();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception(e.Message);
+                }
             }
-            return type;
         }
-        public String getExperienceFileName(string name)
+
+        public void execute(string sql)
         {
-            string sql = "SELECT experiencesPath FROM [User] WHERE usrName = '" + name + "'";
-            OleDbCommand mycom = new OleDbCommand(sql, mycon);
-            myReader = mycom.ExecuteReader();
-            String path = null;
-            if (myReader.HasRows)
+            try
             {
-                myReader.Read();
-                if (myReader.Depth != 0)
-                    path = myReader.GetString(0);
+                openConnection();
+                command.CommandType = System.Data.CommandType.Text;
+                command.CommandText = sql;
+                command.ExecuteNonQuery();
             }
-            return path;
-        }
-        public String getRegisterDate(string name)
-        {
-            string sql = "SELECT registerDate FROM [User] WHERE usrName = '" + name + "'";
-            OleDbCommand mycom = new OleDbCommand(sql, mycon);
-            myReader = mycom.ExecuteReader();
-            String path = null;
-            if (myReader.HasRows)
+            finally
             {
-                myReader.Read();
-                if (myReader.Depth != 0)
-                    path = myReader.GetString(0);
+                closeConnection();
             }
-            return path;
         }
-        public String getLastLoginDate(string name)
+
+        public OleDbDataReader executeWithDataReader(string sql)
         {
-            string sql = "SELECT loginDate FROM [User] WHERE usrName = '" + name + "'";
-            OleDbCommand mycom = new OleDbCommand(sql, mycon);
-            myReader = mycom.ExecuteReader();
-            String path = null;
-            if (myReader.HasRows)
+            OleDbDataReader reader = null;
+
+            openConnection();
+            command.CommandType = CommandType.Text;
+            command.CommandText = sql;
+            reader = command.ExecuteReader();
+            
+            return reader;
+        }
+        public DataTable executeWithDataTable(string sql)
+        {
+            DataTable table = new DataTable();
+            OleDbDataAdapter da = new OleDbDataAdapter();
+            try
             {
-                myReader.Read();
-                if (myReader.Depth != 0)
-                    path = myReader.GetString(0);
+                openConnection();
+                command.CommandType = CommandType.Text;
+                command.CommandText = sql;
+                da.SelectCommand = command;
+                da.Fill(table);
             }
-            return path;
-        }
-        public int getLoginTime(string name)
-        {
-            string sql = "SELECT accessCount FROM [User] WHERE usrName = '" + name + "'";
-            OleDbCommand mycom = new OleDbCommand(sql, mycon);
-            myReader = mycom.ExecuteReader();
-            int type = -1;
-            if (myReader.HasRows)
+            finally
             {
-                myReader.Read();
-                if (myReader.Depth != 0)
-                    type = myReader.GetInt32(0);
+                closeConnection();
             }
-            return type;
-        }
-        public void Close()
-        {
-            if (myReader != null) {         
-                myReader.Close();
-            }
-            mycon.Close();
+            return table;
         }
     }
 }

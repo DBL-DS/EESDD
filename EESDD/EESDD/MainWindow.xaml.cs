@@ -39,7 +39,17 @@ namespace EESDD
         internal User User
         {
             get { return user; }
-            set { user = value; }
+            set { 
+                user = value;
+                if (user != null)
+                {
+                    LogOutButtonVisiable();
+                }
+                else
+                {
+                    LogOutButtonInvisiable();
+                }
+            }
         }
 
         internal UserSelections Selection
@@ -57,8 +67,8 @@ namespace EESDD
         void init() {
             udpControl = new UDPController();
             selection = new UserSelections();
-            user = new User();
             player = new Player();
+            User = null;
 
             LogOutButtonInvisiable();
         }
@@ -107,7 +117,7 @@ namespace EESDD
 
         private void exp_BtnClick(object sender, EventArgs e)
         {
-            if (user.Name != null)
+            if (user.LoginName != null)
             {            
                 setChosen((TabsButton)sender);
                 PageList.Main.setPage(PageList.CurrentExperience);
@@ -120,7 +130,7 @@ namespace EESDD
 
         private void eva_BtnClick(object sender, EventArgs e)
         {
-            if (user.Name != null)
+            if (user.LoginName != null)
             {
                 setChosen((TabsButton)sender);
                 PageList.Main.setPage(PageList.CurrentEvaluation);
@@ -133,7 +143,7 @@ namespace EESDD
 
         private void data_BtnClick(object sender, EventArgs e)
         {
-            if (user.Name != null)
+            if (user.LoginName != null)
             {
                 setChosen((TabsButton)sender);
                 PageList.Main.setPage(PageList.CurrentData);
@@ -170,7 +180,7 @@ namespace EESDD
         private void LogOutButton_Click(object sender, RoutedEventArgs e)
         {
             this.setPage(PageList.Login);
-            this.User.logOut();
+            //this.User.saveUserInfo();
             this.init();
         }
         public void LogOutButtonVisiable()

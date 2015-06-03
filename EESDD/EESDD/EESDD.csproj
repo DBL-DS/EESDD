@@ -89,6 +89,7 @@
       <DependentUpon>CustomMessageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\Database\AccessDB.cs" />
+    <Compile Include="Data\Database\UserDB.cs" />
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
@@ -310,6 +311,7 @@
     <Resource Include="Images\Select\start.png" />
     <Resource Include="Images\Select\car_blue.png" />
     <Resource Include="Images\Select\distracted_driving.jpg" />
+    <Resource Include="Images\Login\Arrow_Left-512.png" />
     <Content Include="Widgets\Chart\Lib\DynamicDataDisplay.dll" />
   </ItemGroup>
   <ItemGroup>

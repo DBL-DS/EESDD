@@ -15,8 +15,9 @@
 
     <Grid>
         <Border Name="border" Style="{StaticResource SelectionBorderNormalStyle}">
-            <Button Name="btn" Content="{Binding Path=BtnText, ElementName=selection}" Click="btn_Click"
+            <Button Name="btn" Click="btn_Click"
                     Width="Auto" Height="20" Margin="10,0,10,0" Style="{StaticResource SelectionNormalStyle}">
+                <TextBlock Text="{Binding Path=BtnText, ElementName=selection}" Height="20" Padding="5"></TextBlock>
             </Button>
         </Border>
     </Grid>

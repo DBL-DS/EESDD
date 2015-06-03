@@ -174,8 +174,7 @@ namespace EESDD.VISSIM
             {
                 Stop();
                 count = -1;
-            }
-            
+            }            
         }
         public void Stop()
         {
