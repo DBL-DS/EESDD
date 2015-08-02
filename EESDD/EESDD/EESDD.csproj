@@ -258,6 +258,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Resource Include="Fonts\Monaco.ttf" />
     <None Include="Properties\DataSources\EESDD.DataModel.SimulatedVehicle.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -273,24 +274,6 @@
     <Folder Include="Widgets\Scene\" />
   </ItemGroup>
   <ItemGroup>
-    <BlendEmbeddedFont Include="Fonts\AF TOMMY HILFIGER.TTF">
-      <IsSystemFont>True</IsSystemFont>
-      <All>True</All>
-      <AutoFill>True</AutoFill>
-      <Uppercase>True</Uppercase>
-      <Lowercase>True</Lowercase>
-      <Numbers>True</Numbers>
-      <Punctuation>True</Punctuation>
-    </BlendEmbeddedFont>
-    <BlendEmbeddedFont Include="Fonts\张海山锐线体简.ttf">
-      <IsSystemFont>True</IsSystemFont>
-      <All>True</All>
-      <AutoFill>True</AutoFill>
-      <Uppercase>True</Uppercase>
-      <Lowercase>True</Lowercase>
-      <Numbers>True</Numbers>
-      <Punctuation>True</Punctuation>
-    </BlendEmbeddedFont>
     <Resource Include="Images\Buttons\close.png" />
     <Resource Include="Images\Buttons\max.png" />
     <Resource Include="Images\Buttons\min.png" />
@@ -312,6 +295,9 @@
     <Resource Include="Images\Select\car_blue.png" />
     <Resource Include="Images\Select\distracted_driving.jpg" />
     <Resource Include="Images\Login\Arrow_Left-512.png" />
+    <Resource Include="Images\DataExport\Lock-icon.png" />
+    <Resource Include="Images\Buttons\right_arrow_bjut_blue.png" />
+    <Resource Include="Images\Buttons\right_arrow_bjut_blue_light.png" />
     <Content Include="Widgets\Chart\Lib\DynamicDataDisplay.dll" />
   </ItemGroup>
   <ItemGroup>

@@ -9,6 +9,7 @@ using EESDD.Control.Operation;
 using EESDD.Control.User;
 using System.Windows.Input;
 using EESDD.Widgets.Buttons;
+using EESDD.Data.Database;
 
 namespace EESDD
 {
@@ -180,7 +181,7 @@ namespace EESDD
         private void LogOutButton_Click(object sender, RoutedEventArgs e)
         {
             this.setPage(PageList.Login);
-            //this.User.saveUserInfo();
+            UserDB.updateExperiencesInfo(user);
             this.init();
         }
         public void LogOutButtonVisiable()

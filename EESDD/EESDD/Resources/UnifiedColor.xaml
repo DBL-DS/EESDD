@@ -128,4 +128,19 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+
+
+    <Style x:Key="ConfirmButtonImage" TargetType="Image">
+        <Setter Property="Source" Value="/EESDD;component/Images/Buttons/right_arrow_bjut_blue.png"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Source" Value="/EESDD;component/Images/Buttons/right_arrow_bjut_blue_light.png"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="DataGridHeader" TargetType="DataGridColumnHeader">
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Padding" Value="15,0,0,0" />
+    </Style>
 </ResourceDictionary>

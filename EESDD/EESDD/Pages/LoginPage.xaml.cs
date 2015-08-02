@@ -46,7 +46,8 @@ namespace EESDD.Pages
                     UserDB.updateLoginInfo(user);
 
                     PageList.Main.User = user;
-                    PageList.Main.setPage(PageList.SceneSelect);                                      
+                    PageList.Main.setPage(PageList.SceneSelect);
+                    PageList.Main.setDefaultChosen();              
                 }
                 else
                 {
