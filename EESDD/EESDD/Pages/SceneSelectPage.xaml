@@ -23,8 +23,9 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid>
-            <TextBlock Background="#77000000" Margin="280,20,50,0" Foreground="#ccffffff" FontSize="15" Height="30" Padding="20,5">
-                欢迎您，Hugh！请选择一个场景，开始体验。</TextBlock>
+            <TextBlock x:Name="titleTip" Background="#77000000" Margin="280,20,50,0" Foreground="#ccffffff" FontSize="15" Height="30" Padding="20,5">
+                
+            </TextBlock>
         </Grid>
         <Grid Grid.Row="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
             <Grid.RowDefinitions>
