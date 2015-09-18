@@ -4,17 +4,120 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:TabsTitle="clr-namespace:EESDD.Widgets.Menu"
+      xmlns:line="clr-namespace:EESDD.Widgets.Chart"
+      xmlns:btn="clr-namespace:EESDD.Widgets.Buttons"
       mc:Ignorable="d" 
       d:DesignHeight="665" d:DesignWidth="1090"
 	Title="EvaluationPage">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resources/StyleDictionary.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/EESDD;component/Resources/UnifiedColor.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    <Grid>
-        
+    <Grid  Background="#ff342947" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid>
+            <TextBlock x:Name="titleTip" Background="#77000000" Margin="280,20,50,0" Foreground="#ccffffff" FontSize="15" Height="30" Padding="20,5">
+
+            </TextBlock>
+        </Grid>
+        <Grid Grid.Row="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Border CornerRadius="10"  Background="#dd666666"  Margin="50,20,0,30" Width="180"  Grid.Column="0">
+                    <StackPanel>
+                        <Border Height="70" BorderThickness="0,0,0,2" BorderBrush="#FF898989">
+                            <TextBlock VerticalAlignment="Center" TextAlignment="Center" Foreground="LightGray" FontSize="24" FontFamily="Impact">场景选择</TextBlock>
+                        </Border>
+                        <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleOne"  Height="50" Margin="0,10,0,1">
+                            <Grid Height="50" Width="180">                                
+                                <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="练习"/>
+                            </Grid>
+                        </Button>
+                        <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleTwo" Height="50" Margin="0,1">
+                            <Grid Height="50" Width="180">                                
+                                <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="前车刹车"/>
+                            </Grid>
+                        </Button>
+                        <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleThree" Height="50" Margin="0,1">
+                            <Grid Height="50" Width="180">                                
+                                <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="并道"/>
+                            </Grid>
+                        </Button>
+                        <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleFour" Height="50" Margin="0,1">
+                            <Grid Height="50" Width="180">                                
+                                <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="交叉口"/>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
+
+                </Border>
+                <Grid Margin="53,20,47,30" Grid.Column="1">
+                    <Grid x:Name="sceneOne">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="200"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Style="{StaticResource BoundaryLine}" BorderThickness="0,0,0,0.5">
+                            <Grid Name="MainChart">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                        <ColumnDefinition></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Margin="30,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Grid.Column="0" x:Name="MainChartTitle" FontFamily="Monaco" FontSize="13">Main Chart Title</TextBlock>
+                                    <Grid Margin="0,0,30,0" Grid.Column="1" x:Name="ChartSelections" VerticalAlignment="Center" HorizontalAlignment="Right">
+                                        <StackPanel x:Name="ChartSelectionsSet" Orientation="Horizontal">
+                                            <btn:ChartSelectionButton BtnClick="MainChartChange" Margin="5,0" x:Name="speed" BtnText="Speed"></btn:ChartSelectionButton>
+                                            <btn:ChartSelectionButton BtnClick="MainChartChange" Margin="5,0" x:Name="acc" BtnText="Accleration"></btn:ChartSelectionButton>
+                                            <btn:ChartSelectionButton BtnClick="MainChartChange" Margin="5,0" x:Name="brake" BtnText="Brake"></btn:ChartSelectionButton>
+                                            <btn:ChartSelectionButton BtnClick="MainChartChange" Margin="5,0" x:Name="offset" BtnText="Offset Middle Line"></btn:ChartSelectionButton>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                                <Grid Grid.Row="1">
+                                    <line:LinePlotter x:Name="SpeedChart" Margin="30,0"></line:LinePlotter>
+                                    <line:LinePlotter x:Name="AccelerationChart" Visibility="Hidden" Margin="30,0"></line:LinePlotter>
+                                    <line:LinePlotter x:Name="OffsetChart" Visibility="Hidden" Margin="30,0"></line:LinePlotter>
+                                    <line:LinePlotter x:Name="BrakeChart" Visibility="Hidden" Margin="30,0"></line:LinePlotter>
+                                </Grid>
+                                <Grid Grid.Row="2">
+                                    <StackPanel Margin="30,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <Line Margin="40,0,10,0" VerticalAlignment="Center" Width="30" Stroke="#ffe0ff7d" X2="30" ></Line>
+                                        <TextBlock Foreground="White" FontFamily="Monaco">Normal</TextBlock>
+                                        <Line Margin="40,0,10,0" VerticalAlignment="Center" Width="30" Stroke="#ffff751d" X2="30" ></Line>
+                                        <TextBlock Foreground="White" FontFamily="Monaco">Distracted A</TextBlock>
+                                        <Line Margin="40,0,10,0" VerticalAlignment="Center" Width="30" Stroke="#ffff751d" X2="30" ></Line>
+                                        <TextBlock Foreground="White" FontFamily="Monaco">Distracted B</TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    <Grid x:Name="sceneTwo" Visibility="Hidden">
+
+                    </Grid>
+                    <Grid x:Name="sceneThree" Visibility="Hidden">
+
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

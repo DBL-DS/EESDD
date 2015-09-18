@@ -17,157 +17,168 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+    <Grid  Background="#ff342947" >
         <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Background="#ff342947" Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Border CornerRadius="10"  Background="#dd666666"  Margin="50,50,0,50" Width="180"  Grid.Column="0">
-                <StackPanel>
-                    <Border Height="70" BorderThickness="0,0,0,2" BorderBrush="#FF898989">
-                        <TextBlock VerticalAlignment="Center" TextAlignment="Center" Foreground="LightGray" FontSize="24" FontFamily="Impact">场景选择</TextBlock>
-                    </Border>
-                    <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleOne"  Height="50" Margin="0,10,0,1">                       
-                        <Grid Height="50" Width="180">
-                            <Image Margin="0,0,120,5" Height="20" Source="/EESDD;component/Images/Select/car_blue.png"></Image>
-                            <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="练习"/>
-                        </Grid>
-                    </Button>
-                    <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleTwo" Height="50" Margin="0,1">
-                        <Grid Height="50" Width="180">
-                            <Image Margin="0,0,120,5" Height="20" Source="/EESDD;component/Images/Select/car_blue.png"></Image>
-                            <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="前车刹车"/>
-                        </Grid>
-                    </Button>
-                    <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleThree" Height="50" Margin="0,1">
-                        <Grid Height="50" Width="180">
-                            <Image Margin="0,0,120,5" Height="20" Source="/EESDD;component/Images/Select/car_blue.png"></Image>
-                            <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="并道"/>
-                        </Grid>
-                    </Button>
-                    <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleFour" Height="50" Margin="0,1">
-                        <Grid Height="50" Width="180">
-                            <Image Margin="0,0,120,5" Height="20" Source="/EESDD;component/Images/Select/car_blue.png"></Image>
-                            <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="交叉口"/>
-                        </Grid>
-                    </Button>
-                </StackPanel>
+        <Grid>
+            <TextBlock x:Name="titleTip" Background="#77000000" Margin="280,20,50,0" Foreground="#ccffffff" FontSize="15" Height="30" Padding="20,5">
+                
+            </TextBlock>
+        </Grid>
+        <Grid Grid.Row="1"  VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Border CornerRadius="10"  Background="#dd666666"  Margin="50,20,0,30" Width="180"  Grid.Column="0">
+                    <StackPanel>
+                        <Border Height="70" BorderThickness="0,0,0,2" BorderBrush="#FF898989">
+                            <TextBlock VerticalAlignment="Center" TextAlignment="Center" Foreground="LightGray" FontSize="24" FontFamily="Impact">场景选择</TextBlock>
+                        </Border>
+                        <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleOne"  Height="50" Margin="0,10,0,1">
+                            <Grid Height="50" Width="180">
+                                <Image Margin="0,0,120,5" Height="20" Source="/EESDD;component/Images/Select/car_blue.png"></Image>
+                                <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="练习"/>
+                            </Grid>
+                        </Button>
+                        <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleTwo" Height="50" Margin="0,1">
+                            <Grid Height="50" Width="180">
+                                <Image Margin="0,0,120,5" Height="20" Source="/EESDD;component/Images/Select/car_blue.png"></Image>
+                                <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="前车刹车"/>
+                            </Grid>
+                        </Button>
+                        <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleThree" Height="50" Margin="0,1">
+                            <Grid Height="50" Width="180">
+                                <Image Margin="0,0,120,5" Height="20" Source="/EESDD;component/Images/Select/car_blue.png"></Image>
+                                <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="并道"/>
+                            </Grid>
+                        </Button>
+                        <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleFour" Height="50" Margin="0,1">
+                            <Grid Height="50" Width="180">
+                                <Image Margin="0,0,120,5" Height="20" Source="/EESDD;component/Images/Select/car_blue.png"></Image>
+                                <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="交叉口"/>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
 
-            </Border>
-            <Border Grid.Column="1"  Margin="53,50,47,50" CornerRadius="10"  Background="#dd666666">
-                <Border.Effect>
-                    <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.5"></DropShadowEffect>
-                </Border.Effect>
-                <Grid >
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition Height="150"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid Background="#FF333333" Panel.ZIndex="10">
-                        <Grid.Effect>
-                            <DropShadowEffect Color="#FFFFFAE9" BlurRadius="10" ShadowDepth="0" Opacity="0.3">
+                </Border>
+                <Border Grid.Column="1"  Margin="53,20,47,30" CornerRadius="10"  Background="#dd666666">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.5"></DropShadowEffect>
+                    </Border.Effect>
+                    <Grid >
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="150"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Background="#FF333333" Panel.ZIndex="10">
+                            <Grid.Effect>
+                                <DropShadowEffect Color="#FFFFFAE9" BlurRadius="10" ShadowDepth="0" Opacity="0.3">
 
-                            </DropShadowEffect>
-                        </Grid.Effect>
-                        <Grid x:Name="SceneOneDetail" Margin="10">
- 
-                            <Grid.Background>
-                                <ImageBrush ImageSource="/EESDD;component/Images/Select/24dff278761ea202593eaf3f4c5bbaa2.jpg" Stretch="UniformToFill"/>
-                            </Grid.Background>
-                            <Border Margin="0,20,20,0" CornerRadius="5" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#77000000">  
-                                <Border.Effect>
-                                    <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="5"></DropShadowEffect>                                    
-                                </Border.Effect>
-                                <Border HorizontalAlignment="Center" Width="250" VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">                                    
-                                    <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
+                                </DropShadowEffect>
+                            </Grid.Effect>
+                            <Grid x:Name="SceneOneDetail" Margin="10">
+
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="/EESDD;component/Images/Select/24dff278761ea202593eaf3f4c5bbaa2.jpg" Stretch="UniformToFill"/>
+                                </Grid.Background>
+                                <Border Margin="0,20,20,0" CornerRadius="5" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#77000000">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="5"></DropShadowEffect>
+                                    </Border.Effect>
+                                    <Border HorizontalAlignment="Center" Width="250" VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
+                                        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
+                                    </Border>
                                 </Border>
-                            </Border>
+                            </Grid>
+                            <Grid x:Name="SceneTwoDetail" Visibility="Hidden" Margin="10">
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="/EESDD;component/Images/Select/8c008eb29cdccdde9e2771a6932e63bb.jpg" Stretch="UniformToFill"/>
+                                </Grid.Background>
+                                <Border Margin="0,20,20,0" CornerRadius="5" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#77000000">
+                                    <Border HorizontalAlignment="Center" Width="250" VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
+                                        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
+                                    </Border>
+                                </Border>
+                            </Grid>
+                            <Grid x:Name="SceneThreeDetail" Visibility="Hidden" Margin="10">
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="/EESDD;component/Images/Select/8f29b3f33dfd48db7d511aa61a742ca1.jpg" Stretch="UniformToFill"/>
+                                </Grid.Background>
+                                <Border Margin="0,20,20,0" CornerRadius="5" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#77000000">
+                                    <Border HorizontalAlignment="Center" Width="250"  VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
+                                        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
+                                    </Border>
+                                </Border>
+                            </Grid>
+                            <Grid x:Name="SceneFourDetail" Visibility="Hidden" Margin="10">
+                                <Grid.Background>
+                                    <ImageBrush ImageSource="/EESDD;component/Images/Select/fcb345067859f6522db886f64ea23789.jpg" Stretch="UniformToFill"/>
+                                </Grid.Background>
+                                <Border Margin="0,20,20,0" CornerRadius="5" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#77000000">
+                                    <Border HorizontalAlignment="Center" Width="250"  VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
+                                        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
+                                    </Border>
+                                </Border>
+                            </Grid>
                         </Grid>
-                        <Grid x:Name="SceneTwoDetail" Visibility="Hidden" Margin="10">
-                            <Grid.Background>
-                                <ImageBrush ImageSource="/EESDD;component/Images/Select/8c008eb29cdccdde9e2771a6932e63bb.jpg" Stretch="UniformToFill"/>
-                            </Grid.Background>
-                            <Border Margin="0,20,20,0" CornerRadius="5" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#77000000">
-                                <Border HorizontalAlignment="Center" Width="250" VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
-                                    <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
-                                </Border>
-                            </Border>
-                        </Grid>
-                        <Grid x:Name="SceneThreeDetail" Visibility="Hidden" Margin="10">
-                            <Grid.Background>
-                                <ImageBrush ImageSource="/EESDD;component/Images/Select/8f29b3f33dfd48db7d511aa61a742ca1.jpg" Stretch="UniformToFill"/>
-                            </Grid.Background>
-                            <Border Margin="0,20,20,0" CornerRadius="5" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#77000000">
-                                <Border HorizontalAlignment="Center" Width="250"  VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
-                                    <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
-                                </Border>
-                            </Border>
-                        </Grid>
-                        <Grid x:Name="SceneFourDetail" Visibility="Hidden" Margin="10">
-                            <Grid.Background>
-                                <ImageBrush ImageSource="/EESDD;component/Images/Select/fcb345067859f6522db886f64ea23789.jpg" Stretch="UniformToFill"/>
-                            </Grid.Background>
-                            <Border Margin="0,20,20,0" CornerRadius="5" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#77000000">
-                                <Border HorizontalAlignment="Center" Width="250"  VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
-                                    <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
-                                </Border>
-                            </Border>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Button Click="ModeSelect_Click" x:Name="NormalMode" Width="130" Height="90" Style="{StaticResource ModeSelectButtonStyle}">
+                                <Grid Width="120" Height="80">
+                                    <Image Source="/EESDD;component/Images/Select/9d1925fd26dc309f254ad965c0dfbf75.jpeg" Stretch="UniformToFill">
+                                        <Image.Effect>
+                                            <BlurEffect Radius="10"></BlurEffect>
+                                        </Image.Effect>
+                                    </Image>
+                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFE0FF7D" FontSize="20" FontFamily="YouYuan" FontWeight="Bold">正常模式</TextBlock>
+                                    <Image x:Name="NormalCheck" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Source="/EESDD;component/Images/Select/check.png"></Image>
+                                </Grid>
+                            </Button>
+                            <Button Click="ModeSelect_Click" x:Name="LowDistractedMode" Grid.Column="1" Width="130" Height="90" Style="{StaticResource ModeSelectButtonStyle}">
+                                <Grid  Width="120" Height="80">
+                                    <Image Source="/EESDD;component/Images/Select/2268855148fdfaa362ff3025ed61632a.jpg" Stretch="UniformToFill">
+                                        <Image.Effect>
+                                            <BlurEffect Radius="10"></BlurEffect>
+                                        </Image.Effect>
+                                    </Image>
+                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFF751D" FontSize="20" FontFamily="YouYuan" FontWeight="Bold"><Run Text="分心模式"/><Run Text="A"/></TextBlock>
+                                    <Image Visibility="Hidden" x:Name="LowDistractedCheck" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Source="/EESDD;component/Images/Select/check.png"></Image>
+                                </Grid>
+
+                            </Button>
+                            <Button Click="ModeSelect_Click" x:Name="HighDistractedMode" Grid.Column="2" Width="130" Height="90" Style="{StaticResource ModeSelectButtonStyle}">
+                                <Grid  Width="120" Height="80">
+                                    <Image Source="/EESDD;component/Images/Select/distracted_driving.jpg" Stretch="UniformToFill">
+                                        <Image.Effect>
+                                            <BlurEffect Radius="10"></BlurEffect>
+                                        </Image.Effect>
+                                    </Image>
+                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFF751D" FontSize="20" FontFamily="YouYuan" FontWeight="Bold"><Run Text="分心模式"/><Run Text="B"/></TextBlock>
+                                    <Image Visibility="Hidden" x:Name="HighDistractedCheck" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Source="/EESDD;component/Images/Select/check.png"></Image>
+                                </Grid>
+
+                            </Button>
+                            <Button Click="Start_Click" Style="{StaticResource StartButtonStyle}" Cursor="Hand" Grid.Column="3" Width="126" Height="49">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="/EESDD;component/Images/Select/start.png" Stretch="UniformToFill"/>
+                                </Button.Background>
+                            </Button>
                         </Grid>
                     </Grid>
-                    <Grid Grid.Row="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Button Click="ModeSelect_Click" x:Name="NormalMode" Width="130" Height="90" Style="{StaticResource ModeSelectButtonStyle}">
-                            <Grid Width="120" Height="80">
-                                <Image Source="/EESDD;component/Images/Select/9d1925fd26dc309f254ad965c0dfbf75.jpeg" Stretch="UniformToFill">
-                                    <Image.Effect>
-                                        <BlurEffect Radius="10"></BlurEffect>
-                                    </Image.Effect>
-                                </Image>
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFE0FF7D" FontSize="20" FontFamily="YouYuan" FontWeight="Bold">正常模式</TextBlock>
-                                <Image x:Name="NormalCheck" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Source="/EESDD;component/Images/Select/check.png"></Image>
-                            </Grid>
-                        </Button>
-                        <Button Click="ModeSelect_Click" x:Name="LowDistractedMode" Grid.Column="1" Width="130" Height="90" Style="{StaticResource ModeSelectButtonStyle}">
-                            <Grid  Width="120" Height="80">
-                                <Image Source="/EESDD;component/Images/Select/2268855148fdfaa362ff3025ed61632a.jpg" Stretch="UniformToFill">
-                                    <Image.Effect>
-                                        <BlurEffect Radius="10"></BlurEffect>
-                                    </Image.Effect>
-                                </Image>
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFF751D" FontSize="20" FontFamily="YouYuan" FontWeight="Bold"><Run Text="分心模式"/><Run Text="A"/></TextBlock>
-                                <Image Visibility="Hidden" x:Name="LowDistractedCheck" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Source="/EESDD;component/Images/Select/check.png"></Image>
-                            </Grid>
-                            
-                        </Button>
-                        <Button Click="ModeSelect_Click" x:Name="HighDistractedMode" Grid.Column="2" Width="130" Height="90" Style="{StaticResource ModeSelectButtonStyle}">
-                            <Grid  Width="120" Height="80">
-                                <Image Source="/EESDD;component/Images/Select/distracted_driving.jpg" Stretch="UniformToFill">
-                                    <Image.Effect>
-                                        <BlurEffect Radius="10"></BlurEffect>
-                                    </Image.Effect>
-                                </Image>
-                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFF751D" FontSize="20" FontFamily="YouYuan" FontWeight="Bold"><Run Text="分心模式"/><Run Text="B"/></TextBlock>
-                                <Image Visibility="Hidden" x:Name="HighDistractedCheck" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Source="/EESDD;component/Images/Select/check.png"></Image>
-                            </Grid>
-
-                        </Button>
-                        <Button Click="Start_Click" Style="{StaticResource StartButtonStyle}" Cursor="Hand" Grid.Column="3" Width="126" Height="49">
-                            <Button.Background>
-                                <ImageBrush ImageSource="/EESDD;component/Images/Select/start.png" Stretch="UniformToFill"/>
-                            </Button.Background>
-                        </Button>
-                    </Grid>
-                </Grid>
-            </Border>
+                </Border>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

@@ -37,7 +37,12 @@ namespace EESDD.Pages
             currentDetail = SceneOneDetail;
             currentMode = NormalMode;
             PageList.Main.Selection.SceneSelect = UserSelections.ScenePractice;
-            PageList.Main.Selection.ModeSelect = UserSelections.NormalMode;
+            PageList.Main.Selection.ModeSelect = UserSelections.NormalMode;            
+        }
+
+        public void setTitle(string name)
+        {
+            titleTip.Text = "欢迎您，" + name + "！请选择一个场景，开始体验。";
         }
 
         private void Little_Enter(object sender, RoutedEventArgs e)

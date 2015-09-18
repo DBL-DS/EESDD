@@ -11,31 +11,165 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Resources/StyleDictionary.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/EESDD;component/Resources/UnifiedColor.xaml"></ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
-    <Grid>
+    <Grid Background="#ff342947">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="250"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" ></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <TabsTitle:TabsTitle x:Name="Tabs" Grid.Column="0" Panel.ZIndex="1"/>
-            <Grid Background="#a5a5a5" Panel.ZIndex="0" Grid.Column="1" Margin="0,20,20,20" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Style="{StaticResource PanelShadow}">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition Height="Auto"></RowDefinition>
-                </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0" Orientation="Horizontal" Style="{StaticResource PageTitle}">
-                    <TextBlock Style="{StaticResource TitleChinese}">数据导出</TextBlock>
-                    <TextBlock Style="{StaticResource TitleEnglish}">Data Export</TextBlock>
+            <DataGrid
+                CanUserReorderColumns="False" CanUserResizeColumns="False" 
+                CanUserResizeRows="False" Margin="30" CanUserAddRows="False" CanUserDeleteRows="False"
+                Background="#cceeeeee" ColumnHeaderStyle="{StaticResource DataGridHeader}"
+                x:Name="experienceDataGrid">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Header="" Width="50" Binding="{Binding Path=exportChoice}" />
+                    <DataGridTextColumn Width="50" Header="序号" Binding="{Binding Path=number}" />
+                    <DataGridTextColumn Width="70" Header="登录名" Binding="{Binding Path=loginName}" />
+                    <DataGridTextColumn Width="70" Header="姓名" Binding="{Binding Path=realName}" />
+                    <DataGridTextColumn Width="50" Header="性别" Binding="{Binding Path=gender}" />
+                    <DataGridTextColumn Width="100" Header="最后保存时间" Binding="{Binding Path=lastSaveTime}" />
+                    <DataGridCheckBoxColumn Width="1*" Header="1" Binding="{Binding Path=one}" />
+                    <DataGridCheckBoxColumn Width="1*" Header="2" Binding="{Binding Path=two}" />
+                    <DataGridCheckBoxColumn Width="1*" Header="3" Binding="{Binding Path=three}" />
+                    <DataGridCheckBoxColumn Width="1*" Header="4" Binding="{Binding Path=four}" />
+                    <DataGridCheckBoxColumn Width="1*" Header="5" Binding="{Binding Path=five}" />
+                    <DataGridCheckBoxColumn Width="1*" Header="6" Binding="{Binding Path=six}" />
+                    <DataGridCheckBoxColumn Width="1*" Header="7" Binding="{Binding Path=seven}" />
+                    <DataGridCheckBoxColumn Width="1*" Header="8" Binding="{Binding Path=eight}" />
+                    <DataGridCheckBoxColumn Width="1*" Header="9" Binding="{Binding Path=nine}" />
+                </DataGrid.Columns>
+            
+            </DataGrid>
+        </Grid>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Margin="30">
+                <Button Margin="10" Height="30">全选</Button>
+                <Button Margin="10" Height="30">全部取消</Button>
+                <Button Margin="10" Height="30">导出数据</Button>
+                <TextBlock TextWrapping="Wrap" Foreground="#ffaaaaaa" Margin="20">*在左侧选择要导出的的数据,可以导出为Excel表格</TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Margin="20" >
+                <TextBlock TextWrapping="Wrap" Foreground="#ffaaaaaa">
+                    *数字部分为某模式下的场景，勾选的表示用户已成功体验过。
+                </TextBlock>
+                <StackPanel Margin="0,10,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">序号</TextBlock>
+                        <TextBlock Margin="20,0,0,0" Grid.Column="1" Foreground="#ffaaaaaa">场景</TextBlock>
+                        <TextBlock Margin="20,0,0,0" Grid.Column="2" Foreground="#ffaaaaaa">模式</TextBlock>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">1</TextBlock>
+                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">前车刹车场景</TextBlock>
+                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa">正常模式</TextBlock>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">2</TextBlock>
+                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">前车刹车场景</TextBlock>
+                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa">分心模式A</TextBlock>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">3</TextBlock>
+                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">前车刹车场景</TextBlock>
+                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa">分心模式B</TextBlock>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">4</TextBlock>
+                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">并道场景</TextBlock>
+                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa">正常模式</TextBlock>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">5</TextBlock>
+                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">并道场景</TextBlock>
+                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa">分心模式A</TextBlock>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">6</TextBlock>
+                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">并道场景</TextBlock>
+                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa">分心模式B</TextBlock>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">7</TextBlock>
+                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">交叉口场景</TextBlock>
+                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa">正常模式</TextBlock>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">8</TextBlock>
+                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">交叉口场景</TextBlock>
+                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa">分心模式A</TextBlock>
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40"></ColumnDefinition>
+                            <ColumnDefinition Width="95*"></ColumnDefinition>
+                            <ColumnDefinition Width="11*"></ColumnDefinition>
+                            <ColumnDefinition Width="84*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">9</TextBlock>
+                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">交叉口场景</TextBlock>
+                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa" Grid.ColumnSpan="2">分心模式B</TextBlock>
+                    </Grid>
                 </StackPanel>
-                <StackPanel Grid.Row="2" Style="{StaticResource PageTail}">
-                    <nav:NavigationButton BtnText="Done" BtnClick="DoneButton_BtnClick"></nav:NavigationButton>
-                </StackPanel>
-            </Grid>
+                
+            </StackPanel>
+            <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
+                <Button Margin="40" Height="30" Click="Button_Click">退出</Button>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

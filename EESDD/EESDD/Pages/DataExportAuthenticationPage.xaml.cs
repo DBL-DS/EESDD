@@ -26,5 +26,11 @@ namespace EESDD.Pages
         {
             InitializeComponent();
         }
+
+        private void ValidatePassword(object sender, RoutedEventArgs e)
+        {
+            PageList.Main.setPage(PageList.DataExport);
+        }
     }
+
 }

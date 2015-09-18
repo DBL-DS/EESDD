@@ -45,8 +45,7 @@ namespace EESDD.Pages
                     user.newLogin();
                     UserDB.updateLoginInfo(user);
 
-                    PageList.Main.User = user;
-                    PageList.Main.setPage(PageList.SceneSelect);                                      
+                    doWhenLoginSuccess(user);
                 }
                 else
                 {
@@ -59,6 +58,16 @@ namespace EESDD.Pages
             {
                 CustomMessageBox.Show("提示","用户名不能为空！");
             }
+        }
+
+        private void doWhenLoginSuccess(User user)
+        {
+            PageList.Main.User = user;
+            PageList.Main.setPage(PageList.SceneSelect);
+            PageList.Main.setDefaultChosen();
+
+            PageList.SceneSelect.setTitle(user.LoginName);
+            PageList.Evaluation.setTitle(user.LoginName);
         }
         private void RegisterForm_Login()
         {
@@ -79,9 +88,9 @@ namespace EESDD.Pages
                 user.LoginCount = 1;
                 user.LastLoginDate = user.RegisterDate = DateTime.Now.ToString(loginTimeFormat);
 
-                PageList.Main.User = user;
-                PageList.Main.setPage(PageList.SceneSelect);
                 UserDB.saveNewUser(user);
+
+                doWhenLoginSuccess(user);
             }
         }
         private bool validateRegisterForm()

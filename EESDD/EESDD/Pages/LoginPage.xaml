@@ -63,13 +63,13 @@
                         <Border CornerRadius="5,5,0,0" BorderThickness="0,0,0,1" BorderBrush="#ffcccccc">                       
                             <Grid Grid.Row="0">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="60"></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="60"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button Click="BackButton_Click" Cursor="Hand" ToolTip="返回" Margin="15,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource NoDefaultBlue}">                                    
+                            <Button Grid.Column="1" Click="BackButton_Click" Cursor="Hand" ToolTip="返回" Margin="15,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Style="{StaticResource NoDefaultBlue}">                                    
                                 <Image Width="40" Source="/EESDD;component/Images/Login/Arrow_Left-512.png"></Image>    
                             </Button>
-                            <TextBlock Grid.Column="1" ToolTip="首次登陆需要补全个人信息" Margin="5" Width="240" Height="40" Padding="10" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17">
+                            <TextBlock Grid.Column="0" ToolTip="首次登陆需要补全个人信息" Margin="70,5,5,5" Width="240" Height="40" Padding="10" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="17">
                                 注册
                             </TextBlock>
                         </Grid>
