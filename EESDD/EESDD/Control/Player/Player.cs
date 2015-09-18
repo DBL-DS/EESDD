@@ -126,7 +126,7 @@ namespace EESDD.Control.Player
                  Evaluation evaluation = new Evaluation();
                  unit.Evaluation = evaluation;
 
-                 //PageList.Main.User.addExpUnit(unit);
+                 PageList.Main.User.NewExperience = unit;
              }
 
          }
