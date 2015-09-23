@@ -12,9 +12,9 @@ namespace EESDD.Control.User
 {
     class User
     {
-        private static string experiencesFileNameFormat = "yyyyMMddHHmmss";
-        private static string loginTimeFormat = "yyyy-MM-dd HH:mm:ss";
-        private static string expFilesRoot = System.IO.Directory.GetCurrentDirectory() + "\\data\\";
+        private const string experiencesFileNameFormat = "yyyyMMddHHmmss";
+        private const string loginTimeFormat = "yyyy-MM-dd HH:mm:ss";
+        private string expFilesRoot = System.IO.Directory.GetCurrentDirectory() + "\\data\\";
 
         public User()
         {

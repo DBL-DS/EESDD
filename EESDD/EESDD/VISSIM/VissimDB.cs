@@ -11,7 +11,9 @@ namespace EESDD.VISSIM
     {
         OleDbConnection mycon = null;
         OleDbDataReader myReader = null;
-        public VissimDB(string path)
+        private string path = 
+            System.IO.Directory.GetCurrentDirectory() + "\\vissim\\map\\vissim.accdb";
+        public VissimDB()
         {
             string strcon = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source = " + path;
             mycon = new OleDbConnection(strcon);
@@ -44,7 +46,7 @@ namespace EESDD.VISSIM
             }
             return type;
         }
-        public double getAvgVelocity()
+        public double getAvgSpeed()
         {
             string sql = "SELECT AVG(v) FROM [VEH_RECORD]";
             OleDbCommand mycom = new OleDbCommand(sql, mycon);

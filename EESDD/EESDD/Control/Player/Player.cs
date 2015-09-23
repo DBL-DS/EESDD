@@ -96,6 +96,26 @@ namespace EESDD.Control.Player
          public void refreshDataSource()
          {
              initRefresh();
+
+             // skip useless data
+             SimulatedVehicle vehicleFirst = udp.getData();
+             while (true) { 
+                SimulatedVehicle vehicleNext = udp.getData();
+                if (vehicleNext.SimulationTime == vehicleFirst.SimulationTime)
+                    continue;
+                else {
+                    play(vehicleNext);
+                    PageList.Experience.refreshTextBlocks();
+
+                    if (vissim != null)
+                    {
+                        vissim.set(currentVehicle);
+                    }
+                    break;
+                } 
+             }
+
+
              while (refreshing)
              {
                  play(udp.getData());
@@ -123,12 +143,11 @@ namespace EESDD.Control.Player
                  unit.SceneID = PageList.Main.Selection.SceneSelect;
                  unit.Mode = PageList.Main.Selection.ModeSelect;
                  unit.Vehicles = PageList.Main.Player.Vehicles;
-                 Evaluation evaluation = new Evaluation();
+                 Evaluation evaluation = new Evaluation(unit);
                  unit.Evaluation = evaluation;
 
                  PageList.Main.User.NewExperience = unit;
              }
-
          }
          private void initRefresh()
          {

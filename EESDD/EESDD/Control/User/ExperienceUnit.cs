@@ -1,4 +1,5 @@
 ﻿using EESDD.Control.DataModel;
+using EESDD.Control.Player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,13 @@ namespace EESDD.Control.User
     class ExperienceUnit
     {
         int sceneID;
-
         public int SceneID
         {
             get { return sceneID; }
             set { sceneID = value; }
         }
-        int mode;
 
+        int mode;
         public int Mode
         {
             get { return mode; }
@@ -26,19 +26,26 @@ namespace EESDD.Control.User
         }
         List<SimulatedVehicle> vehicles;
 
-        internal List<SimulatedVehicle> Vehicles
+        public List<SimulatedVehicle> Vehicles
         {
             get { return vehicles; }
             set { vehicles = value; }
         }
-        Evaluation evaluation;
 
-        internal Evaluation Evaluation
+        Evaluation evaluation;
+        public Evaluation Evaluation
         {
             get { return evaluation; }
             set { evaluation = value; }
         }
+
         DateTime time;
+
+        private BrakeActivity brakeAct;
+        public BrakeActivity BrakeAct { get; set; }
+
+        private ReactActivity reactAct;
+        public ReactActivity ReactAct { get; set; }
 
         public ExperienceUnit()
         {

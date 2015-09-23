@@ -134,12 +134,12 @@ namespace EESDD.Pages
             refreshData.Start();
 
             int scene = PageList.Main.Selection.SceneSelect;
-            //if (scene != UserSelections.SceneLaneChange)
-            //{
-            //    PageList.Main.Player.initVissim();
-            //    Thread vissimRun = new Thread(PageList.Main.Player.UseVissim);
-            //    vissimRun.Start();
-            //}
+            if (scene != UserSelections.SceneLaneChange)
+            {
+                PageList.Main.Player.initVissim();
+                Thread vissimRun = new Thread(PageList.Main.Player.UseVissim);
+                vissimRun.Start();
+            }
         }
 
 
