@@ -35,7 +35,7 @@ namespace EESDD.CSV
                     s.TotalDistance = Convert.ToSingle(reader.get(CSVCloumnName.TotalDistance));
                     s.Braking = Convert.ToSingle(reader.get(CSVCloumnName.Braking));
                     s.Reacting = Convert.ToSingle(reader.get(CSVCloumnName.Reacting));
-                    s.Gear = Convert.ToSingle(reader.get(CSVCloumnName.Gear));
+                    s.Area = Convert.ToSingle(reader.get(CSVCloumnName.Area));
 
                     dataList.Add(s);
                     s = null;

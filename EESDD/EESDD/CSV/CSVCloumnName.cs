@@ -19,6 +19,6 @@ namespace EESDD.CSV
         public static String TotalDistance = "EXPORT CHANNEL 23(-)";
         public static String Braking = "EXPORT CHANNEL 24(-)";
         public static String Reacting = "EXPORT CHANNEL 25(-)";
-        public static String Gear = "EXPORT CHANNEL 26(-)";
+        public static String Area = "EXPORT CHANNEL 26(-)";
     }
 }

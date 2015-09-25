@@ -20,7 +20,7 @@ namespace EESDD.Control.DataModel
         float totalDistance;
         float braking;
         float reacting;
-        float gear;
+        float area;
         float distanceToNext;
         float lane;
         float trafficLight;
@@ -91,10 +91,10 @@ namespace EESDD.Control.DataModel
             set { reacting = value; }
         }
 
-        public float Gear
+        public float Area
         {
-            get { return gear; }
-            set { gear = value; }
+            get { return area; }
+            set { area = value; }
         }
 
         public float DistanceToNext

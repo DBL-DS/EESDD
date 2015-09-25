@@ -38,15 +38,17 @@ namespace EESDD.Control.Player
 
          void init()
          {
-             vehicles = new List<SimulatedVehicle>();
-             speed = new ObservableDataSource<Point>();
-             coordinate = new ObservableDataSource<Point>();
-             offset = new ObservableDataSource<Point>();
-             steeringWheel = new ObservableDataSource<Point>();
-             accelerate = new ObservableDataSource<Point>();
-             brake = new ObservableDataSource<Point>();
-             brakeActivity = new BrakeActivity();
-             reactActivity = new ReactActivity();
+             vehicles           = new List<SimulatedVehicle>();
+
+             speed              = new ObservableDataSource<Point>();
+             coordinate         = new ObservableDataSource<Point>();
+             offset             = new ObservableDataSource<Point>();
+             steeringWheel      = new ObservableDataSource<Point>();
+             accelerate         = new ObservableDataSource<Point>();
+             brake              = new ObservableDataSource<Point>();
+
+             brakeActivity      = new BrakeActivity();
+             reactActivity      = new ReactActivity();
 
              braking = false;
              reacting = false;
@@ -115,7 +117,6 @@ namespace EESDD.Control.Player
                 } 
              }
 
-
              while (refreshing)
              {
                  play(udp.getData());
@@ -143,6 +144,8 @@ namespace EESDD.Control.Player
                  unit.SceneID = PageList.Main.Selection.SceneSelect;
                  unit.Mode = PageList.Main.Selection.ModeSelect;
                  unit.Vehicles = PageList.Main.Player.Vehicles;
+                 unit.BrakeAct = this.brakeActivity;
+                 unit.ReactAct = this.reactActivity;
                  Evaluation evaluation = new Evaluation(unit);
                  unit.Evaluation = evaluation;
 

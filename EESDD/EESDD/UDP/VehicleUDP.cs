@@ -87,7 +87,7 @@ namespace EESDD.UDP
             s.TotalDistance = getFloat(buffer, UDPOffset.TotalDistance);
             s.Braking = getFloat(buffer, UDPOffset.Braking);
             s.Reacting = getFloat(buffer, UDPOffset.Reacting);
-            s.Gear = getFloat(buffer, UDPOffset.Gear);
+            s.Area = getFloat(buffer, UDPOffset.Area);
             s.DistanceToNext = getFloat(buffer, UDPOffset.DistanceToNext);
             s.Lane = getFloat(buffer, UDPOffset.Lane);
             s.TrafficLight = getFloat(buffer, UDPOffset.TrafficLight);
