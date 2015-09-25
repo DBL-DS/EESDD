@@ -4,7 +4,6 @@ using EESDD.UDP;
 using EESDD.VISSIM;
 using Microsoft.Research.DynamicDataDisplay.DataSources;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -101,9 +100,11 @@ namespace EESDD.Control.Player
 
              // skip useless data
              SimulatedVehicle vehicleFirst = udp.getData();
-             while (true) { 
+             while (true) {
+                if (udp == null)
+                    break;
                 SimulatedVehicle vehicleNext = udp.getData();
-                if (vehicleNext.SimulationTime == vehicleFirst.SimulationTime)
+                if (vehicleNext == null || vehicleNext.SimulationTime == vehicleFirst.SimulationTime)
                     continue;
                 else {
                     play(vehicleNext);

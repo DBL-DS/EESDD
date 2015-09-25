@@ -1,8 +1,11 @@
-﻿using EESDD.Control.Operation;
+﻿using EESDD.Control.DataModel;
+using EESDD.Control.Operation;
+using EESDD.Control.User;
 using EESDD.VISSIM;
 using EESDD.Widgets.Buttons;
 using EESDD.Widgets.Chart;
 using EESDD.Widgets.Menu;
+using Microsoft.Research.DynamicDataDisplay.DataSources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +21,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace EESDD.Pages
 {
@@ -40,7 +44,39 @@ namespace EESDD.Pages
             ChangeButtonChosen(speed);
             ChangeMainChart(SpeedChart);
             ChangeMainChartTitle("Speed-Time");
-            used = false;
+            used = false;            
+        }
+
+        public void initChart()
+        {
+           List<ExperienceUnit> exps = PageList.Main.User.Experiences;
+            if (exps.Count != 0) {
+                foreach (ExperienceUnit unit in exps)
+                {
+                    if (unit.SceneID != PageList.Main.Selection.SceneSelect)
+                        continue;
+                    else if (unit.Mode == PageList.Main.Selection.ModeSelect)
+                        continue;
+                    else {
+                        switch (unit.Mode) { 
+                            case UserSelections.NormalMode:
+                                plotNormalChart(unit);
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+        private void plotNormalChart(ExperienceUnit unit) {
+            List<SimulatedVehicle> vehicles = unit.Vehicles;
+            ObservableDataSource<Point> normalData = new ObservableDataSource<Point>();
+            Dispatcher dispatcher = PageList.Main.Dispatcher;
+
+            foreach (SimulatedVehicle v in vehicles)
+            {
+                normalData.AppendAsync(dispatcher, new Point(v.SimulationTime,v.Speed));
+            }
+            SpeedChart.drawNormalLine(normalData);
         }
 
         private void MainChartChange(object sender, EventArgs e)
@@ -153,11 +189,26 @@ namespace EESDD.Pages
         {
             endRefresh(CustomMessageBox.Show("提示","是否保存数据？") == true ? true : false);
             PageList.Main.setPage(PageList.SceneSelect);
+            clearChart();
         }
 
         public bool Used
         {
             get { return used; }
+        }
+
+        private void clearChart() {
+            SpeedChart.clear();
+            LittleSpeed.clear();
+
+            AccelerationChart.clear();
+            LittleAcc.clear();
+
+            OffsetChart.clear();
+            LittleOffset.clear();
+
+            BrakeChart.clear();
+            LittleBrake.clear();
         }
     }
 }
