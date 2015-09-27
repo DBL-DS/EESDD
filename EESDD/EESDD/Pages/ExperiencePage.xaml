@@ -90,7 +90,9 @@
                                 <Line Margin="40,0,10,0" VerticalAlignment="Center" Width="30" Stroke="#ffe0ff7d" X2="30" ></Line>
                                 <TextBlock Foreground="White" FontFamily="Monaco">Normal</TextBlock>
                                 <Line Margin="40,0,10,0" VerticalAlignment="Center" Width="30" Stroke="#ffff751d" X2="30" ></Line>
-                                <TextBlock Foreground="White" FontFamily="Monaco">Distracted</TextBlock>
+                                <TextBlock Foreground="White" FontFamily="Monaco">DistractedA</TextBlock>
+                                <Line Margin="40,0,10,0" VerticalAlignment="Center" Width="30" Stroke="#ff008cff" X2="30" ></Line>
+                                <TextBlock Foreground="White" FontFamily="Monaco">DistractedB</TextBlock>
                             </StackPanel>
                         </Grid>
                     </Grid>

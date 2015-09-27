@@ -87,34 +87,6 @@ namespace EESDD.Data.Database
             db.execute(sql);
         }
 
-        public static bool updateExperiencesInfo(User user)
-        {
-            string oldFileName = user.ExperiencesFileName;
-
-            if (user.saveExperienceListToFile())
-            {
-                AccessDB db = new AccessDB(databasePath);
-                string sql = "UPDATE [USER] SET ExperiencesFileName=" + user.ExperiencesFileName
-                    + " WHERE LoginName='" + user.LoginName + "'";
-                db.execute(sql);
-
-                /*
-                 * whether delete old files?
-                 */
-                //string oldFileRoot = expFilesRoot + oldFileName;
-                //if (File.Exists(oldFileRoot))
-                //{
-                //    File.Delete(oldFileRoot);
-                //}
-
-                return true;
-            }
-
-            return false;
-        }
-
-
-
         private static User getUserFromRow(DataRow row)
         {
             User user = new User();

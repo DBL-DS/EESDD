@@ -42,10 +42,16 @@ namespace EESDD.Control.User
         DateTime time;
 
         private BrakeActivity brakeAct;
-        public BrakeActivity BrakeAct { get; set; }
+        public BrakeActivity BrakeAct {
+            get { return brakeAct; }
+            set { brakeAct = value; }
+        }
 
         private ReactActivity reactAct;
-        public ReactActivity ReactAct { get; set; }
+        public ReactActivity ReactAct {
+            get { return reactAct; }
+            set { reactAct = value; }
+        }
 
         public ExperienceUnit()
         {

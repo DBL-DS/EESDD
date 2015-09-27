@@ -37,7 +37,7 @@ namespace EESDD.Pages
         {
             InitializeComponent();
             init();
-            bindChartSource();
+            setDataSource();
         }
 
         private void init() {
@@ -45,38 +45,6 @@ namespace EESDD.Pages
             ChangeMainChart(SpeedChart);
             ChangeMainChartTitle("Speed-Time");
             used = false;            
-        }
-
-        public void initChart()
-        {
-           List<ExperienceUnit> exps = PageList.Main.User.Experiences;
-            if (exps.Count != 0) {
-                foreach (ExperienceUnit unit in exps)
-                {
-                    if (unit.SceneID != PageList.Main.Selection.SceneSelect)
-                        continue;
-                    else if (unit.Mode == PageList.Main.Selection.ModeSelect)
-                        continue;
-                    else {
-                        switch (unit.Mode) { 
-                            case UserSelections.NormalMode:
-                                plotNormalChart(unit);
-                                break;
-                        }
-                    }
-                }
-            }
-        }
-        private void plotNormalChart(ExperienceUnit unit) {
-            List<SimulatedVehicle> vehicles = unit.Vehicles;
-            ObservableDataSource<Point> normalData = new ObservableDataSource<Point>();
-            Dispatcher dispatcher = PageList.Main.Dispatcher;
-
-            foreach (SimulatedVehicle v in vehicles)
-            {
-                normalData.AppendAsync(dispatcher, new Point(v.SimulationTime,v.Speed));
-            }
-            SpeedChart.drawNormalLine(normalData);
         }
 
         private void MainChartChange(object sender, EventArgs e)
@@ -133,21 +101,6 @@ namespace EESDD.Pages
             }
         }
 
-        private void bindChartSource()
-        {
-            SpeedChart.drawNormalLine(PageList.Main.Player.SpeedPoints);
-            LittleSpeed.drawNormalLine(PageList.Main.Player.SpeedPoints);
-
-            AccelerationChart.drawNormalLine(PageList.Main.Player.AcceleratePoints);
-            LittleAcc.drawNormalLine(PageList.Main.Player.AcceleratePoints);
-
-            OffsetChart.drawNormalLine(PageList.Main.Player.OffsetPoints);
-            LittleOffset.drawNormalLine(PageList.Main.Player.OffsetPoints);
-
-            BrakeChart.drawNormalLine(PageList.Main.Player.BrakePoints);
-            LittleBrake.drawNormalLine(PageList.Main.Player.BrakePoints);
-        }
-
         public void refreshTextBlocks()
         {
             this.Dispatcher.BeginInvoke((Action)delegate() {
@@ -170,12 +123,12 @@ namespace EESDD.Pages
             refreshData.Start();
 
             int scene = PageList.Main.Selection.SceneSelect;
-            if (scene != UserSelections.SceneLaneChange)
-            {
-                PageList.Main.Player.initVissim();
-                Thread vissimRun = new Thread(PageList.Main.Player.UseVissim);
-                vissimRun.Start();
-            }
+            //if (scene != UserSelections.SceneLaneChange)
+            //{
+            //    PageList.Main.Player.initVissim();
+            //    Thread vissimRun = new Thread(PageList.Main.Player.UseVissim);
+            //    vissimRun.Start();
+            //}
         }
 
 
@@ -190,6 +143,7 @@ namespace EESDD.Pages
             endRefresh(CustomMessageBox.Show("提示","是否保存数据？") == true ? true : false);
             PageList.Main.setPage(PageList.SceneSelect);
             clearChart();
+            PageList.Main.User.saveExperienceListToFile();
         }
 
         public bool Used
@@ -209,6 +163,21 @@ namespace EESDD.Pages
 
             BrakeChart.clear();
             LittleBrake.clear();
+        }
+     
+        private void setDataSource() {
+            LittleSpeed.Normal = SpeedChart.Normal;
+            LittleSpeed.DistractA = SpeedChart.DistractA;
+            LittleSpeed.DistractB = SpeedChart.DistractB;
+            LittleAcc.Normal = AccelerationChart.Normal;
+            LittleAcc.DistractA = AccelerationChart.DistractA;
+            LittleAcc.DistractB = AccelerationChart.DistractB;
+            LittleOffset.Normal = OffsetChart.Normal;
+            LittleOffset.DistractA = OffsetChart.DistractA;
+            LittleOffset.DistractB = OffsetChart.DistractB;
+            LittleBrake.Normal = BrakeChart.Normal;
+            LittleBrake.DistractA = BrakeChart.DistractA;
+            LittleBrake.DistractB = BrakeChart.DistractB;
         }
     }
 }

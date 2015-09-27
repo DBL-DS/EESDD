@@ -68,6 +68,7 @@ namespace EESDD.Pages
 
             PageList.SceneSelect.setTitle(user.LoginName);
             PageList.Evaluation.setTitle(user.LoginName);
+            PageList.Experience.UserName.Text = user.LoginName;
         }
         private void RegisterForm_Login()
         {

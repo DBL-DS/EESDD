@@ -1,4 +1,5 @@
 ﻿using EESDD.Control.DataModel;
+using EESDD.Control.Operation;
 using EESDD.Data.DataBase;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ namespace EESDD.Control.User
         private const string experiencesFileNameFormat = "yyyyMMddHHmmss";
         private const string loginTimeFormat = "yyyy-MM-dd HH:mm:ss";
         private string expFilesRoot = System.IO.Directory.GetCurrentDirectory() + "\\data\\";
+        private const int minPoints = 100;
 
         public User()
         {
@@ -152,8 +154,16 @@ namespace EESDD.Control.User
                     experiences = new List<ExperienceUnit>();                 
                 }
                 experiences.Add(value);
+                if (value.Vehicles.Count > minPoints)
+                {
+                    index[PageList.Main.Selection.Index] = experiences.Count - 1;
+                }
             }
         }
+
+        private int[] index = new int[10] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+        public int[] Index { get { return index; } }
+
         /// <summary>
         /// 1. count of login times plus
         /// 2. update last login time
@@ -168,7 +178,7 @@ namespace EESDD.Control.User
 
         public bool saveExperienceListToFile()
         {
-            string fileName = DateTime.Now.ToString(experiencesFileNameFormat);
+            string fileName = loginName.ToLower();
             string filePath = expFilesRoot + fileName;
 
             BinaryFormatter bf = new BinaryFormatter();
@@ -190,14 +200,22 @@ namespace EESDD.Control.User
             if (experiencesFileName == null || experiencesFileName.Equals(""))
                 return false;
 
-            string filePath = expFilesRoot + experiencesFileName;
-            BinaryFormatter bf = new BinaryFormatter();
-            using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            string filePath = expFilesRoot + loginName.ToLower();
+            if (File.Exists(filePath))
             {
-                experiences = (List<ExperienceUnit>)bf.Deserialize(fs);
+                BinaryFormatter bf = new BinaryFormatter();
+                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    experiences = (List<ExperienceUnit>)bf.Deserialize(fs);
+                }
+
+                return true;
+            }
+            else
+            {
+                return false;
             }
 
-            return true;
         }
     }
 }

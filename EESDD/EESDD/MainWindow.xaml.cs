@@ -181,7 +181,6 @@ namespace EESDD
         private void LogOutButton_Click(object sender, RoutedEventArgs e)
         {
             this.setPage(PageList.Login);
-            UserDB.updateExperiencesInfo(user);
             this.init();
         }
         public void LogOutButtonVisiable()
@@ -296,15 +295,6 @@ namespace EESDD
             }
         }
 
-        public static ExperiencePage NewExperience
-        {
-            get
-            {
-                if (experience == null || experience.Used)
-                    experience = new ExperiencePage();
-                return experience;
-            }
-        }
         public static DataExportAuthenticationPage Authentication
         {
             get

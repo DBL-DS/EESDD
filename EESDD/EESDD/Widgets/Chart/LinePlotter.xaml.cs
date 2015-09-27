@@ -15,32 +15,34 @@ namespace EESDD.Widgets.Chart
         public LinePlotter()
         {
             InitializeComponent();
+            drawLine();
         }
         private ObservableDataSource<Point> normalData = new ObservableDataSource<Point>();
         private ObservableDataSource<Point> distractAData = new ObservableDataSource<Point>();
         private ObservableDataSource<Point> distractBData = new ObservableDataSource<Point>();
 
-        public void drawNormalLine(ObservableDataSource<Point> normal)
+        public void drawLine()
         {
-            plotter.AddLineGraph(normal, Color.FromRgb(124, 255, 124));
-            plotter.LegendVisible = false;   
-            
-        }
-        public void drawDistractedLineA(ObservableDataSource<Point> distracted)
-        {
-            plotter.AddLineGraph(distracted, Color.FromRgb(255, 124, 124), 1, "分心 Distracted A");
-            plotter.LegendVisible = false;
-        }
-        public void drawDistractedLineB(ObservableDataSource<Point> distracted)
-        {
-            plotter.AddLineGraph(distracted, Color.FromRgb(255, 124, 124), 1, "分心 Distracted B");
-            plotter.LegendVisible = false;
+            plotter.AddLineGraph(normalData, Color.FromRgb(124, 255, 124));
+            plotter.AddLineGraph(distractAData, Color.FromRgb(124, 255, 124));
+            plotter.AddLineGraph(distractBData, Color.FromRgb(0, 140, 255));
+            plotter.LegendVisible = false;              
         }
 
-        public void addLine(ObservableDataSource<Point> points, Color lineColor, double lineThickness, string description)
+        public ObservableDataSource<Point> Normal
         {
-            plotter.AddLineGraph(points, lineColor, lineThickness, description);
-            plotter.LegendVisible = false;
+            get { return normalData; }
+            set { normalData = value; }
+        }
+        public ObservableDataSource<Point> DistractA
+        {
+            get { return distractAData; }
+            set { distractAData = value; }
+        }
+        public ObservableDataSource<Point> DistractB
+        {
+            get { return distractBData; }
+            set { distractBData = value; }
         }
 
         public void clear() {

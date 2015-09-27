@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace EESDD.Control.Player
 {
+    [Serializable]
     class ReactActivity
     {
         float reactTime;
