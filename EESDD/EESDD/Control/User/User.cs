@@ -197,9 +197,6 @@ namespace EESDD.Control.User
         }
         private bool setExperienceListFromFile()
         {
-            if (experiencesFileName == null || experiencesFileName.Equals(""))
-                return false;
-
             string filePath = expFilesRoot + loginName.ToLower();
             if (File.Exists(filePath))
             {

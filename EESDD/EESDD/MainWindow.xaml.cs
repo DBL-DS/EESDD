@@ -100,6 +100,10 @@ namespace EESDD
 
         private void shutdownApp()
         {
+            if (MainFrame.Content.Equals(PageList.Experience)) {
+                CustomMessageBox.Show("Warning", "Can't quit before the end of experience!");
+                return;
+            }
             if (CustomMessageBox.Show("Confirmation", "Do you want to close this window?")
                 == true)
             {
@@ -118,7 +122,7 @@ namespace EESDD
 
         private void exp_BtnClick(object sender, EventArgs e)
         {
-            if (user.LoginName != null)
+            if (user != null && user.LoginName != null)
             {            
                 setChosen((TabsButton)sender);
                 PageList.Main.setPage(PageList.CurrentExperience);
@@ -131,7 +135,7 @@ namespace EESDD
 
         private void eva_BtnClick(object sender, EventArgs e)
         {
-            if (user.LoginName != null)
+            if (user != null && user.LoginName != null)
             {
                 setChosen((TabsButton)sender);
                 PageList.Main.setPage(PageList.CurrentEvaluation);
@@ -144,7 +148,7 @@ namespace EESDD
 
         private void data_BtnClick(object sender, EventArgs e)
         {
-            if (user.LoginName != null)
+            if (user != null && user.LoginName != null)
             {
                 setChosen((TabsButton)sender);
                 PageList.Main.setPage(PageList.CurrentData);
@@ -218,7 +222,6 @@ namespace EESDD
                 ResizeBtn.ToolTip = "Maximum the window";
             }           
         }
-
         
     }
 

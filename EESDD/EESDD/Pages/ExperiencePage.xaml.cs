@@ -152,17 +152,17 @@ namespace EESDD.Pages
         }
 
         private void clearChart() {
-            SpeedChart.clear();
-            LittleSpeed.clear();
+            SpeedChart.clearData();
+            LittleSpeed.clearData();
 
-            AccelerationChart.clear();
-            LittleAcc.clear();
+            AccelerationChart.clearData();
+            LittleAcc.clearData();
 
-            OffsetChart.clear();
-            LittleOffset.clear();
+            OffsetChart.clearData();
+            LittleOffset.clearData();
 
-            BrakeChart.clear();
-            LittleBrake.clear();
+            BrakeChart.clearData();
+            LittleBrake.clearData();
         }
      
         private void setDataSource() {
@@ -178,6 +178,15 @@ namespace EESDD.Pages
             LittleBrake.Normal = BrakeChart.Normal;
             LittleBrake.DistractA = BrakeChart.DistractA;
             LittleBrake.DistractB = BrakeChart.DistractB;
+
+            LittleSpeed.clearLine();
+            LittleSpeed.drawLine(); 
+            LittleAcc.clearLine();
+            LittleAcc.drawLine();
+            LittleOffset.clearLine();
+            LittleOffset.drawLine();
+            LittleBrake.clearLine();
+            LittleBrake.drawLine();
         }
     }
 }

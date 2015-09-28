@@ -45,7 +45,14 @@ namespace EESDD.Widgets.Chart
             set { distractBData = value; }
         }
 
-        public void clear() {
+        public void clearData() {
+            normalData.Collection.Clear();
+            distractAData.Collection.Clear();
+            distractBData.Collection.Clear();
+        }
+
+        public void clearLine()
+        {
             plotter.RemoveUserElements();
         }
     }

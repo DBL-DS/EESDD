@@ -54,6 +54,10 @@
     <StartupObject>EESDD.Startup</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="De.TorstenMandelkow.MetroChart, Version=1.0.0.0, Culture=neutral, PublicKeyToken=d5b8d1bbc99c4a2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Widgets\Chart\Lib\De.TorstenMandelkow.MetroChart.dll</HintPath>
+    </Reference>
     <Reference Include="DynamicDataDisplay, Version=0.3.0.0, Culture=neutral, PublicKeyToken=5b7d744a7263923f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Users\Hugh\Desktop\DynamicDataDisplay v0.3 Binaries &amp; Samples\DynamicDataDisplay\DynamicDataDisplay.dll</HintPath>
@@ -298,6 +302,7 @@
     <Resource Include="Images\DataExport\Lock-icon.png" />
     <Resource Include="Images\Buttons\right_arrow_bjut_blue.png" />
     <Resource Include="Images\Buttons\right_arrow_bjut_blue_light.png" />
+    <Content Include="Widgets\Chart\Lib\De.TorstenMandelkow.MetroChart.dll" />
     <Content Include="Widgets\Chart\Lib\DynamicDataDisplay.dll" />
   </ItemGroup>
   <ItemGroup>
