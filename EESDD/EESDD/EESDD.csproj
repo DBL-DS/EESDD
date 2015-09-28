@@ -93,7 +93,7 @@
       <DependentUpon>CustomMessageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Data\Database\AccessDB.cs" />
-    <Compile Include="Data\Database\UserDB.cs" />
+    <Compile Include="Data\Database\UserInfoManger.cs" />
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>

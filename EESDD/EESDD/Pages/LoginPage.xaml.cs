@@ -38,13 +38,9 @@ namespace EESDD.Pages
             string loginName = LoginName.Text.Trim();
             if (loginName != "")
             {
-                if (UserDB.isUserExist(loginName))
+                User user = UserInfoManger.loadUserInfo(loginName);
+                if (user != null)
                 {
-                    User user = UserDB.getUserByLoginName(loginName);
-
-                    user.newLogin();
-                    UserDB.updateLoginInfo(user);
-
                     doWhenLoginSuccess(user);
                 }
                 else
@@ -52,7 +48,7 @@ namespace EESDD.Pages
                     login_name.Text = loginName;
                     LoginForm.Visibility = System.Windows.Visibility.Hidden;
                     RegisterForm.Visibility = System.Windows.Visibility.Visible;
-                }          
+                }
             }
             else
             {
@@ -66,9 +62,11 @@ namespace EESDD.Pages
             PageList.Main.setPage(PageList.SceneSelect);
             PageList.Main.setDefaultChosen();
 
-            PageList.SceneSelect.setTitle(user.LoginName);
-            PageList.Evaluation.setTitle(user.LoginName);
-            PageList.Experience.UserName.Text = user.LoginName;
+            string titleName = System.Threading.Thread
+                .CurrentThread.CurrentCulture.TextInfo.ToTitleCase(user.LoginName);
+            PageList.SceneSelect.setTitle(titleName);
+            PageList.Evaluation.setTitle(titleName);
+            PageList.Experience.UserName.Text = titleName;
         }
         private void RegisterForm_Login()
         {
@@ -86,10 +84,8 @@ namespace EESDD.Pages
                 user.Contact = contact.Text;
 
                 user.UserClass = 0;
-                user.LoginCount = 1;
-                user.LastLoginDate = user.RegisterDate = DateTime.Now.ToString(loginTimeFormat);
 
-                UserDB.saveNewUser(user);
+                UserInfoManger.saveUserInfo(user);
 
                 doWhenLoginSuccess(user);
             }

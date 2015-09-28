@@ -1,6 +1,7 @@
 ﻿using EESDD.Control.DataModel;
 using EESDD.Control.Operation;
 using EESDD.Control.User;
+using EESDD.Data.Database;
 using EESDD.VISSIM;
 using EESDD.Widgets.Buttons;
 using EESDD.Widgets.Chart;
@@ -143,7 +144,7 @@ namespace EESDD.Pages
             endRefresh(CustomMessageBox.Show("提示","是否保存数据？") == true ? true : false);
             PageList.Main.setPage(PageList.SceneSelect);
             clearChart();
-            PageList.Main.User.saveExperienceListToFile();
+            UserInfoManger.saveUserInfo(PageList.Main.User);
         }
 
         public bool Used
