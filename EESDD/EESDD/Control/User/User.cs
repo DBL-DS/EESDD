@@ -11,15 +11,16 @@ using System.Threading.Tasks;
 
 namespace EESDD.Control.User
 {
+    [Serializable]
     class User
     {
-        private const string experiencesFileNameFormat = "yyyyMMddHHmmss";
-        private const string loginTimeFormat = "yyyy-MM-dd HH:mm:ss";
-        private string expFilesRoot = System.IO.Directory.GetCurrentDirectory() + "\\data\\";
+        private const string timeFormat = "yyyy-MM-dd HH:mm:ss";
         private const int minPoints = 100;
 
         public User()
         {
+            registerDate = lastLoginDate = DateTime.Now.ToString(timeFormat);
+            loginCount++;
         }
 
         private string loginName;
@@ -102,7 +103,7 @@ namespace EESDD.Control.User
             set { userClass = value; }
         }
 
-        private int loginCount;
+        private int loginCount = 0;
 
         public int LoginCount
         {
@@ -115,7 +116,6 @@ namespace EESDD.Control.User
         public string RegisterDate
         {
             get { return registerDate; }
-            set { registerDate = value; }
         }
 
         private string lastLoginDate;
@@ -151,7 +151,7 @@ namespace EESDD.Control.User
             {
                 if (experiences == null)
                 {
-                    experiences = new List<ExperienceUnit>();                 
+                    experiences = new List<ExperienceUnit>();
                 }
                 experiences.Add(value);
                 if (value.Vehicles.Count > minPoints)
@@ -163,59 +163,5 @@ namespace EESDD.Control.User
 
         private int[] index = new int[10] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
         public int[] Index { get { return index; } }
-
-        /// <summary>
-        /// 1. count of login times plus
-        /// 2. update last login time
-        /// 3. set experiences depend on experiencesFileName
-        /// </summary>
-        public void newLogin()
-        {
-            loginCount++;
-            lastLoginDate = DateTime.Now.ToString(loginTimeFormat);
-            setExperienceListFromFile();
-        }
-
-        public bool saveExperienceListToFile()
-        {
-            string fileName = loginName.ToLower();
-            string filePath = expFilesRoot + fileName;
-
-            BinaryFormatter bf = new BinaryFormatter();
-            if (experiences != null && experiences.Count != 0)
-            {
-                using (FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write))
-                {
-                    bf.Serialize(fs, experiences);
-                }
-
-                experiencesFileName = fileName;             //if success, update experiencesFileName
-
-                return true;
-            }
-            return false;
-        }
-        private bool setExperienceListFromFile()
-        {
-            if (experiencesFileName == null || experiencesFileName.Equals(""))
-                return false;
-
-            string filePath = expFilesRoot + loginName.ToLower();
-            if (File.Exists(filePath))
-            {
-                BinaryFormatter bf = new BinaryFormatter();
-                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-                {
-                    experiences = (List<ExperienceUnit>)bf.Deserialize(fs);
-                }
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
-        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using EESDD.Control.DataModel;
 using EESDD.Control.Operation;
 using EESDD.Control.User;
+using EESDD.Data.Database;
 using EESDD.VISSIM;
 using EESDD.Widgets.Buttons;
 using EESDD.Widgets.Chart;
@@ -143,7 +144,7 @@ namespace EESDD.Pages
             endRefresh(CustomMessageBox.Show("提示","是否保存数据？") == true ? true : false);
             PageList.Main.setPage(PageList.SceneSelect);
             clearChart();
-            PageList.Main.User.saveExperienceListToFile();
+            UserInfoManger.saveUserInfo(PageList.Main.User);
         }
 
         public bool Used
@@ -152,17 +153,17 @@ namespace EESDD.Pages
         }
 
         private void clearChart() {
-            SpeedChart.clear();
-            LittleSpeed.clear();
+            SpeedChart.clearData();
+            LittleSpeed.clearData();
 
-            AccelerationChart.clear();
-            LittleAcc.clear();
+            AccelerationChart.clearData();
+            LittleAcc.clearData();
 
-            OffsetChart.clear();
-            LittleOffset.clear();
+            OffsetChart.clearData();
+            LittleOffset.clearData();
 
-            BrakeChart.clear();
-            LittleBrake.clear();
+            BrakeChart.clearData();
+            LittleBrake.clearData();
         }
      
         private void setDataSource() {
@@ -178,6 +179,15 @@ namespace EESDD.Pages
             LittleBrake.Normal = BrakeChart.Normal;
             LittleBrake.DistractA = BrakeChart.DistractA;
             LittleBrake.DistractB = BrakeChart.DistractB;
+
+            LittleSpeed.clearLine();
+            LittleSpeed.drawLine(); 
+            LittleAcc.clearLine();
+            LittleAcc.drawLine();
+            LittleOffset.clearLine();
+            LittleOffset.drawLine();
+            LittleBrake.clearLine();
+            LittleBrake.drawLine();
         }
     }
 }
