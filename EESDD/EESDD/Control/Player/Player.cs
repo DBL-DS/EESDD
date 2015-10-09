@@ -84,7 +84,22 @@ namespace EESDD.Control.Player
 
          private void plotExperience(int _mode, int indexOfSelection)
          {
-             List<SimulatedVehicle> list = user.Experiences[user.Index[indexOfSelection]].Vehicles;
+             ExperienceUnit unit = user.Experiences[user.Index[indexOfSelection]];
+             List<SimulatedVehicle> list = unit.Vehicles;
+
+             speed.Init.AppendAsync(dispatcher, new Point(0, unit.Top.Speed));
+             offset.Init.AppendAsync(dispatcher, new Point(0, unit.Top.Offset));
+             accelerate.Init.AppendAsync(dispatcher, new Point(0, unit.Top.Acceleration));
+             brake.Init.AppendAsync(dispatcher, new Point(0, unit.Top.BrakePedal));
+             speed.Init.AppendAsync(dispatcher, new Point(0, unit.Bottom.Speed));
+             offset.Init.AppendAsync(dispatcher, new Point(0, unit.Bottom.Offset));
+             accelerate.Init.AppendAsync(dispatcher, new Point(0, unit.Bottom.Acceleration));
+             brake.Init.AppendAsync(dispatcher, new Point(0, unit.Bottom.BrakePedal));
+             speed.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
+             offset.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
+             accelerate.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
+             brake.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
+
              if (_mode == UserSelections.NormalMode)
              {
                  foreach (SimulatedVehicle vehicle in list)
@@ -202,7 +217,7 @@ namespace EESDD.Control.Player
              udp.close();
              udp = null;
 
-             if (vissim != null)
+             if (vissim != null && PageList.Main.Selection.SceneSelect != UserSelections.SceneLaneChange)
                 vissim.Stop();
 
              if (state)
