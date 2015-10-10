@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="EESDD.Widgets.Chart.BarChart"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Width="100">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Width="100" BorderThickness="0,0,0,1" BorderBrush="White">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                    <ColumnDefinition Width="30"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Foreground="White" TextAlignment="Center" VerticalAlignment="Bottom">10.2</TextBlock>
+                    <Rectangle Grid.Row="1" Fill="#5508ff00" Width="20" Height="140"></Rectangle>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Foreground="White" TextAlignment="Center" VerticalAlignment="Bottom">9.5</TextBlock>
+                    <Rectangle Grid.Row="1" Fill="#55ff751d" Width="20" Height="130"></Rectangle>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock Foreground="White" TextAlignment="Center" VerticalAlignment="Bottom">8.9</TextBlock>
+                    <Rectangle Grid.Row="1" Fill="#5533aaff" Width="20" Height="120"></Rectangle>
+                </Grid>
+            </Grid>
+        </Border>
+        <TextBlock Grid.Row="1" TextAlignment="Center" VerticalAlignment="Bottom" Foreground="White"><Run Text="刹车距离"/><Run Text="（m）"/></TextBlock>
+    </Grid>
+</UserControl>
