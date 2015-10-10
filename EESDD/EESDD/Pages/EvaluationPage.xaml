@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:line="clr-namespace:EESDD.Widgets.Chart"
       xmlns:btn="clr-namespace:EESDD.Widgets.Buttons"
+      xmlns:chart="clr-namespace:EESDD.Widgets.Chart"
       mc:Ignorable="d" 
       d:DesignHeight="665" d:DesignWidth="1090"
 	Title="EvaluationPage">
@@ -108,6 +109,12 @@
                                 </Grid>
                             </Grid>
                         </Border>
+                        <Grid Grid.Row="1">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <chart:BarChart BarChartTitle="反应时(ms)" x:Name="testChart" Width="150"></chart:BarChart>
+                                <chart:BarChart Width="150"></chart:BarChart>
+                            </StackPanel>
+                        </Grid>
                     </Grid>
                     <Grid x:Name="sceneTwo" Visibility="Hidden">
 

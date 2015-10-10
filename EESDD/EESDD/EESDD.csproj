@@ -261,9 +261,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\ExpFiles\" />
-    <Folder Include="Widgets\Menu\" />
-    <Folder Include="Widgets\Scene\" />
-    <Folder Include="Widgets\Selector\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Buttons\close.png" />
@@ -290,7 +287,12 @@
     <Resource Include="Images\DataExport\Lock-icon.png" />
     <Resource Include="Images\Buttons\right_arrow_bjut_blue.png" />
     <Resource Include="Images\Buttons\right_arrow_bjut_blue_light.png" />
-    <Content Include="Widgets\Chart\Lib\De.TorstenMandelkow.MetroChart.dll" />
+    <Resource Include="Images\Select\2013010511104616882.jpg" />
+    <Resource Include="Images\Select\3dbd2c248a6701fb663a6354848f02f9.jpg" />
+    <Resource Include="Images\Select\7ddc1cc6ee6b85a6cb703de6458dd420.jpg" />
+    <Resource Include="Images\Select\cegKDhrWwzQw.jpg" />
+    <Resource Include="Images\Select\ceP04ZQpr6d5c.jpg" />
+    <Resource Include="Images\Select\Redocn_2010042923314793.jpg" />
     <Content Include="Widgets\Chart\Lib\DynamicDataDisplay.dll" />
   </ItemGroup>
   <ItemGroup>

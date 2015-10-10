@@ -71,13 +71,13 @@ namespace EESDD.Control.Player
              if (normalIndex != index && user.Index[normalIndex] != -1)
                  plotExperience(UserSelections.NormalMode, normalIndex);
 
-             int distractAIndex = UserSelections.getIndex(scene, UserSelections.LowDistractedMode);
+             int distractAIndex = UserSelections.getIndex(scene, UserSelections.DistractAMode);
              if (distractAIndex != index && user.Index[distractAIndex] != -1)
-                 plotExperience(UserSelections.LowDistractedMode, distractAIndex);
+                 plotExperience(UserSelections.DistractAMode, distractAIndex);
 
-             int distractBIndex = UserSelections.getIndex(scene, UserSelections.HighDistractedMode);
+             int distractBIndex = UserSelections.getIndex(scene, UserSelections.DistractBMode);
              if (distractBIndex != index && user.Index[distractBIndex] != -1)
-                 plotExperience(UserSelections.HighDistractedMode, distractBIndex);
+                 plotExperience(UserSelections.DistractBMode, distractBIndex);
          }
 
          private void plotExperience(int _mode, int indexOfSelection)
@@ -108,7 +108,7 @@ namespace EESDD.Control.Player
                      brake.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));               
                  }
              }
-             else if (_mode == UserSelections.LowDistractedMode)
+             else if (_mode == UserSelections.DistractAMode)
              {
                  foreach (SimulatedVehicle vehicle in list)
                  {
@@ -118,7 +118,7 @@ namespace EESDD.Control.Player
                      brake.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
                  }
              }
-             else if (_mode == UserSelections.HighDistractedMode)
+             else if (_mode == UserSelections.DistractBMode)
              {
                  foreach (SimulatedVehicle vehicle in list)
                  {
@@ -143,14 +143,14 @@ namespace EESDD.Control.Player
                      accelerate.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
                      brake.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
                  }
-                 else if (mode == UserSelections.LowDistractedMode)
+                 else if (mode == UserSelections.DistractAMode)
                  {
                      speed.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
                      offset.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
                      accelerate.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
                      brake.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
                  }
-                 else if (mode == UserSelections.HighDistractedMode)
+                 else if (mode == UserSelections.DistractBMode)
                  {
                      speed.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
                      offset.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));

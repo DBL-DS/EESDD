@@ -21,9 +21,10 @@ namespace EESDD.Control.Operation
         public const int SceneBrake = 1;
         public const int SceneLaneChange = 4;
         public const int SceneIntersection = 7;
-        public const int NormalMode = 10;            //Default Mode Selection
-        public const int LowDistractedMode = 11;
-        public const int HighDistractedMode = 12;
+        public const int SceneNavigator = 10;
+        public const int NormalMode = 100;            //Default Mode Selection
+        public const int DistractAMode = 101;
+        public const int DistractBMode = 102;
 
         public int SceneSelect
         {

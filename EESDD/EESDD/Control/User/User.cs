@@ -161,7 +161,8 @@ namespace EESDD.Control.User
             }
         }
 
-        private int[] index = new int[10] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+        private int[] index = new int[20] { -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                                            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
         public int[] Index { get { return index; } }
     }
 }

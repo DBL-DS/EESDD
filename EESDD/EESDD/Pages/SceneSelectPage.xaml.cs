@@ -53,6 +53,23 @@ namespace EESDD.Pages
                 changeDetail(SceneFourDetail);
                 PageList.Main.Selection.SceneSelect = UserSelections.SceneIntersection;
             }
+            else if (clickBtn.Name.Equals("LittleFive"))
+            {
+                changeDetail(SceneFiveDetail);
+                PageList.Main.Selection.SceneSelect = UserSelections.SceneNavigator;  
+            }
+
+            if (clickBtn.Name.Equals("LittleFive"))
+            {
+                NormalMode.Visibility = System.Windows.Visibility.Hidden;
+                ModeSelect_Click(LowDistractedMode, new RoutedEventArgs());
+            }
+            else
+            {
+                NormalMode.Visibility = System.Windows.Visibility.Visible;
+                ModeSelect_Click(NormalMode, new RoutedEventArgs());
+            }
+
         }
 
         private void changeDetail(Grid toChange)
@@ -81,11 +98,11 @@ namespace EESDD.Pages
                         break;
                     case "LowDistractedMode":
                         LowDistractedCheck.Visibility = System.Windows.Visibility.Visible;
-                        PageList.Main.Selection.ModeSelect = UserSelections.LowDistractedMode;
+                        PageList.Main.Selection.ModeSelect = UserSelections.DistractAMode;
                         break;
                     case "HighDistractedMode":
                         HighDistractedCheck.Visibility = System.Windows.Visibility.Visible;
-                        PageList.Main.Selection.ModeSelect = UserSelections.HighDistractedMode;
+                        PageList.Main.Selection.ModeSelect = UserSelections.DistractBMode;
                         break;
                 }
             }

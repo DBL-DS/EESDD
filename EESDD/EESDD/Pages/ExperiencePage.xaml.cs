@@ -106,8 +106,9 @@ namespace EESDD.Pages
             Thread refreshData = new Thread(PageList.Main.Player.refreshDataSource);
             refreshData.Start();
 
+            // The Scene LaneChange & Scene Navigator don't need vissim to record
             int scene = PageList.Main.Selection.SceneSelect;
-            if (scene != UserSelections.SceneLaneChange)
+            if (scene != UserSelections.SceneLaneChange && scene != UserSelections.SceneNavigator)
             {
                 PageList.Main.Player.initVissim();
                 Thread vissimRun = new Thread(PageList.Main.Player.UseVissim);
