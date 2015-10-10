@@ -1,28 +1,11 @@
-﻿using EESDD.Control.DataModel;
-using EESDD.Control.Operation;
-using EESDD.Control.User;
+﻿using EESDD.Control.Operation;
 using EESDD.Data.Database;
-using EESDD.VISSIM;
 using EESDD.Widgets.Buttons;
 using EESDD.Widgets.Chart;
-using EESDD.Widgets.Menu;
-using Microsoft.Research.DynamicDataDisplay.DataSources;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace EESDD.Pages
 {

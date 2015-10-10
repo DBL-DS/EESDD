@@ -142,17 +142,11 @@
     <Compile Include="Widgets\Buttons\TabsButton.xaml.cs">
       <DependentUpon>TabsButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Widgets\Chart\BarChart.xaml.cs">
+      <DependentUpon>BarChart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Widgets\Chart\LinePlotter.xaml.cs">
       <DependentUpon>LinePlotter.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Widgets\Menu\TabsTitle.xaml.cs">
-      <DependentUpon>TabsTitle.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Widgets\Selector\SelectorButton.xaml.cs">
-      <DependentUpon>SelectorButton.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Widgets\Selector\SimulationConfiguration.xaml.cs">
-      <DependentUpon>SimulationConfiguration.xaml</DependentUpon>
     </Compile>
     <Page Include="CustomMessageBox.xaml">
       <SubType>Designer</SubType>
@@ -227,21 +221,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Widgets\Chart\BarChart.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Widgets\Chart\LinePlotter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Widgets\Menu\TabsTitle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Widgets\Selector\SelectorButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Widgets\Selector\SimulationConfiguration.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -275,7 +261,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\ExpFiles\" />
+    <Folder Include="Widgets\Menu\" />
     <Folder Include="Widgets\Scene\" />
+    <Folder Include="Widgets\Selector\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Buttons\close.png" />

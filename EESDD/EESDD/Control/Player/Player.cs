@@ -4,11 +4,9 @@ using EESDD.Control.User;
 using EESDD.UDP;
 using EESDD.VISSIM;
 using EESDD.Widgets.Chart;
-using Microsoft.Research.DynamicDataDisplay.DataSources;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Threading;
-using EESDD.Control.User;
 
 namespace EESDD.Control.Player
 {
