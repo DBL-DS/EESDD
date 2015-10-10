@@ -97,13 +97,19 @@ namespace EESDD
         {
             shutdownApp();
         }
-
+        private bool isExperiencing() {
+            if (MainFrame.Content.Equals(PageList.Experience))
+                return true;
+            else
+                return false;
+        }
         private void shutdownApp()
         {
-            if (MainFrame.Content.Equals(PageList.Experience)) {
+            if (isExperiencing()) {
                 CustomMessageBox.Show("Warning", "Can't quit before the end of experience!");
                 return;
             }
+
             if (CustomMessageBox.Show("Confirmation", "Do you want to close this window?")
                 == true)
             {
@@ -184,6 +190,11 @@ namespace EESDD
 
         private void LogOutButton_Click(object sender, RoutedEventArgs e)
         {
+            if (isExperiencing())
+            {
+                CustomMessageBox.Show("Warning", "Can't logout before the end of experience!");
+                return;
+            }
             this.setPage(PageList.Login);
             this.init();
         }

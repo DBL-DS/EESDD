@@ -3,6 +3,7 @@ using EESDD.Control.Player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,7 +30,10 @@ namespace EESDD.Control.User
         public List<SimulatedVehicle> Vehicles
         {
             get { return vehicles; }
-            set { vehicles = value; }
+            set { 
+                vehicles = value;
+                setTopAndBottom();
+            }
         }
 
         Evaluation evaluation;
@@ -53,9 +57,58 @@ namespace EESDD.Control.User
             set { reactAct = value; }
         }
 
+        private SimulatedVehicle top;
+        public SimulatedVehicle Top
+        {
+            get {
+                if (top == null)
+                {
+                    setTopAndBottom();
+                }
+                return top; 
+            }
+        }
+
+        private SimulatedVehicle bottom;
+        public SimulatedVehicle Bottom
+        {
+            get {
+                if (bottom == null)
+                {
+                    setTopAndBottom();
+                }
+                return bottom;
+            }
+        }
+
+        public SimulatedVehicle Right
+        {
+            get { return this.vehicles[vehicles.Count-1]; }
+        }
+
         public ExperienceUnit()
         {
             time = DateTime.Now;
+        }
+
+        private void setTopAndBottom() {
+            top = new SimulatedVehicle();
+            bottom = new SimulatedVehicle();
+            foreach (SimulatedVehicle vehicle in vehicles)
+            {
+                foreach (PropertyInfo p in vehicle.GetType().GetProperties())
+                {
+                    if ((float)p.GetValue(vehicle) > (float)p.GetValue(top))
+                    {
+                        p.SetValue(top, p.GetValue(vehicle));
+                    }
+
+                    if ((float)p.GetValue(vehicle) < (float)p.GetValue(bottom))
+                    {
+                        p.SetValue(bottom, p.GetValue(vehicle));
+                    }
+                }
+            }
         }
     }
 }

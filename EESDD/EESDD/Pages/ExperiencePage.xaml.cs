@@ -124,12 +124,12 @@ namespace EESDD.Pages
             refreshData.Start();
 
             int scene = PageList.Main.Selection.SceneSelect;
-            //if (scene != UserSelections.SceneLaneChange)
-            //{
-            //    PageList.Main.Player.initVissim();
-            //    Thread vissimRun = new Thread(PageList.Main.Player.UseVissim);
-            //    vissimRun.Start();
-            //}
+            if (scene != UserSelections.SceneLaneChange)
+            {
+                PageList.Main.Player.initVissim();
+                Thread vissimRun = new Thread(PageList.Main.Player.UseVissim);
+                vissimRun.Start();
+            }
         }
 
 
@@ -167,27 +167,32 @@ namespace EESDD.Pages
         }
      
         private void setDataSource() {
+            LittleSpeed.Init = SpeedChart.Init;
             LittleSpeed.Normal = SpeedChart.Normal;
             LittleSpeed.DistractA = SpeedChart.DistractA;
             LittleSpeed.DistractB = SpeedChart.DistractB;
+            LittleAcc.Init = AccelerationChart.Init;
             LittleAcc.Normal = AccelerationChart.Normal;
             LittleAcc.DistractA = AccelerationChart.DistractA;
             LittleAcc.DistractB = AccelerationChart.DistractB;
+            LittleOffset.Init = OffsetChart.Init;
             LittleOffset.Normal = OffsetChart.Normal;
             LittleOffset.DistractA = OffsetChart.DistractA;
             LittleOffset.DistractB = OffsetChart.DistractB;
+            LittleBrake.Init = BrakeChart.Init;
             LittleBrake.Normal = BrakeChart.Normal;
             LittleBrake.DistractA = BrakeChart.DistractA;
             LittleBrake.DistractB = BrakeChart.DistractB;
 
+            double thickness = 1.0;
             LittleSpeed.clearLine();
-            LittleSpeed.drawLine(); 
+            LittleSpeed.drawLine(thickness); 
             LittleAcc.clearLine();
-            LittleAcc.drawLine();
+            LittleAcc.drawLine(thickness);
             LittleOffset.clearLine();
-            LittleOffset.drawLine();
+            LittleOffset.drawLine(thickness);
             LittleBrake.clearLine();
-            LittleBrake.drawLine();
+            LittleBrake.drawLine(thickness);
         }
     }
 }

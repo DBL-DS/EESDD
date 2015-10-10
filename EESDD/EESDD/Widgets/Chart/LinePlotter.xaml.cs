@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Windows.Threading;
 using Microsoft.Research.DynamicDataDisplay;
 using Microsoft.Research.DynamicDataDisplay.DataSources;
+using EESDD.Control.Operation;
 namespace EESDD.Widgets.Chart
 {
     /// <summary>
@@ -12,21 +13,34 @@ namespace EESDD.Widgets.Chart
     /// </summary>
     public partial class LinePlotter : UserControl
     {
+        private double lineThickness = 2.0;
         public LinePlotter()
         {
             InitializeComponent();
             drawLine();
         }
+
+        private ObservableDataSource<Point> initData = new ObservableDataSource<Point>();
         private ObservableDataSource<Point> normalData = new ObservableDataSource<Point>();
         private ObservableDataSource<Point> distractAData = new ObservableDataSource<Point>();
         private ObservableDataSource<Point> distractBData = new ObservableDataSource<Point>();
 
         public void drawLine()
         {
-            plotter.AddLineGraph(normalData, Color.FromRgb(124, 255, 124));
-            plotter.AddLineGraph(distractAData, Color.FromRgb(124, 255, 124));
-            plotter.AddLineGraph(distractBData, Color.FromRgb(0, 140, 255));
-            plotter.LegendVisible = false;              
+            plotter.AddLineGraph(initData, Color.FromArgb(0, 255, 255, 255), lineThickness);
+            plotter.AddLineGraph(normalData, Color.FromArgb(170, 8, 255, 0), lineThickness);
+            plotter.AddLineGraph(distractAData, Color.FromArgb(170, 255, 117, 29), lineThickness);
+            plotter.AddLineGraph(distractBData, Color.FromArgb(170, 51, 170, 255), lineThickness);
+            plotter.LegendVisible = false;
+        }
+
+        public void drawLine(double thickness)
+        {
+            plotter.AddLineGraph(initData, Color.FromArgb(0, 255, 255, 255), thickness);
+            plotter.AddLineGraph(normalData, Color.FromArgb(170, 8, 255, 0), thickness);
+            plotter.AddLineGraph(distractAData, Color.FromArgb(170, 255, 117, 29), thickness);
+            plotter.AddLineGraph(distractBData, Color.FromArgb(170, 51, 170, 255), thickness);
+            plotter.LegendVisible = false;
         }
 
         public ObservableDataSource<Point> Normal
@@ -43,6 +57,11 @@ namespace EESDD.Widgets.Chart
         {
             get { return distractBData; }
             set { distractBData = value; }
+        }
+        public ObservableDataSource<Point> Init
+        {
+            get { return initData; }
+            set { initData = value; }
         }
 
         public void clearData() {
