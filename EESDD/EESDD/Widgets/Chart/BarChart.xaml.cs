@@ -20,9 +20,41 @@ namespace EESDD.Widgets.Chart
     /// </summary>
     public partial class BarChart : UserControl
     {
+        public static readonly DependencyProperty BarChartTitleProperty =
+            DependencyProperty.Register("BarChartTitle", typeof(string), typeof(BarChart));
         public BarChart()
         {
             InitializeComponent();
+            //setValue(7, 7, 2);
         }
+
+        public void setValue(float normalValue, float distractAValue, float distractBValue)
+        {
+            double height = normal.ActualHeight;
+
+            float max = normalValue;
+            if (max < distractAValue)
+                max = distractAValue;
+            if (max < distractBValue)
+                max = distractBValue;
+
+            //max value occupy 85% height
+            double maxScale = 0.85;
+            double fullValue = max / maxScale;
+
+            normalBar.Height = normalValue / fullValue * height;
+            distractABar.Height = distractAValue / fullValue * height;
+            distractBBar.Height = distractBValue / fullValue * height;
+
+            normalText.Text = normalValue.ToString();
+            distractAText.Text = distractAValue.ToString();
+            distractBText.Text = distractBValue.ToString();
+        }
+
+        public string BarChartTitle
+        {
+            get { return (string)GetValue(BarChartTitleProperty); }
+            set { SetValue(BarChartTitleProperty, value); }
+        }
     }
 }
