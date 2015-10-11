@@ -42,6 +42,10 @@ namespace EESDD.Control.Operation
 
         public static int getIndex(int scene, int mode)
         {
+            if (scene == ScenePractice && (mode == DistractAMode || mode == DistractBMode))
+                return -1;
+            if (scene == SceneNavigator && mode == NormalMode)
+                return -1;
             return scene + mode - NormalMode;
         }
     }

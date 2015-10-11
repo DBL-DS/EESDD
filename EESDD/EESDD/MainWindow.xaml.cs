@@ -145,6 +145,7 @@ namespace EESDD
             {
                 setChosen((TabsButton)sender);
                 PageList.Main.setPage(PageList.CurrentEvaluation);
+                PageList.Evaluation.refreshCurrentChart();
             }
             else
             {

@@ -75,6 +75,11 @@ namespace EESDD.Widgets.Chart
         {
             plotter.RemoveUserElements();
         }
+
+        public void saveSnapShot()
+        {
+            
+        }
     }
     
 }

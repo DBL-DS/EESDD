@@ -70,15 +70,15 @@ namespace EESDD.Control.Player
              int index = PageList.Main.Selection.Index;           
 
              int normalIndex = UserSelections.getIndex(scene, UserSelections.NormalMode);
-             if (normalIndex != index && user.Index[normalIndex] != -1)
+             if (normalIndex != -1 && normalIndex != index && user.Index[normalIndex] != -1)
                  plotExperience(UserSelections.NormalMode, normalIndex);
 
              int distractAIndex = UserSelections.getIndex(scene, UserSelections.DistractAMode);
-             if (distractAIndex != index && user.Index[distractAIndex] != -1)
+             if (distractAIndex != -1 && distractAIndex != index && user.Index[distractAIndex] != -1)
                  plotExperience(UserSelections.DistractAMode, distractAIndex);
 
              int distractBIndex = UserSelections.getIndex(scene, UserSelections.DistractBMode);
-             if (distractBIndex != index && user.Index[distractBIndex] != -1)
+             if (distractBIndex != -1 && distractBIndex != index && user.Index[distractBIndex] != -1)
                  plotExperience(UserSelections.DistractBMode, distractBIndex);
          }
 

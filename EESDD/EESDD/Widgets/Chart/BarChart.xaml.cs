@@ -51,10 +51,16 @@ namespace EESDD.Widgets.Chart
             distractBText.Text = distractBValue.ToString();
         }
 
+        public void setTitle(string title)
+        {
+            BarChartTitle = title;
+        }
+
         public string BarChartTitle
         {
             get { return (string)GetValue(BarChartTitleProperty); }
             set { SetValue(BarChartTitleProperty, value); }
-        }
+        }
+
     }
 }
