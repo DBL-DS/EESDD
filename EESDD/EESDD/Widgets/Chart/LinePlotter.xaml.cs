@@ -65,6 +65,7 @@ namespace EESDD.Widgets.Chart
         }
 
         public void clearData() {
+            initData.Collection.Clear();
             normalData.Collection.Clear();
             distractAData.Collection.Clear();
             distractBData.Collection.Clear();

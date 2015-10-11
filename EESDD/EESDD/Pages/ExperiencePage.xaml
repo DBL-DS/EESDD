@@ -75,6 +75,7 @@
                                     <btn:ChartSelectionButton BtnClick="MainChartChange" Margin="5,0" x:Name="acc" BtnText="Accleration"></btn:ChartSelectionButton>
                                     <btn:ChartSelectionButton BtnClick="MainChartChange" Margin="5,0" x:Name="brake" BtnText="Brake"></btn:ChartSelectionButton>
                                     <btn:ChartSelectionButton BtnClick="MainChartChange" Margin="5,0" x:Name="offset" BtnText="Offset Middle Line"></btn:ChartSelectionButton>
+                                    <btn:ChartSelectionButton BtnClick="MainChartChange" Margin="5,0" x:Name="follow" BtnText="Following Distance"></btn:ChartSelectionButton>
                                 </StackPanel>
                             </Grid>
                         </Grid>
@@ -83,15 +84,16 @@
                             <line:LinePlotter x:Name="AccelerationChart" Visibility="Hidden" Margin="30,0"></line:LinePlotter>
                             <line:LinePlotter x:Name="OffsetChart" Visibility="Hidden" Margin="30,0"></line:LinePlotter>
                             <line:LinePlotter x:Name="BrakeChart" Visibility="Hidden" Margin="30,0"></line:LinePlotter>
+                            <line:LinePlotter x:Name="FollowChart" Visibility="Hidden" Margin="30,0"></line:LinePlotter>
                         </Grid>
                         <Grid Grid.Row="2">
                             <StackPanel Margin="30,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <Line Margin="40,0,10,0" VerticalAlignment="Center" Width="30" Stroke="#ffe0ff7d" X2="30" ></Line>
+                                <Line Margin="40,0,10,0" VerticalAlignment="Center" StrokeThickness="2" Width="30" Stroke="#aa08ff00" X2="30" ></Line>
                                 <TextBlock Foreground="White" FontFamily="Monaco">Normal</TextBlock>
-                                <Line Margin="40,0,10,0" VerticalAlignment="Center" Width="30" Stroke="#ffff751d" X2="30" ></Line>
-                                <TextBlock Foreground="White" FontFamily="Monaco">DistractedA</TextBlock>
-                                <Line Margin="40,0,10,0" VerticalAlignment="Center" Width="30" Stroke="#ff008cff" X2="30" ></Line>
-                                <TextBlock Foreground="White" FontFamily="Monaco">DistractedB</TextBlock>
+                                <Line Margin="40,0,10,0" VerticalAlignment="Center" StrokeThickness="2" Width="30" Stroke="#aaff751d" X2="30" ></Line>
+                                <TextBlock Foreground="White" FontFamily="Monaco">DistractA</TextBlock>
+                                <Line Margin="40,0,10,0" VerticalAlignment="Center" StrokeThickness="2" Width="30" Stroke="#aa008cff" X2="30" ></Line>
+                                <TextBlock Foreground="White" FontFamily="Monaco">DistractB</TextBlock>
                             </StackPanel>
                         </Grid>
                     </Grid>
@@ -178,13 +180,13 @@
                             <TextBlock VerticalAlignment="Bottom" Grid.Row="0" Margin="10,0,0,0" Foreground="White" FontFamily="Monaco">Middle Line Offset</TextBlock>
                             <line:LinePlotter x:Name="LittleOffset" Margin="10" Grid.Row="1"></line:LinePlotter>
                         </Grid>
-                        <Grid Name="LittleBrakeUnit"  Grid.Row="1" Grid.Column="1">
+                        <Grid Name="LittleFollowUnit"  Grid.Row="1" Grid.Column="1">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="20"></RowDefinition>
                                 <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
-                            <TextBlock VerticalAlignment="Bottom" Grid.Row="0" Margin="10,0,0,0" Foreground="White" FontFamily="Monaco">Brake</TextBlock>
-                            <line:LinePlotter x:Name="LittleBrake" Margin="10" Grid.Row="1"></line:LinePlotter>
+                            <TextBlock VerticalAlignment="Bottom" Grid.Row="0" Margin="10,0,0,0" Foreground="White" FontFamily="Monaco">Following Distance</TextBlock>
+                            <line:LinePlotter x:Name="LittleFollow" Margin="10" Grid.Row="1"></line:LinePlotter>
                         </Grid>
                     </Grid>
                 </Grid>

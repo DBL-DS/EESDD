@@ -57,6 +57,11 @@ namespace EESDD.Pages
                 ChangeMainChartTitle("Offset Middle Line-Time");
                 ChangeMainChart(OffsetChart);
             }
+            else if (select.Name.Equals("follow"))
+            {
+                ChangeMainChartTitle("Following Distance Line-Time");
+                ChangeMainChart(FollowChart);
+            }
         }
 
         private void ChangeButtonChosen(ChartSelectionButton toChange)
@@ -107,13 +112,13 @@ namespace EESDD.Pages
             refreshData.Start();
 
             // The Scene LaneChange & Scene Navigator don't need vissim to record
-            int scene = PageList.Main.Selection.SceneSelect;
-            if (scene != UserSelections.SceneLaneChange && scene != UserSelections.SceneNavigator)
-            {
-                PageList.Main.Player.initVissim();
-                Thread vissimRun = new Thread(PageList.Main.Player.UseVissim);
-                vissimRun.Start();
-            }
+            //int scene = PageList.Main.Selection.SceneSelect;
+            //if (scene != UserSelections.SceneLaneChange && scene != UserSelections.SceneNavigator)
+            //{
+            //    PageList.Main.Player.initVissim();
+            //    Thread vissimRun = new Thread(PageList.Main.Player.UseVissim);
+            //    vissimRun.Start();
+            //}
         }
 
 
@@ -147,7 +152,9 @@ namespace EESDD.Pages
             LittleOffset.clearData();
 
             BrakeChart.clearData();
-            LittleBrake.clearData();
+
+            FollowChart.clearData();
+            LittleFollow.clearData();
         }
      
         private void setDataSource() {
@@ -163,10 +170,10 @@ namespace EESDD.Pages
             LittleOffset.Normal = OffsetChart.Normal;
             LittleOffset.DistractA = OffsetChart.DistractA;
             LittleOffset.DistractB = OffsetChart.DistractB;
-            LittleBrake.Init = BrakeChart.Init;
-            LittleBrake.Normal = BrakeChart.Normal;
-            LittleBrake.DistractA = BrakeChart.DistractA;
-            LittleBrake.DistractB = BrakeChart.DistractB;
+            LittleFollow.Init = FollowChart.Init;
+            LittleFollow.Normal = FollowChart.Normal;
+            LittleFollow.DistractA = FollowChart.DistractA;
+            LittleFollow.DistractB = FollowChart.DistractB;
 
             double thickness = 1.0;
             LittleSpeed.clearLine();
@@ -175,8 +182,8 @@ namespace EESDD.Pages
             LittleAcc.drawLine(thickness);
             LittleOffset.clearLine();
             LittleOffset.drawLine(thickness);
-            LittleBrake.clearLine();
-            LittleBrake.drawLine(thickness);
+            LittleFollow.clearLine();
+            LittleFollow.drawLine(thickness);
         }
     }
 }
