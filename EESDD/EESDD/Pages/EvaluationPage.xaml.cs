@@ -18,7 +18,8 @@ namespace EESDD.Pages
     public partial class EvaluationPage : Page
     {
         private LinePlotter currentLine;
-        private ChartSelectionButton currentBtn;
+        private ChartSelectionButton currentChartButton;
+        private Button currentSceneButton;
         private int currentScene;
         private User user;
         public EvaluationPage()
@@ -30,6 +31,7 @@ namespace EESDD.Pages
         private void init()
         {
             currentScene = UserSelections.ScenePractice;
+            currentSceneButton = LittleOne;
             user = PageList.Main.User;
             MainChartChange(speed, new EventArgs());
         }
@@ -42,6 +44,11 @@ namespace EESDD.Pages
         private void Little_Enter(object sender, RoutedEventArgs e)
         {
             Button clickBtn = (Button)sender;
+            if (clickBtn.Equals(currentSceneButton))
+                return;
+
+            currentSceneButton = clickBtn;
+
             if (clickBtn.Name.Equals("LittleOne"))
             {
                 currentScene = UserSelections.ScenePractice;
@@ -57,10 +64,6 @@ namespace EESDD.Pages
             else if (clickBtn.Name.Equals("LittleFour"))
             {
                 currentScene = UserSelections.SceneIntersection;
-            }
-            else if (clickBtn.Name.Equals("LittleFive"))
-            {
-                currentScene = UserSelections.SceneNavigator;
             }
 
             refreshCurrentChart();
@@ -94,19 +97,19 @@ namespace EESDD.Pages
             }
             else if (select.Name.Equals("follow"))
             {
-                ChangeMainChartTitle("Following Distance Line-Time");
+                ChangeMainChartTitle("Following Distance-Time");
                 ChangeMainChart(FollowChart);
             }
         }
 
         private void ChangeButtonChosen(ChartSelectionButton toChange)
         {
-            if (currentBtn == null || !currentBtn.Equals(toChange))
+            if (currentChartButton == null || !currentChartButton.Equals(toChange))
             {
-                if (currentBtn != null)
-                    currentBtn.Chosen = false;
-                currentBtn = toChange;
-                currentBtn.Chosen = true;
+                if (currentChartButton != null)
+                    currentChartButton.Chosen = false;
+                currentChartButton = toChange;
+                currentChartButton.Chosen = true;
             }
         }
         private void ChangeMainChartTitle(string Title)
@@ -127,6 +130,8 @@ namespace EESDD.Pages
 
         private void plotLineChart()
         {
+            clearLines();
+
             int normalIndex = UserSelections.getIndex(currentScene, UserSelections.NormalMode);
             if (normalIndex != -1 && user.Index[normalIndex] != -1)
                 plotExperienceLine(UserSelections.NormalMode, normalIndex);
@@ -199,15 +204,70 @@ namespace EESDD.Pages
             }
         }
 
-        private void plotBarChart() { 
-        
+        private void plotBarChart() {
+            clearBars();
+            switch (currentScene)
+            {
+                case UserSelections.SceneBrake:
+                    foreach (BarDetail detail in BarChoice.SceneBrake)
+                        plotExperienceBar(detail);
+                    break;
+                case UserSelections.SceneLaneChange:
+                    foreach (BarDetail detail in BarChoice.SceneLaneChange)
+                        plotExperienceBar(detail);
+                    break;
+                case UserSelections.SceneIntersection:
+                    foreach (BarDetail detail in BarChoice.SceneIntersection)
+                        plotExperienceBar(detail);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void plotExperienceBar(BarDetail detail)
+        {
+            BarChart bar = new BarChart();
+            bars.Children.Add(bar);
+            bar.setBarFromBarDetail(detail);
+            bar.MinWidth = 150;
+
+            float normalValue, distractAValue, distractBValue;
+
+            // set bar chart's value
+            ExperienceUnit unit;
+            // get normal value
+            int normalIndex = UserSelections.getIndex(currentScene, UserSelections.NormalMode);
+            if (normalIndex != -1 && user.Index[normalIndex] != -1){        
+                unit = user.Experiences[user.Index[normalIndex]];
+                normalValue = (float)unit.Evaluation.GetType().GetProperty(detail.DataName).GetValue(unit.Evaluation);
+            }
+            else
+                normalValue = 0;
+            // get distractA value
+            int distractAIndex = UserSelections.getIndex(currentScene, UserSelections.DistractAMode);
+            if (distractAIndex != -1 && user.Index[distractAIndex] != -1){
+                unit = user.Experiences[user.Index[distractAIndex]];
+                distractAValue = (float)unit.Evaluation.GetType().GetProperty(detail.DataName).GetValue(unit.Evaluation);
+            }
+            else
+                distractAValue = 0;
+            // get distractB value
+            int distractBIndex = UserSelections.getIndex(currentScene, UserSelections.DistractBMode);
+            if (distractBIndex != -1 && user.Index[distractBIndex] != -1){
+                unit = user.Experiences[user.Index[distractBIndex]];
+                distractBValue = (float)unit.Evaluation.GetType().GetProperty(detail.DataName).GetValue(unit.Evaluation);
+            }
+            else
+                distractBValue = 0;
+
+            bar.setValue(normalValue, distractAValue, distractBValue);
         }
 
         public void refreshCurrentChart()
         {
-            clearLines();
-            clearBars();
             plotLineChart();
+            plotBarChart();
         }
 
         private void clearLines()

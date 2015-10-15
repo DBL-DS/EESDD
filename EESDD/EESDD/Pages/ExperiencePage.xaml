@@ -92,8 +92,12 @@
                                 <TextBlock Foreground="White" FontFamily="Monaco">Normal</TextBlock>
                                 <Line Margin="40,0,10,0" VerticalAlignment="Center" StrokeThickness="2" Width="30" Stroke="#aaff751d" X2="30" ></Line>
                                 <TextBlock Foreground="White" FontFamily="Monaco">DistractA</TextBlock>
-                                <Line Margin="40,0,10,0" VerticalAlignment="Center" StrokeThickness="2" Width="30" Stroke="#aa008cff" X2="30" ></Line>
+                                <Line Margin="40,0,10,0" VerticalAlignment="Center" StrokeThickness="2" Width="30" Stroke="#aa33aaff" X2="30" ></Line>
                                 <TextBlock Foreground="White" FontFamily="Monaco">DistractB</TextBlock>
+                                <Line Margin="40,0,10,0" VerticalAlignment="Center" StrokeThickness="2" Width="30" Stroke="#aa008c88" X2="30" ></Line>
+                                <TextBlock Foreground="White" FontFamily="Monaco">DistractC</TextBlock>
+                                <Line Margin="40,0,10,0" VerticalAlignment="Center" StrokeThickness="2" Width="30" Stroke="#aa008c00" X2="30" ></Line>
+                                <TextBlock Foreground="White" FontFamily="Monaco">DistractD</TextBlock>
                             </StackPanel>
                         </Grid>
                     </Grid>

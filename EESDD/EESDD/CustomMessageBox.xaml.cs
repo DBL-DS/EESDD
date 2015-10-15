@@ -77,5 +77,13 @@ namespace EESDD
             //((Border)sender).BorderThickness = 
         }
 
+        private void TitleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
+        }
+
     }
 }

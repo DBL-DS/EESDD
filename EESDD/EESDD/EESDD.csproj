@@ -86,6 +86,9 @@
     <Compile Include="Control\Player\BrakeActivity.cs" />
     <Compile Include="Control\Player\Player.cs" />
     <Compile Include="Control\Player\ReactActivity.cs" />
+    <Compile Include="Control\User\BarChoice.cs" />
+    <Compile Include="Control\User\BarDetail.cs" />
+    <Compile Include="Control\User\BarDetailCluster.cs" />
     <Compile Include="Control\User\Evaluation.cs" />
     <Compile Include="Control\User\ExperienceUnit.cs" />
     <Compile Include="Control\User\User.cs" />
@@ -261,6 +264,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Data\ExpFiles\" />
+    <Folder Include="Data\Export\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Buttons\close.png" />

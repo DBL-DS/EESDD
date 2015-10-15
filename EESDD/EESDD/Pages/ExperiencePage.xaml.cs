@@ -112,13 +112,13 @@ namespace EESDD.Pages
             refreshData.Start();
 
             // The Scene LaneChange & Scene Navigator don't need vissim to record
-            //int scene = PageList.Main.Selection.SceneSelect;
-            //if (scene != UserSelections.SceneLaneChange && scene != UserSelections.SceneNavigator)
-            //{
-            //    PageList.Main.Player.initVissim();
-            //    Thread vissimRun = new Thread(PageList.Main.Player.UseVissim);
-            //    vissimRun.Start();
-            //}
+            int scene = PageList.Main.Selection.SceneSelect;
+            if (scene != UserSelections.SceneLaneChange)
+            {
+                PageList.Main.Player.initVissim();
+                Thread vissimRun = new Thread(PageList.Main.Player.UseVissim);
+                vissimRun.Start();
+            }
         }
 
 

@@ -63,12 +63,6 @@
                                 <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="路口等灯"/>
                             </Grid>
                         </Button>
-                        <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleFive" Height="50" Margin="0,1">
-                            <Grid Height="50" Width="180">
-                                <Image Margin="0,0,120,5" Height="20" Source="/EESDD;component/Images/Select/car_blue.png"></Image>
-                                <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="导航驾驶"/>
-                            </Grid>
-                        </Button>
                     </StackPanel>
 
                 </Border>
@@ -97,7 +91,7 @@
                                         <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="5"></DropShadowEffect>
                                     </Border.Effect>
                                     <Border HorizontalAlignment="Center" Width="250" VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
-                                        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
+                                        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">适应练习</TextBlock>
                                     </Border>
                                 </Border>
                             </Grid>
@@ -107,7 +101,7 @@
                                 </Grid.Background>
                                 <Border Margin="0,20,20,0" CornerRadius="5" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#77000000">
                                     <Border HorizontalAlignment="Center" Width="250" VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
-                                        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
+                                        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">跟驰刹车</TextBlock>
                                     </Border>
                                 </Border>
                             </Grid>
@@ -117,7 +111,7 @@
                                 </Grid.Background>
                                 <Border Margin="0,20,20,0" CornerRadius="5" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#77000000">
                                     <Border HorizontalAlignment="Center" Width="250"  VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
-                                        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
+                                        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">前车并线</TextBlock>
                                     </Border>
                                 </Border>
                             </Grid>
@@ -127,64 +121,94 @@
                                 </Grid.Background>
                                 <Border Margin="0,20,20,0" CornerRadius="5" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#77000000">
                                     <Border HorizontalAlignment="Center" Width="250"  VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
-                                        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
+                                        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">路口等灯</TextBlock>
                                     </Border>
                                 </Border>
                             </Grid>
-                            <Grid x:Name="SceneFiveDetail" Visibility="Hidden" Margin="10">
-                                <Grid.Background>
-                                    <ImageBrush ImageSource="/EESDD;component/Images/Select/7ddc1cc6ee6b85a6cb703de6458dd420.jpg" Stretch="UniformToFill"/>
-                                </Grid.Background>
-                                <Border Margin="0,20,20,0" CornerRadius="5" Width="300" Height="300" VerticalAlignment="Top" HorizontalAlignment="Right" Background="#77000000">
-                                    <Border HorizontalAlignment="Center" Width="250"  VerticalAlignment="Top" Height="30" BorderBrush="#FFA4A4A4" BorderThickness="0,0,0,1">
-                                        <TextBlock TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="#FFCFCFCF" FontFamily="Microsoft YaHei" FontSize="14">场景描述</TextBlock>
-                                    </Border>
-                                </Border>
-                            </Grid>
-
                         </Grid>
                         <Grid Grid.Row="1">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="170"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <Button Click="ModeSelect_Click" x:Name="NormalMode" Width="130" Height="90" Style="{StaticResource ModeSelectButtonStyle}">
-                                <Grid Width="120" Height="80">
-                                    <Image Source="/EESDD;component/Images/Select/9d1925fd26dc309f254ad965c0dfbf75.jpeg" Stretch="UniformToFill">
-                                        <Image.Effect>
-                                            <BlurEffect Radius="10"></BlurEffect>
-                                        </Image.Effect>
-                                    </Image>
-                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFE0FF7D" FontSize="20" FontFamily="YouYuan" FontWeight="Bold">正常模式</TextBlock>
-                                    <Image x:Name="NormalCheck" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Source="/EESDD;component/Images/Select/check.png"></Image>
-                                </Grid>
-                            </Button>
-                            <Button Click="ModeSelect_Click" x:Name="LowDistractedMode" Grid.Column="1" Width="130" Height="90" Style="{StaticResource ModeSelectButtonStyle}">
-                                <Grid  Width="120" Height="80">
-                                    <Image Source="/EESDD;component/Images/Select/2268855148fdfaa362ff3025ed61632a.jpg" Stretch="UniformToFill">
-                                        <Image.Effect>
-                                            <BlurEffect Radius="10"></BlurEffect>
-                                        </Image.Effect>
-                                    </Image>
-                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFF751D" FontSize="20" FontFamily="YouYuan" FontWeight="Bold"><Run Text="分心模式"/><Run Text="A"/></TextBlock>
-                                    <Image Visibility="Hidden" x:Name="LowDistractedCheck" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Source="/EESDD;component/Images/Select/check.png"></Image>
-                                </Grid>
+                            <Grid Margin="20 0 0 0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Button Click="ModeSelect_Click" x:Name="NormalMode" Width="100" Height="80" Style="{StaticResource ModeSelectButtonStyle}">
+                                    <Grid Width="100" Height="70">
+                                        <Image Source="/EESDD;component/Images/Select/9d1925fd26dc309f254ad965c0dfbf75.jpeg" Stretch="UniformToFill">
+                                            <Image.Effect>
+                                                <BlurEffect Radius="10"></BlurEffect>
+                                            </Image.Effect>
+                                        </Image>
+                                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFE0FF7D" FontSize="20" FontFamily="YouYuan" FontWeight="Bold">正常模式</TextBlock>
+                                        <Image x:Name="NormalCheck" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Source="/EESDD;component/Images/Select/check.png"></Image>
+                                    </Grid>
+                                </Button>
+                                <Button Visibility="Hidden" Click="ModeSelect_Click" x:Name="DistractAMode" Grid.Column="1" Width="100" Height="80" Style="{StaticResource ModeSelectButtonStyle}">
+                                    <Grid Width="100" Height="70">
+                                        <Image Source="/EESDD;component/Images/Select/2268855148fdfaa362ff3025ed61632a.jpg" Stretch="UniformToFill">
+                                            <Image.Effect>
+                                                <BlurEffect Radius="10"></BlurEffect>
+                                            </Image.Effect>
+                                        </Image>
+                                        <StackPanel VerticalAlignment="Center">
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF00fff2" FontSize="20" FontFamily="YouYuan" FontWeight="Bold"><Run Text="分心模式"/><Run Text="A"/></TextBlock>
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFffffff" FontSize="15" FontFamily="YouYuan" FontWeight="Bold">微信语音</TextBlock>
+                                        </StackPanel>
+                                        <Image Visibility="Hidden" x:Name="DIstractACheck" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Source="/EESDD;component/Images/Select/check.png"></Image>
+                                    </Grid>
 
-                            </Button>
-                            <Button Click="ModeSelect_Click" x:Name="HighDistractedMode" Grid.Column="2" Width="130" Height="90" Style="{StaticResource ModeSelectButtonStyle}">
-                                <Grid  Width="120" Height="80">
-                                    <Image Source="/EESDD;component/Images/Select/distracted_driving.jpg" Stretch="UniformToFill">
-                                        <Image.Effect>
-                                            <BlurEffect Radius="10"></BlurEffect>
-                                        </Image.Effect>
-                                    </Image>
-                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFF751D" FontSize="20" FontFamily="YouYuan" FontWeight="Bold"><Run Text="分心模式"/><Run Text="B"/></TextBlock>
-                                    <Image Visibility="Hidden" x:Name="HighDistractedCheck" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Source="/EESDD;component/Images/Select/check.png"></Image>
-                                </Grid>
-
-                            </Button>
+                                </Button>
+                                <Button Visibility="Hidden" Click="ModeSelect_Click" x:Name="DistractBMode" Grid.Column="2" Width="100" Height="80" Style="{StaticResource ModeSelectButtonStyle}">
+                                    <Grid Width="100" Height="70">
+                                        <Image Source="/EESDD;component/Images/Select/distracted_driving.jpg" Stretch="UniformToFill">
+                                            <Image.Effect>
+                                                <BlurEffect Radius="10"></BlurEffect>
+                                            </Image.Effect>
+                                        </Image>
+                                        <StackPanel VerticalAlignment="Center">
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFa1ff00" FontSize="20" FontFamily="YouYuan" FontWeight="Bold"><Run Text="分心模式"/><Run Text="B"/></TextBlock>
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFffffff" FontSize="15" FontFamily="YouYuan" FontWeight="Bold">微信短信</TextBlock>
+                                        </StackPanel>
+                                        <Image Visibility="Hidden" x:Name="DistractBCheck" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Source="/EESDD;component/Images/Select/check.png"></Image>
+                                    </Grid>
+                                </Button>
+                                <Button Visibility="Hidden" Grid.Column="3" Click="ModeSelect_Click" x:Name="DistractCMode" Width="100" Height="80" Style="{StaticResource ModeSelectButtonStyle}">
+                                    <Grid Width="100" Height="70">
+                                        <Image Source="/EESDD;component/Images/Select/9d1925fd26dc309f254ad965c0dfbf75.jpeg" Stretch="UniformToFill">
+                                            <Image.Effect>
+                                                <BlurEffect Radius="10"></BlurEffect>
+                                            </Image.Effect>
+                                        </Image>
+                                        <StackPanel VerticalAlignment="Center">
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFfff200" FontSize="20" FontFamily="YouYuan" FontWeight="Bold">分心模式C</TextBlock>
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFffffff" FontSize="15" FontFamily="YouYuan" FontWeight="Bold">行车导航</TextBlock>
+                                        </StackPanel>
+                                        <Image Visibility="Hidden" x:Name="DistractCCheck" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Source="/EESDD;component/Images/Select/check.png"></Image>
+                                    </Grid>
+                                </Button>
+                                <Button Visibility="Hidden" Grid.Column="4" Click="ModeSelect_Click" x:Name="DistractDMode" Width="100" Height="80" Style="{StaticResource ModeSelectButtonStyle}">
+                                    <Grid Width="100" Height="70">
+                                        <Image Source="/EESDD;component/Images/Select/9d1925fd26dc309f254ad965c0dfbf75.jpeg" Stretch="UniformToFill">
+                                            <Image.Effect>
+                                                <BlurEffect Radius="10"></BlurEffect>
+                                            </Image.Effect>
+                                        </Image>
+                                        <StackPanel VerticalAlignment="Center">
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFffae00" FontSize="20" FontFamily="YouYuan" FontWeight="Bold">分心模式D</TextBlock>
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFffffff" FontSize="15" FontFamily="YouYuan" FontWeight="Bold">调节收音机</TextBlock>                                            
+                                        </StackPanel>
+                                        <Image Visibility="Hidden" x:Name="DistractDCheck" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Source="/EESDD;component/Images/Select/check.png"></Image>
+                                    </Grid>
+                                </Button>
+                            </Grid>
+                            
                             <Button Click="Start_Click" Style="{StaticResource StartButtonStyle}" Cursor="Hand" Grid.Column="3" Width="126" Height="49">
                                 <Button.Background>
                                     <ImageBrush ImageSource="/EESDD;component/Images/Select/start.png" Stretch="UniformToFill"/>

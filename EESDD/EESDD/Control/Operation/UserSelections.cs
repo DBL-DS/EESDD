@@ -16,15 +16,16 @@ namespace EESDD.Control.Operation
             sceneSelect = 0;
             modeSelect = 0;
         }
-
+        private const int modeNum = 5;
         public const int ScenePractice = 0;         //Default Scene Selection
-        public const int SceneBrake = 1;
-        public const int SceneLaneChange = 4;
-        public const int SceneIntersection = 7;
-        public const int SceneNavigator = 10;
+        public const int SceneBrake = modeNum;
+        public const int SceneLaneChange = 2 * modeNum;
+        public const int SceneIntersection = 3 * modeNum;
         public const int NormalMode = 100;            //Default Mode Selection
         public const int DistractAMode = 101;
         public const int DistractBMode = 102;
+        public const int DistractCMode = 103;
+        public const int DistractDMode = 104;
 
         public int SceneSelect
         {
@@ -43,8 +44,6 @@ namespace EESDD.Control.Operation
         public static int getIndex(int scene, int mode)
         {
             if (scene == ScenePractice && (mode == DistractAMode || mode == DistractBMode))
-                return -1;
-            if (scene == SceneNavigator && mode == NormalMode)
                 return -1;
             return scene + mode - NormalMode;
         }

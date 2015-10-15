@@ -22,7 +22,7 @@ namespace EESDD.Pages
             currentDetail = SceneOneDetail;
             currentMode = NormalMode;
             PageList.Main.Selection.SceneSelect = UserSelections.ScenePractice;
-            PageList.Main.Selection.ModeSelect = UserSelections.NormalMode;            
+            PageList.Main.Selection.ModeSelect = UserSelections.NormalMode;
         }
 
         public void setTitle(string name)
@@ -53,20 +53,21 @@ namespace EESDD.Pages
                 changeDetail(SceneFourDetail);
                 PageList.Main.Selection.SceneSelect = UserSelections.SceneIntersection;
             }
-            else if (clickBtn.Name.Equals("LittleFive"))
-            {
-                changeDetail(SceneFiveDetail);
-                PageList.Main.Selection.SceneSelect = UserSelections.SceneNavigator;  
-            }
 
-            if (clickBtn.Name.Equals("LittleFive"))
+            if (clickBtn.Name.Equals("LittleOne"))
             {
-                NormalMode.Visibility = System.Windows.Visibility.Hidden;
-                ModeSelect_Click(LowDistractedMode, new RoutedEventArgs());
+                DistractAMode.Visibility = System.Windows.Visibility.Hidden;
+                DistractBMode.Visibility = System.Windows.Visibility.Hidden;
+                DistractCMode.Visibility = System.Windows.Visibility.Hidden;
+                DistractDMode.Visibility = System.Windows.Visibility.Hidden;
             }
             else
             {
                 NormalMode.Visibility = System.Windows.Visibility.Visible;
+                DistractAMode.Visibility = System.Windows.Visibility.Visible;
+                DistractBMode.Visibility = System.Windows.Visibility.Visible;
+                DistractCMode.Visibility = System.Windows.Visibility.Visible;
+                DistractDMode.Visibility = System.Windows.Visibility.Visible;
                 ModeSelect_Click(NormalMode, new RoutedEventArgs());
             }
 
@@ -88,21 +89,31 @@ namespace EESDD.Pages
             {
                 currentMode = (Button)sender;
                 NormalCheck.Visibility = System.Windows.Visibility.Hidden;
-                LowDistractedCheck.Visibility = System.Windows.Visibility.Hidden;
-                HighDistractedCheck.Visibility = System.Windows.Visibility.Hidden;
+                DIstractACheck.Visibility = System.Windows.Visibility.Hidden;
+                DistractBCheck.Visibility = System.Windows.Visibility.Hidden;
+                DistractCCheck.Visibility = System.Windows.Visibility.Hidden;
+                DistractDCheck.Visibility = System.Windows.Visibility.Hidden;
                 switch (((Button)sender).Name)
                 {
                     case "NormalMode":
                         NormalCheck.Visibility = System.Windows.Visibility.Visible;
                         PageList.Main.Selection.ModeSelect = UserSelections.NormalMode;
                         break;
-                    case "LowDistractedMode":
-                        LowDistractedCheck.Visibility = System.Windows.Visibility.Visible;
+                    case "DistractAMode":
+                        DIstractACheck.Visibility = System.Windows.Visibility.Visible;
                         PageList.Main.Selection.ModeSelect = UserSelections.DistractAMode;
                         break;
-                    case "HighDistractedMode":
-                        HighDistractedCheck.Visibility = System.Windows.Visibility.Visible;
+                    case "DistractBMode":
+                        DistractBCheck.Visibility = System.Windows.Visibility.Visible;
                         PageList.Main.Selection.ModeSelect = UserSelections.DistractBMode;
+                        break;
+                    case "DistractCMode":
+                        DistractCCheck.Visibility = System.Windows.Visibility.Visible;
+                        PageList.Main.Selection.ModeSelect = UserSelections.DistractCMode;
+                        break;
+                    case "DistractDMode":
+                        DistractDCheck.Visibility = System.Windows.Visibility.Visible;
+                        PageList.Main.Selection.ModeSelect = UserSelections.DistractDMode;
                         break;
                 }
             }

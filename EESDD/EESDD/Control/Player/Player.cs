@@ -288,7 +288,7 @@ namespace EESDD.Control.Player
                      reacting = true;
                      reactActivity.TimeStart = vehicle.SimulationTime;                     
                  }
-                 reactActivity.ReactTime = vehicle.SimulationTime - reactActivity.TimeStart;
+                 reactActivity.ReactTime = (vehicle.SimulationTime - reactActivity.TimeStart)*1000;
              }
              else
              {

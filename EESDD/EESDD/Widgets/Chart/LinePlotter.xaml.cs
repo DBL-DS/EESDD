@@ -14,6 +14,12 @@ namespace EESDD.Widgets.Chart
     public partial class LinePlotter : UserControl
     {
         private double lineThickness = 2.0;
+        private LineGraph initGraph;
+        private LineGraph normalGraph;
+        private LineGraph distractAGraph;
+        private LineGraph distractBGraph;
+        private LineGraph distractCGraph;
+        private LineGraph distractDGraph;
         public LinePlotter()
         {
             InitializeComponent();
@@ -24,22 +30,28 @@ namespace EESDD.Widgets.Chart
         private ObservableDataSource<Point> normalData = new ObservableDataSource<Point>();
         private ObservableDataSource<Point> distractAData = new ObservableDataSource<Point>();
         private ObservableDataSource<Point> distractBData = new ObservableDataSource<Point>();
+        private ObservableDataSource<Point> distractCData = new ObservableDataSource<Point>();
+        private ObservableDataSource<Point> distractDData = new ObservableDataSource<Point>();
 
         public void drawLine()
         {
-            plotter.AddLineGraph(initData, Color.FromArgb(0, 255, 255, 255), lineThickness);
-            plotter.AddLineGraph(normalData, Color.FromArgb(170, 8, 255, 0), lineThickness);
-            plotter.AddLineGraph(distractAData, Color.FromArgb(170, 255, 117, 29), lineThickness);
-            plotter.AddLineGraph(distractBData, Color.FromArgb(170, 51, 170, 255), lineThickness);
+            initGraph = plotter.AddLineGraph(initData, Color.FromArgb(0, 255, 255, 255), lineThickness);
+            normalGraph = plotter.AddLineGraph(normalData, Color.FromArgb(170, 8, 255, 0), lineThickness);
+            distractAGraph = plotter.AddLineGraph(distractAData, Color.FromArgb(170, 255, 117, 29), lineThickness);
+            distractBGraph = plotter.AddLineGraph(distractBData, Color.FromArgb(170, 51, 170, 255), lineThickness);
+            distractCGraph = plotter.AddLineGraph(distractCData, Color.FromArgb(170, 0, 140, 136), lineThickness);
+            distractDGraph = plotter.AddLineGraph(distractDData, Color.FromArgb(170, 0, 140, 0), lineThickness);
             plotter.LegendVisible = false;
         }
 
         public void drawLine(double thickness)
         {
-            plotter.AddLineGraph(initData, Color.FromArgb(0, 255, 255, 255), thickness);
-            plotter.AddLineGraph(normalData, Color.FromArgb(170, 8, 255, 0), thickness);
-            plotter.AddLineGraph(distractAData, Color.FromArgb(170, 255, 117, 29), thickness);
-            plotter.AddLineGraph(distractBData, Color.FromArgb(170, 51, 170, 255), thickness);
+            initGraph = plotter.AddLineGraph(initData, Color.FromArgb(0, 255, 255, 255), thickness);
+            normalGraph = plotter.AddLineGraph(normalData, Color.FromArgb(170, 8, 255, 0), thickness);
+            distractAGraph = plotter.AddLineGraph(distractAData, Color.FromArgb(170, 255, 117, 29), thickness);
+            distractBGraph = plotter.AddLineGraph(distractBData, Color.FromArgb(170, 51, 170, 255), thickness);
+            distractCGraph = plotter.AddLineGraph(distractCData, Color.FromArgb(170, 0, 140, 136), thickness);
+            distractDGraph = plotter.AddLineGraph(distractDData, Color.FromArgb(170, 0, 140, 0), thickness);
             plotter.LegendVisible = false;
         }
 
@@ -58,6 +70,16 @@ namespace EESDD.Widgets.Chart
             get { return distractBData; }
             set { distractBData = value; }
         }
+        public ObservableDataSource<Point> DistractC
+        {
+            get { return distractBData; }
+            set { distractBData = value; }
+        }
+        public ObservableDataSource<Point> DistractD
+        {
+            get { return distractBData; }
+            set { distractBData = value; }
+        }
         public ObservableDataSource<Point> Init
         {
             get { return initData; }
@@ -69,6 +91,8 @@ namespace EESDD.Widgets.Chart
             normalData.Collection.Clear();
             distractAData.Collection.Clear();
             distractBData.Collection.Clear();
+            distractCData.Collection.Clear();
+            distractDData.Collection.Clear();
         }
 
         public void clearLine()
@@ -79,6 +103,51 @@ namespace EESDD.Widgets.Chart
         public void saveSnapShot()
         {
             
+        }
+
+        public void hideLine(int selection)
+        {
+            switch (selection)
+            {
+                case UserSelections.NormalMode:
+                    normalGraph.LinePen.Brush.Opacity = 0;
+                    break;
+                case UserSelections.DistractAMode:
+                    distractAGraph.LinePen.Brush.Opacity = 0;
+                    break;
+                case UserSelections.DistractBMode:
+                    distractBGraph.LinePen.Brush.Opacity = 0;
+                    break;
+                case UserSelections.DistractCMode:
+                    distractCGraph.LinePen.Brush.Opacity = 0;
+                    break;
+                case UserSelections.DistractDMode:
+                    distractDGraph.LinePen.Brush.Opacity = 0;
+                    break;
+            }
+        }
+
+        public void showLine(int selection)
+        {
+            double opacity = 2 / 3;
+            switch (selection)
+            {
+                case UserSelections.NormalMode:
+                    normalGraph.LinePen.Brush.Opacity = opacity;
+                    break;
+                case UserSelections.DistractAMode:
+                    distractAGraph.LinePen.Brush.Opacity = opacity;
+                    break;
+                case UserSelections.DistractBMode:
+                    distractBGraph.LinePen.Brush.Opacity = opacity;
+                    break;
+                case UserSelections.DistractCMode:
+                    distractCGraph.LinePen.Brush.Opacity = opacity;
+                    break;
+                case UserSelections.DistractDMode:
+                    distractDGraph.LinePen.Brush.Opacity = opacity;
+                    break;
+            }
         }
     }
     
