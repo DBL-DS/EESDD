@@ -199,7 +199,6 @@ namespace EESDD.VISSIM
                     vehicle.set_AttValue("DESIREDSPEED", -1000);
 
                     RunSingle();
-
                 }
 
                 if (signalState != 0 && net.SignalControllers.Count != 0)

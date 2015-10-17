@@ -107,6 +107,7 @@ namespace EESDD.Pages
         }
         public void startRefresh()
         {
+            setTitle();
             used = true;
             Thread refreshData = new Thread(PageList.Main.Player.refreshDataSource);
             refreshData.Start();
@@ -121,7 +122,49 @@ namespace EESDD.Pages
             }
         }
 
+        private void setTitle()
+        {
+            switch (PageList.Main.Selection.SceneSelect)
+            {
+                case UserSelections.ScenePractice:
+                    MapTitle.Text = "练习场景";
+                    break;
+                case UserSelections.SceneBrake:
+                    MapTitle.Text = "跟驰刹车";
+                    break;
+                case UserSelections.SceneLaneChange:
+                    MapTitle.Text = "前车并线";
+                    break;
+                case UserSelections.SceneIntersection:
+                    MapTitle.Text = "路口等灯";
+                    break;
+            }
 
+            switch (PageList.Main.Selection.ModeSelect)
+            {
+                case UserSelections.NormalMode:
+                    if (PageList.Main.Selection.SceneSelect != UserSelections.ScenePractice)
+                        MapTitle.Text += "-正常模式";
+                    break;
+                case UserSelections.DistractAMode:
+                    MapTitle.Text += "-分心模式A（微信语音）";
+                    break;
+                case UserSelections.DistractBMode:
+                    MapTitle.Text += "-分心模式B（微信短信）";
+                    break;
+                case UserSelections.DistractCMode:
+                    MapTitle.Text += "-分心模式C（调节收音机）";
+                    break;
+                case UserSelections.DistractDMode:
+                    MapTitle.Text += "-分心模式D（行车导航）";
+                    break;
+            }
+        }
+
+        private void setImage()
+        {
+
+        }
 
         public void endRefresh(bool state)
         {
@@ -158,22 +201,10 @@ namespace EESDD.Pages
         }
      
         private void setDataSource() {
-            LittleSpeed.Init = SpeedChart.Init;
-            LittleSpeed.Normal = SpeedChart.Normal;
-            LittleSpeed.DistractA = SpeedChart.DistractA;
-            LittleSpeed.DistractB = SpeedChart.DistractB;
-            LittleAcc.Init = AccelerationChart.Init;
-            LittleAcc.Normal = AccelerationChart.Normal;
-            LittleAcc.DistractA = AccelerationChart.DistractA;
-            LittleAcc.DistractB = AccelerationChart.DistractB;
-            LittleOffset.Init = OffsetChart.Init;
-            LittleOffset.Normal = OffsetChart.Normal;
-            LittleOffset.DistractA = OffsetChart.DistractA;
-            LittleOffset.DistractB = OffsetChart.DistractB;
-            LittleFollow.Init = FollowChart.Init;
-            LittleFollow.Normal = FollowChart.Normal;
-            LittleFollow.DistractA = FollowChart.DistractA;
-            LittleFollow.DistractB = FollowChart.DistractB;
+            LittleSpeed.setLines(SpeedChart);
+            LittleAcc.setLines(AccelerationChart);
+            LittleOffset.setLines(OffsetChart);
+            LittleFollow.setLines(FollowChart);
 
             double thickness = 1.0;
             LittleSpeed.clearLine();

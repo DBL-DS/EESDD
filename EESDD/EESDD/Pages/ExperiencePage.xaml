@@ -118,7 +118,7 @@
                                     <RowDefinition Height="30"></RowDefinition>
                                     <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
-                                <TextBlock VerticalAlignment="Center" Margin="30,0,0,0" Name="MapTitle" FontFamily="Monaco" FontSize="13" Foreground="White">Map Title</TextBlock>
+                                <TextBlock VerticalAlignment="Center" Margin="30,0,0,0" x:Name="MapTitle" FontFamily="Monaco" FontSize="13" Foreground="White">Map Title</TextBlock>
                             </Grid>
                         </Border>
                         <Grid Grid.Row="1">

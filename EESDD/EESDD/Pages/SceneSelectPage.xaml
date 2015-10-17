@@ -39,25 +39,25 @@
                         <Border Height="70" BorderThickness="0,0,0,2" BorderBrush="#FF898989">
                             <TextBlock VerticalAlignment="Center" TextAlignment="Center" Foreground="LightGray" FontSize="24" FontFamily="Impact">场景选择</TextBlock>
                         </Border>
-                        <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleOne"  Height="50" Margin="0,10,0,1">
+                        <Button Style="{StaticResource ListButtonStyle}" Click="Little_Enter" x:Name="LittleOne"  Height="50" Margin="0,10,0,1">
                             <Grid Height="50" Width="180">
                                 <Image Margin="0,0,120,5" Height="20" Source="/EESDD;component/Images/Select/car_blue.png"></Image>
                                 <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="适应练习"/>
                             </Grid>
                         </Button>
-                        <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleTwo" Height="50" Margin="0,1">
+                        <Button Style="{StaticResource ListButtonStyle}" Click="Little_Enter" x:Name="LittleTwo" Height="50" Margin="0,1">
                             <Grid Height="50" Width="180">
                                 <Image Margin="0,0,120,5" Height="20" Source="/EESDD;component/Images/Select/car_blue.png"></Image>
                                 <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="跟驰刹车"/>
                             </Grid>
                         </Button>
-                        <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleThree" Height="50" Margin="0,1">
+                        <Button Style="{StaticResource ListButtonStyle}" Click="Little_Enter" x:Name="LittleThree" Height="50" Margin="0,1">
                             <Grid Height="50" Width="180">
                                 <Image Margin="0,0,120,5" Height="20" Source="/EESDD;component/Images/Select/car_blue.png"></Image>
                                 <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="前车并线"/>
                             </Grid>
                         </Button>
-                        <Button Style="{StaticResource ListButtonStyle}" MouseEnter="Little_Enter" x:Name="LittleFour" Height="50" Margin="0,1">
+                        <Button Style="{StaticResource ListButtonStyle}" Click="Little_Enter" x:Name="LittleFour" Height="50" Margin="0,1">
                             <Grid Height="50" Width="180">
                                 <Image Margin="0,0,120,5" Height="20" Source="/EESDD;component/Images/Select/car_blue.png"></Image>
                                 <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="路口等灯"/>
@@ -188,7 +188,7 @@
                                         </Image>
                                         <StackPanel VerticalAlignment="Center">
                                             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFfff200" FontSize="20" FontFamily="YouYuan" FontWeight="Bold">分心模式C</TextBlock>
-                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFffffff" FontSize="15" FontFamily="YouYuan" FontWeight="Bold">行车导航</TextBlock>
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFffffff" FontSize="15" FontFamily="YouYuan" FontWeight="Bold">调节收音机</TextBlock>
                                         </StackPanel>
                                         <Image Visibility="Hidden" x:Name="DistractCCheck" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Source="/EESDD;component/Images/Select/check.png"></Image>
                                     </Grid>
@@ -202,7 +202,7 @@
                                         </Image>
                                         <StackPanel VerticalAlignment="Center">
                                             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFffae00" FontSize="20" FontFamily="YouYuan" FontWeight="Bold">分心模式D</TextBlock>
-                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFffffff" FontSize="15" FontFamily="YouYuan" FontWeight="Bold">调节收音机</TextBlock>                                            
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFffffff" FontSize="15" FontFamily="YouYuan" FontWeight="Bold">行车导航</TextBlock>                                            
                                         </StackPanel>
                                         <Image Visibility="Hidden" x:Name="DistractDCheck" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="25" Height="25" Source="/EESDD;component/Images/Select/check.png"></Image>
                                     </Grid>

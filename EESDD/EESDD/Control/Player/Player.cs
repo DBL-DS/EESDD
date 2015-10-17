@@ -73,13 +73,21 @@ namespace EESDD.Control.Player
              if (normalIndex != -1 && normalIndex != index && user.Index[normalIndex] != -1)
                  plotExperience(UserSelections.NormalMode, normalIndex);
 
-             int distractAIndex = UserSelections.getIndex(scene, UserSelections.DistractAMode);
-             if (distractAIndex != -1 && distractAIndex != index && user.Index[distractAIndex] != -1)
-                 plotExperience(UserSelections.DistractAMode, distractAIndex);
+             //int distractAIndex = UserSelections.getIndex(scene, UserSelections.DistractAMode);
+             //if (distractAIndex != -1 && distractAIndex != index && user.Index[distractAIndex] != -1)
+             //    plotExperience(UserSelections.DistractAMode, distractAIndex);
 
-             int distractBIndex = UserSelections.getIndex(scene, UserSelections.DistractBMode);
-             if (distractBIndex != -1 && distractBIndex != index && user.Index[distractBIndex] != -1)
-                 plotExperience(UserSelections.DistractBMode, distractBIndex);
+             //int distractBIndex = UserSelections.getIndex(scene, UserSelections.DistractBMode);
+             //if (distractBIndex != -1 && distractBIndex != index && user.Index[distractBIndex] != -1)
+             //    plotExperience(UserSelections.DistractBMode, distractBIndex);
+
+             //int distractCIndex = UserSelections.getIndex(scene, UserSelections.DistractCMode);
+             //if (distractCIndex != -1 && distractCIndex != index && user.Index[distractCIndex] != -1)
+             //    plotExperience(UserSelections.DistractCMode, distractCIndex);
+
+             //int distractDIndex = UserSelections.getIndex(scene, UserSelections.DistractDMode);
+             //if (distractDIndex != -1 && distractDIndex != index && user.Index[distractDIndex] != -1)
+             //    plotExperience(UserSelections.DistractDMode, distractDIndex);
          }
 
          private void plotExperience(int _mode, int indexOfSelection)
@@ -138,6 +146,28 @@ namespace EESDD.Control.Player
                      follow.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
                  }
              }
+             else if (_mode == UserSelections.DistractCMode)
+             {
+                 foreach (SimulatedVehicle vehicle in list)
+                 {
+                     speed.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
+                     offset.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
+                     accelerate.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
+                     brake.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
+                     follow.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
+                 }
+             }
+             else if (_mode == UserSelections.DistractDMode)
+             {
+                 foreach (SimulatedVehicle vehicle in list)
+                 {
+                     speed.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
+                     offset.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
+                     accelerate.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
+                     brake.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
+                     follow.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
+                 }
+             }
          }
 
          public void play(SimulatedVehicle vehicle) {
@@ -173,6 +203,22 @@ namespace EESDD.Control.Player
                      accelerate.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
                      brake.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
                      follow.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
+                 }
+                 else if (mode == UserSelections.DistractCMode)
+                 {
+                     speed.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
+                     offset.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
+                     accelerate.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
+                     brake.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
+                     follow.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
+                 }
+                 else if (mode == UserSelections.DistractDMode)
+                 {        
+                     speed.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
+                     offset.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
+                     accelerate.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
+                     brake.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
+                     follow.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));  
                  }
 
                  setBrake(vehicle);

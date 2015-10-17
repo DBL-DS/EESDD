@@ -68,8 +68,8 @@ namespace EESDD.Pages
                 DistractBMode.Visibility = System.Windows.Visibility.Visible;
                 DistractCMode.Visibility = System.Windows.Visibility.Visible;
                 DistractDMode.Visibility = System.Windows.Visibility.Visible;
-                ModeSelect_Click(NormalMode, new RoutedEventArgs());
             }
+            ModeSelect_Click(NormalMode, new RoutedEventArgs());
 
         }
 

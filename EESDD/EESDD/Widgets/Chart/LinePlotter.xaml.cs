@@ -72,12 +72,12 @@ namespace EESDD.Widgets.Chart
         }
         public ObservableDataSource<Point> DistractC
         {
-            get { return distractBData; }
+            get { return distractCData; }
             set { distractBData = value; }
         }
         public ObservableDataSource<Point> DistractD
         {
-            get { return distractBData; }
+            get { return distractDData; }
             set { distractBData = value; }
         }
         public ObservableDataSource<Point> Init
@@ -148,6 +148,16 @@ namespace EESDD.Widgets.Chart
                     distractDGraph.LinePen.Brush.Opacity = opacity;
                     break;
             }
+        }
+
+        public void setLines(LinePlotter plotter)
+        {
+            this.initData = plotter.initData;
+            this.normalData = plotter.normalData;
+            this.distractAData = plotter.distractAData;
+            this.distractBData = plotter.distractBData;
+            this.distractCData = plotter.distractCData;
+            this.distractDData = plotter.distractDData;
         }
     }
     

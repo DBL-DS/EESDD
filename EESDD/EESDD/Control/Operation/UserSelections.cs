@@ -14,7 +14,7 @@ namespace EESDD.Control.Operation
         public UserSelections()
         {
             sceneSelect = 0;
-            modeSelect = 0;
+            modeSelect = 100;
         }
         private const int modeNum = 5;
         public const int ScenePractice = 0;         //Default Scene Selection
