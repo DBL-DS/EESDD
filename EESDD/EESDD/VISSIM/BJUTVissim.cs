@@ -188,18 +188,28 @@ namespace EESDD.VISSIM
             running = true;
             while (count!=-1 && running)
             {
-                if (dataIn && getVehicle(1) != null)
+                //当接收数据频率为 8个/s 时，偶尔出现bug，待弄清解决
+                //（猜测： 不要过早shutdown， 因为还有数据未处理到vissim中，关闭导致vissim进程结束，以下代码会出com接口错误）
+                try
                 {
-                    vehicle.set_AttValue("SPEED", speed);
-                    //vehicle.set_AttValue("LANE", lane);
-                    if (link != 2 && scene == UserSelections.SceneBrake)
+                    if (dataIn && getVehicle(1) != null)
                     {
-                        vehicle.MoveToLinkCoordinate(link,1,coord);
-                    }
-                    vehicle.set_AttValue("DESIREDSPEED", -1000);
+                        vehicle.set_AttValue("SPEED", speed);
+                        if (link != 2 && scene == UserSelections.SceneBrake)
+                        {
+                            vehicle.MoveToLinkCoordinate(link, 1, coord);
+                        }
+                        vehicle.set_AttValue("DESIREDSPEED", -1000);
 
-                    RunSingle();
+                        RunSingle();
+                    }
                 }
+                catch (Exception e)
+                {
+
+                    return;
+                }
+                
 
                 if (signalState != 0 && net.SignalControllers.Count != 0)
                 {

@@ -297,6 +297,9 @@
     <Resource Include="Images\Select\cegKDhrWwzQw.jpg" />
     <Resource Include="Images\Select\ceP04ZQpr6d5c.jpg" />
     <Resource Include="Images\Select\Redocn_2010042923314793.jpg" />
+    <Resource Include="Images\Experience\1genchishache.PNG" />
+    <Resource Include="Images\Experience\2qianchebingxian.PNG" />
+    <Resource Include="Images\Experience\3lukoudengdeng.PNG" />
     <Content Include="Widgets\Chart\Lib\DynamicDataDisplay.dll" />
   </ItemGroup>
   <ItemGroup>

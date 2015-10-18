@@ -6,6 +6,7 @@ using System;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace EESDD.Pages
 {
@@ -108,6 +109,7 @@ namespace EESDD.Pages
         public void startRefresh()
         {
             setTitle();
+            setImage();
             used = true;
             Thread refreshData = new Thread(PageList.Main.Player.refreshDataSource);
             refreshData.Start();
@@ -163,7 +165,25 @@ namespace EESDD.Pages
 
         private void setImage()
         {
-
+            mapImageOne.Visibility = System.Windows.Visibility.Hidden;
+            mapImageTwo.Visibility = System.Windows.Visibility.Hidden;
+            mapImageThree.Visibility = System.Windows.Visibility.Hidden;
+            mapImageFour.Visibility = System.Windows.Visibility.Hidden;
+            switch (PageList.Main.Selection.SceneSelect)
+            {
+                case UserSelections.ScenePractice:
+                    mapImageOne.Visibility = System.Windows.Visibility.Visible;
+                    break;
+                case UserSelections.SceneBrake:
+                    mapImageTwo.Visibility = System.Windows.Visibility.Visible;
+                    break;
+                case UserSelections.SceneLaneChange:
+                    mapImageThree.Visibility = System.Windows.Visibility.Visible;
+                    break;
+                case UserSelections.SceneIntersection:
+                    mapImageFour.Visibility = System.Windows.Visibility.Visible;
+                    break;
+            }
         }
 
         public void endRefresh(bool state)

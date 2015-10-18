@@ -32,15 +32,16 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <StackPanel VerticalAlignment="Center" Grid.Column="0">
                     <TextBlock Foreground="#ff666666" VerticalAlignment="Bottom" TextAlignment="Center" Grid.Column="0" FontFamily="Monaco" FontWeight="Bold">Welcome</TextBlock>
                     <TextBlock Foreground="#ff666666" VerticalAlignment="Top" TextAlignment="Center" x:Name="UserName" FontFamily="Monaco" FontWeight="Bold">User Name</TextBlock>
                 </StackPanel>
                <Image Grid.Column="1" Source="/EESDD;component/Images/Experience/smile.png"></Image>
+
             </Grid>
             <Grid Grid.Column="1" Margin="0,0,100,0">
-
             </Grid>
         </Grid>
         <Grid Grid.Row="1">
@@ -119,6 +120,10 @@
                                     <RowDefinition></RowDefinition>
                                 </Grid.RowDefinitions>
                                 <TextBlock VerticalAlignment="Center" Margin="30,0,0,0" x:Name="MapTitle" FontFamily="Monaco" FontSize="13" Foreground="White">Map Title</TextBlock>
+                                <Image Stretch="Fill" Grid.Row="1" Source="/EESDD;component/Images/Experience/1genchishache.PNG" x:Name="mapImageOne" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10"></Image>
+                                <Image Stretch="Fill" Grid.Row="1" Source="/EESDD;component/Images/Experience/1genchishache.PNG" x:Name="mapImageTwo" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10"></Image>
+                                <Image Stretch="Fill" Grid.Row="1" Source="/EESDD;component/Images/Experience/2qianchebingxian.PNG" x:Name="mapImageThree" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10"></Image>
+                                <Image Stretch="Fill" Grid.Row="1" Source="/EESDD;component/Images/Experience/3lukoudengdeng.PNG" x:Name="mapImageFour" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="10"></Image>
                             </Grid>
                         </Border>
                         <Grid Grid.Row="1">

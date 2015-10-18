@@ -30,6 +30,7 @@ namespace EESDD.Pages
                 User user = UserInfoManger.loadUserInfo(loginName);
                 if (user != null)
                 {
+                    //user.Experiences.Remove(user.Experiences[user.Experiences.Count - 1]);
                     doWhenLoginSuccess(user);
                 }
                 else
