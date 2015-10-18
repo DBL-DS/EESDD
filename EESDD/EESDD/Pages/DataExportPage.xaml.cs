@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EESDD.Control.User;
+using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -29,6 +31,23 @@ namespace EESDD.Pages
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             PageList.Main.setPage(PageList.Authentication);
+        }
+
+        private void DeleteLastExperience(object sender, RoutedEventArgs e)
+        {
+            List<ExperienceUnit> units = PageList.Main.User.Experiences;
+            if (units != null && units.Count != 0)
+            {
+                if (CustomMessageBox.Show("确认", "确定删除上一个历史体验记录？") == true)
+                {
+                    units.Remove(units[units.Count - 1]);
+                    CustomMessageBox.Show("提示", "已成功删除！");
+                }
+            }
+            else
+            {
+                CustomMessageBox.Show("提示", "没有历史体验记录！");
+            }
         }
     }
 

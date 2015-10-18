@@ -167,7 +167,8 @@
                 
             </StackPanel>
             <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
-                <Button Margin="40" Height="30" Click="Button_Click">退出</Button>
+                <Button Margin="10" Height="30" Click="DeleteLastExperience">Delete Last Experience</Button>
+                <Button Margin="10" Height="30" Click="Button_Click">退出</Button>
             </StackPanel>
         </Grid>
     </Grid>
