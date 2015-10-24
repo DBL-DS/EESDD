@@ -125,6 +125,14 @@
                     </Setter.Value>
                 </Setter>
             </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="0" ShadowDepth="0" Opacity="0.7" Color="White"></DropShadowEffect>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            
         </Style.Triggers>
     </Style>
 

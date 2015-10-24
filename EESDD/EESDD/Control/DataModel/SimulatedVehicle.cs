@@ -76,8 +76,7 @@ namespace EESDD.Control.DataModel
         {
             get { return totalDistance; }
             set { totalDistance = value; }
-        }
-        
+        }       
 
         public float Braking
         {

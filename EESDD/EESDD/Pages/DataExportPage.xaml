@@ -54,7 +54,7 @@
             <StackPanel Margin="30">
                 <Button Margin="10" Height="30">全选</Button>
                 <Button Margin="10" Height="30">全部取消</Button>
-                <Button Margin="10" Height="30">导出数据</Button>
+                <Button Click="DataExport" Margin="10" Height="30">导出数据</Button>
                 <TextBlock TextWrapping="Wrap" Foreground="#ffaaaaaa" Margin="20">*在左侧选择要导出的的数据,可以导出为Excel表格</TextBlock>
             </StackPanel>
             <StackPanel Grid.Row="1" Margin="20" >

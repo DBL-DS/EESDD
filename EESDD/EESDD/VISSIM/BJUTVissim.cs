@@ -179,9 +179,16 @@ namespace EESDD.VISSIM
         public void Stop()
         {
             running = false;
-            if (simulation != null)
-                simulation.Stop();
-            vissim.Exit();
+            try
+            {            
+                if (simulation != null)
+                    simulation.Stop();
+                vissim.Exit();
+            }
+            catch (Exception)
+            {
+                return;
+            }
         }
         public void Run()
         {

@@ -1,4 +1,5 @@
 ﻿using EESDD.Control.User;
+using EESDD.Data.Export;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -48,6 +49,11 @@ namespace EESDD.Pages
             {
                 CustomMessageBox.Show("提示", "没有历史体验记录！");
             }
+        }
+
+        private void DataExport(object sender, RoutedEventArgs e)
+        {
+            DataExporter.exportExcel();
         }
     }
 
