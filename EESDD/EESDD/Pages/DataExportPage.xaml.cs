@@ -54,6 +54,7 @@ namespace EESDD.Pages
         private void DataExport(object sender, RoutedEventArgs e)
         {
             DataExporter.exportExcel();
+            CustomMessageBox.Show("提示", "数据导出完毕！");
         }
     }
 
