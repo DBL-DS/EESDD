@@ -20,10 +20,12 @@ namespace EESDD.Widgets.Chart
         private LineGraph distractBGraph;
         private LineGraph distractCGraph;
         private LineGraph distractDGraph;
+        private Dispatcher dispatcher;
         public LinePlotter()
         {
             InitializeComponent();
             drawLine();
+            dispatcher = Application.Current.Dispatcher;
         }
 
         private ObservableDataSource<Point> initData = new ObservableDataSource<Point>();
@@ -158,6 +160,19 @@ namespace EESDD.Widgets.Chart
             this.distractBData = plotter.distractBData;
             this.distractCData = plotter.distractCData;
             this.distractDData = plotter.distractDData;
+        }
+
+        public void addPoint(int mode, Point point)
+        {
+            switch (mode)
+            {
+                case UserSelections.NormalMode: normalData.AppendAsync(dispatcher, point); break;
+                case UserSelections.DistractAMode: distractAData.AppendAsync(dispatcher, point); break;
+                case UserSelections.DistractBMode: distractBData.AppendAsync(dispatcher, point); break;
+                case UserSelections.DistractCMode: distractCData.AppendAsync(dispatcher, point); break;
+                case UserSelections.DistractDMode: distractDData.AppendAsync(dispatcher, point); break;
+                default: initData.AppendAsync(dispatcher, point); break;
+            }
         }
     }
     

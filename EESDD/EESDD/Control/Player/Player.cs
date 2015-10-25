@@ -95,79 +95,33 @@ namespace EESDD.Control.Player
              ExperienceUnit unit = user.Experiences[user.Index[indexOfSelection]];
              List<SimulatedVehicle> list = unit.Vehicles;
 
-             speed.Init.AppendAsync(dispatcher, new Point(0, unit.Top.Speed));
-             offset.Init.AppendAsync(dispatcher, new Point(0, unit.Top.Offset));
-             accelerate.Init.AppendAsync(dispatcher, new Point(0, unit.Top.Acceleration));
-             brake.Init.AppendAsync(dispatcher, new Point(0, unit.Top.BrakePedal));
-             follow.Init.AppendAsync(dispatcher, new Point(0, unit.Top.DistanceToNext));
+             speed.addPoint(-1, new Point(0, unit.Top.Speed));
+             offset.addPoint(-1, new Point(0, unit.Top.Offset));
+             accelerate.addPoint(-1, new Point(0, unit.Top.Acceleration));
+             brake.addPoint(-1, new Point(0, unit.Top.BrakePedal));
+             follow.addPoint(-1, new Point(0, unit.Top.DistanceToNext));
 
-             speed.Init.AppendAsync(dispatcher, new Point(0, unit.Bottom.Speed));
-             offset.Init.AppendAsync(dispatcher, new Point(0, unit.Bottom.Offset));
-             accelerate.Init.AppendAsync(dispatcher, new Point(0, unit.Bottom.Acceleration));
-             brake.Init.AppendAsync(dispatcher, new Point(0, unit.Bottom.BrakePedal));
-             follow.Init.AppendAsync(dispatcher, new Point(0, unit.Bottom.DistanceToNext));
+             speed.addPoint(-1, new Point(0, unit.Bottom.Speed));
+             offset.addPoint(-1, new Point(0, unit.Bottom.Offset));
+             accelerate.addPoint(-1, new Point(0, unit.Bottom.Acceleration));
+             brake.addPoint(-1, new Point(0, unit.Bottom.BrakePedal));
+             follow.addPoint(-1, new Point(0, unit.Bottom.DistanceToNext));
 
-             speed.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
-             offset.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
-             accelerate.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
-             brake.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
-             follow.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
+             speed.addPoint(-1, new Point(unit.Right.SimulationTime, 0));
+             offset.addPoint(-1, new Point(unit.Right.SimulationTime, 0));
+             accelerate.addPoint(-1, new Point(unit.Right.SimulationTime, 0));
+             brake.addPoint(-1, new Point(unit.Right.SimulationTime, 0));
+             follow.addPoint(-1, new Point(unit.Right.SimulationTime, 0));
 
-             if (_mode == UserSelections.NormalMode)
+             foreach (SimulatedVehicle vehicle in list)
              {
-                 foreach (SimulatedVehicle vehicle in list)
-                 {
-                     speed.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
-                     offset.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
-                     accelerate.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
-                     brake.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
-                     follow.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));               
-                 }
+                 speed.addPoint(_mode, new Point(vehicle.SimulationTime, vehicle.Speed));
+                 offset.addPoint(_mode, new Point(vehicle.SimulationTime, vehicle.Offset));
+                 accelerate.addPoint(_mode, new Point(vehicle.SimulationTime, vehicle.Acceleration));
+                 brake.addPoint(_mode, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
+                 follow.addPoint(_mode, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
              }
-             else if (_mode == UserSelections.DistractAMode)
-             {
-                 foreach (SimulatedVehicle vehicle in list)
-                 {
-                     speed.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
-                     offset.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
-                     accelerate.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
-                     brake.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
-                     follow.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
-                 }
-             }
-             else if (_mode == UserSelections.DistractBMode)
-             {
-                 foreach (SimulatedVehicle vehicle in list)
-                 {
-                     speed.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
-                     offset.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
-                     accelerate.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
-                     brake.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
-                     follow.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
-                 }
-             }
-             else if (_mode == UserSelections.DistractCMode)
-             {
-                 foreach (SimulatedVehicle vehicle in list)
-                 {
-                     speed.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
-                     offset.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
-                     accelerate.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
-                     brake.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
-                     follow.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
-                 }
-             }
-             else if (_mode == UserSelections.DistractDMode)
-             {
-                 foreach (SimulatedVehicle vehicle in list)
-                 {
-                     speed.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
-                     offset.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
-                     accelerate.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
-                     brake.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
-                     follow.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
-                 }
-             }
+             
          }
 
          public void play(SimulatedVehicle vehicle) {
@@ -180,46 +134,11 @@ namespace EESDD.Control.Player
                  currentVehicle = vehicle;
                  vehicles.Add(vehicle);
 
-                 if (mode == UserSelections.NormalMode)
-                 {
-                     speed.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
-                     offset.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
-                     accelerate.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
-                     brake.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
-                     follow.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
-                 }
-                 else if (mode == UserSelections.DistractAMode)
-                 {
-                     speed.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
-                     offset.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
-                     accelerate.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
-                     brake.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
-                     follow.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
-                 }
-                 else if (mode == UserSelections.DistractBMode)
-                 {
-                     speed.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
-                     offset.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
-                     accelerate.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
-                     brake.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
-                     follow.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
-                 }
-                 else if (mode == UserSelections.DistractCMode)
-                 {
-                     speed.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
-                     offset.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
-                     accelerate.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
-                     brake.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
-                     follow.DistractC.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
-                 }
-                 else if (mode == UserSelections.DistractDMode)
-                 {        
-                     speed.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
-                     offset.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
-                     accelerate.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
-                     brake.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
-                     follow.DistractD.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));  
-                 }
+                 speed.addPoint(mode, new Point(vehicle.SimulationTime, vehicle.Speed));
+                 offset.addPoint(mode, new Point(vehicle.SimulationTime, vehicle.Offset));
+                 accelerate.addPoint(mode, new Point(vehicle.SimulationTime, vehicle.Acceleration));
+                 brake.addPoint(mode, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
+                 follow.addPoint(mode, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
 
                  setBrake(vehicle);
                  setReact(vehicle);
