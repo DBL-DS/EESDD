@@ -95,31 +95,31 @@ namespace EESDD.Control.Player
              ExperienceUnit unit = user.Experiences[user.Index[indexOfSelection]];
              List<SimulatedVehicle> list = unit.Vehicles;
 
-             speed.addPoint(-1, new Point(0, unit.Top.Speed));
-             offset.addPoint(-1, new Point(0, unit.Top.Offset));
-             accelerate.addPoint(-1, new Point(0, unit.Top.Acceleration));
-             brake.addPoint(-1, new Point(0, unit.Top.BrakePedal));
-             follow.addPoint(-1, new Point(0, unit.Top.DistanceToNext));
+             speed.addRealTimePoint(-1, new Point(0, unit.Top.Speed));
+             offset.addRealTimePoint(-1, new Point(0, unit.Top.Offset));
+             accelerate.addRealTimePoint(-1, new Point(0, unit.Top.Acceleration));
+             brake.addRealTimePoint(-1, new Point(0, unit.Top.BrakePedal));
+             follow.addRealTimePoint(-1, new Point(0, unit.Top.DistanceToNext));
 
-             speed.addPoint(-1, new Point(0, unit.Bottom.Speed));
-             offset.addPoint(-1, new Point(0, unit.Bottom.Offset));
-             accelerate.addPoint(-1, new Point(0, unit.Bottom.Acceleration));
-             brake.addPoint(-1, new Point(0, unit.Bottom.BrakePedal));
-             follow.addPoint(-1, new Point(0, unit.Bottom.DistanceToNext));
+             speed.addRealTimePoint(-1, new Point(0, unit.Bottom.Speed));
+             offset.addRealTimePoint(-1, new Point(0, unit.Bottom.Offset));
+             accelerate.addRealTimePoint(-1, new Point(0, unit.Bottom.Acceleration));
+             brake.addRealTimePoint(-1, new Point(0, unit.Bottom.BrakePedal));
+             follow.addRealTimePoint(-1, new Point(0, unit.Bottom.DistanceToNext));
 
-             speed.addPoint(-1, new Point(unit.Right.SimulationTime, 0));
-             offset.addPoint(-1, new Point(unit.Right.SimulationTime, 0));
-             accelerate.addPoint(-1, new Point(unit.Right.SimulationTime, 0));
-             brake.addPoint(-1, new Point(unit.Right.SimulationTime, 0));
-             follow.addPoint(-1, new Point(unit.Right.SimulationTime, 0));
+             speed.addRealTimePoint(-1, new Point(unit.Right.SimulationTime, 0));
+             offset.addRealTimePoint(-1, new Point(unit.Right.SimulationTime, 0));
+             accelerate.addRealTimePoint(-1, new Point(unit.Right.SimulationTime, 0));
+             brake.addRealTimePoint(-1, new Point(unit.Right.SimulationTime, 0));
+             follow.addRealTimePoint(-1, new Point(unit.Right.SimulationTime, 0));
 
              foreach (SimulatedVehicle vehicle in list)
              {
-                 speed.addPoint(_mode, new Point(vehicle.SimulationTime, vehicle.Speed));
-                 offset.addPoint(_mode, new Point(vehicle.SimulationTime, vehicle.Offset));
-                 accelerate.addPoint(_mode, new Point(vehicle.SimulationTime, vehicle.Acceleration));
-                 brake.addPoint(_mode, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
-                 follow.addPoint(_mode, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
+                 speed.addRealTimePoint(_mode, new Point(vehicle.SimulationTime, vehicle.Speed));
+                 offset.addRealTimePoint(_mode, new Point(vehicle.SimulationTime, vehicle.Offset));
+                 accelerate.addRealTimePoint(_mode, new Point(vehicle.SimulationTime, vehicle.Acceleration));
+                 brake.addRealTimePoint(_mode, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
+                 follow.addRealTimePoint(_mode, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
              }
              
          }
@@ -134,11 +134,11 @@ namespace EESDD.Control.Player
                  currentVehicle = vehicle;
                  vehicles.Add(vehicle);
 
-                 speed.addPoint(mode, new Point(vehicle.SimulationTime, vehicle.Speed));
-                 offset.addPoint(mode, new Point(vehicle.SimulationTime, vehicle.Offset));
-                 accelerate.addPoint(mode, new Point(vehicle.SimulationTime, vehicle.Acceleration));
-                 brake.addPoint(mode, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
-                 follow.addPoint(mode, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
+                 speed.addRealTimePoint(mode, new Point(vehicle.SimulationTime, vehicle.Speed));
+                 offset.addRealTimePoint(mode, new Point(vehicle.SimulationTime, vehicle.Offset));
+                 accelerate.addRealTimePoint(mode, new Point(vehicle.SimulationTime, vehicle.Acceleration));
+                 brake.addRealTimePoint(mode, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
+                 follow.addRealTimePoint(mode, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
 
                  setBrake(vehicle);
                  setReact(vehicle);

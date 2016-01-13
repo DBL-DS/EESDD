@@ -6,6 +6,7 @@ using System.Windows.Threading;
 using Microsoft.Research.DynamicDataDisplay;
 using Microsoft.Research.DynamicDataDisplay.DataSources;
 using EESDD.Control.Operation;
+using System;
 namespace EESDD.Widgets.Chart
 {
     /// <summary>
@@ -21,10 +22,27 @@ namespace EESDD.Widgets.Chart
         private LineGraph distractCGraph;
         private LineGraph distractDGraph;
         private Dispatcher dispatcher;
+
+        private float gradientNormal;
+        private float gradientDistractA;
+        private float gradientDistractB;
+        private float gradientDistractC;
+        private float gradientDistractD;
+
+        private Point lastNormal;
+        private Point lastDistractA;
+        private Point lastDistractB;
+        private Point lastDistractC;
+        private Point lastDistractD;
+
+        private const float minChange = (float)0.1;
+        private const double opacity = 2 / 3;
+
         public LinePlotter()
         {
             InitializeComponent();
             drawLine();
+            init();
             dispatcher = Application.Current.Dispatcher;
         }
 
@@ -35,6 +53,20 @@ namespace EESDD.Widgets.Chart
         private ObservableDataSource<Point> distractCData = new ObservableDataSource<Point>();
         private ObservableDataSource<Point> distractDData = new ObservableDataSource<Point>();
 
+        public void init()
+        {
+            gradientNormal = 0;
+            gradientDistractA = 0;
+            gradientDistractB = 0;
+            gradientDistractC = 0;
+            gradientDistractD = 0;
+
+            lastNormal = new Point(0, 0);
+            lastDistractA = new Point(0, 0);
+            lastDistractB = new Point(0, 0);
+            lastDistractC = new Point(0, 0);
+            lastDistractD = new Point(0, 0);
+        }
         public void drawLine()
         {
             initGraph = plotter.AddLineGraph(initData, Color.FromArgb(0, 255, 255, 255), lineThickness);
@@ -95,6 +127,8 @@ namespace EESDD.Widgets.Chart
             distractBData.Collection.Clear();
             distractCData.Collection.Clear();
             distractDData.Collection.Clear();
+
+            init();
         }
 
         public void clearLine()
@@ -131,7 +165,6 @@ namespace EESDD.Widgets.Chart
 
         public void showLine(int selection)
         {
-            double opacity = 2 / 3;
             switch (selection)
             {
                 case UserSelections.NormalMode:
@@ -162,7 +195,7 @@ namespace EESDD.Widgets.Chart
             this.distractDData = plotter.distractDData;
         }
 
-        public void addPoint(int mode, Point point)
+        public void addRealTimePoint(int mode, Point point)
         {
             switch (mode)
             {
@@ -171,6 +204,59 @@ namespace EESDD.Widgets.Chart
                 case UserSelections.DistractBMode: distractBData.AppendAsync(dispatcher, point); break;
                 case UserSelections.DistractCMode: distractCData.AppendAsync(dispatcher, point); break;
                 case UserSelections.DistractDMode: distractDData.AppendAsync(dispatcher, point); break;
+            }
+        }
+
+        public void addPoint(int mode, Point point)
+        {
+            float gradient;
+            switch (mode)
+            {
+                case UserSelections.NormalMode:
+                    gradient = (float)Math.Abs((point.Y - lastNormal.Y) / (point.X - lastNormal.X));
+                    if (gradient - gradientNormal >= minChange)
+                    {
+                        normalData.AppendAsync(dispatcher, point);
+                        lastNormal = point;
+                        gradientNormal = gradient;
+                    }
+                    break;
+                case UserSelections.DistractAMode:
+                    gradient = (float)Math.Abs((point.Y - lastDistractA.Y) / (point.X - lastDistractA.X));
+                    if (gradient - gradientDistractA >= minChange)
+                    {
+                        distractAData.AppendAsync(dispatcher, point);
+                        lastDistractA = point;
+                        gradientDistractA = gradient;
+                    }
+                    break;
+                case UserSelections.DistractBMode:
+                    gradient = (float)Math.Abs((point.Y - lastDistractB.Y) / (point.X - lastDistractB.X));
+                    if (gradient - gradientDistractB >= minChange)
+                    {
+                        distractBData.AppendAsync(dispatcher, point);
+                        lastDistractB = point;
+                        gradientDistractB = gradient;
+                    }
+                    break;
+                case UserSelections.DistractCMode:
+                    gradient = (float)Math.Abs((point.Y - lastDistractC.Y) / (point.X - lastDistractC.X));
+                    if (gradient - gradientDistractC >= minChange)
+                    {
+                        distractCData.AppendAsync(dispatcher, point);
+                        lastDistractC = point;
+                        gradientDistractC = gradient;
+                    }
+                    break;
+                case UserSelections.DistractDMode:
+                    gradient = (float)Math.Abs((point.Y - lastDistractD.Y) / (point.X - lastDistractD.X));
+                    if (gradient - gradientDistractD >= minChange)
+                    {
+                        distractDData.AppendAsync(dispatcher, point);
+                        lastDistractD = point;
+                        gradientDistractD = gradient;
+                    }
+                    break;
                 default: initData.AppendAsync(dispatcher, point); break;
             }
         }
