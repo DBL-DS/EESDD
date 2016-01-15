@@ -1,6 +1,11 @@
-﻿using EESDD.Control.User;
+﻿using EESDD.Control.Operation;
+using EESDD.Control.User;
+using EESDD.Public;
+using System;
+using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace EESDD.Widgets.Chart
 {
@@ -14,17 +19,29 @@ namespace EESDD.Widgets.Chart
         private float normalValue;
         private float distractAValue;
         private float distractBValue;
+        private float distractCValue;
+        private float distractDValue;
         public BarChart()
         {
             InitializeComponent();
+            GUISet();
         }
 
-        public void setValue(float normalValue, float distractAValue, float distractBValue)
+        private void GUISet()
+        {
+            normalBar.Fill = new SolidColorBrush(ColorDef.Normal);
+            distractABar.Fill = new SolidColorBrush(ColorDef.DistractA);
+            distractBBar.Fill = new SolidColorBrush(ColorDef.DistractB);
+            distractCBar.Fill = new SolidColorBrush(ColorDef.DistractC);
+            distractDBar.Fill = new SolidColorBrush(ColorDef.DistractD);
+        }
+        public void setValue(float normalValue, float distractAValue, float distractBValue, float distractCValue, float distractDValue)
         {
             this.normalValue = normalValue;
             this.distractAValue = distractAValue;
             this.distractBValue = distractBValue;
-
+            this.distractCValue = distractCValue;
+            this.distractDValue = distractDValue;
         }
 
         public void setTitle(string title)
@@ -41,30 +58,60 @@ namespace EESDD.Widgets.Chart
         public void setBarFromBarDetail(BarDetail detail)
         {
             setTitle(detail.BarTtitle);
+        }
 
-            if (!detail.Normal)
+        public void setBarVisible(bool _normal, bool _distractA, bool _distractB, bool _distractC, bool _distractD) 
+        {
+            setVisibility(normal, _normal);
+            setVisibility(distractA, _distractA);
+            setVisibility(distractB, _distractB);
+            setVisibility(distractC, _distractC);
+            setVisibility(distractD, _distractD);
+        }
+
+        public void setBarVisible(int mode, bool visibility)
+        {
+            Grid grid = null;
+            switch (mode)
             {
-                normal.Visibility = System.Windows.Visibility.Hidden;
-                distractA.SetValue(Grid.ColumnProperty, 1);
-                distractB.SetValue(Grid.ColumnProperty, 2);
+                case UserSelections.NormalMode:
+                    grid = normal;
+                    break;
+                case UserSelections.DistractAMode:
+                    grid = distractA;
+                    break;
+                case UserSelections.DistractBMode:
+                    grid = distractB;
+                    break;
+                case UserSelections.DistractCMode:
+                    grid = distractC;
+                    break;
+                case UserSelections.DistractDMode:
+                    grid = distractD;
+                    break;
             }
 
-            if (!detail.DstractA)
-                distractA.Visibility = System.Windows.Visibility.Hidden;
-            if (!detail.DstractB)
-                distractB.Visibility = System.Windows.Visibility.Hidden;
+            if (grid != null)
+            {
+                setVisibility(grid, visibility);   
+            }
+        }
+
+        private void setVisibility(Grid grid, bool visibility)
+        {
+            grid.Visibility = visibility ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
         }
 
         private void RePlot(object sender, SizeChangedEventArgs e)
         {
+            replotChart();
+        }
 
-            double height = normal.ActualHeight;
+        private void replotChart()
+        {
+            double height = barsContainer.ActualHeight;
 
-            float max = normalValue;
-            if (max < distractAValue)
-                max = distractAValue;
-            if (max < distractBValue)
-                max = distractBValue;
+            float max = getMax();
 
             //max value occupy 85% height
             double maxScale = 0.85;
@@ -75,17 +122,44 @@ namespace EESDD.Widgets.Chart
             {
                 normalBar.Height = distractABar.Height = distractBBar.Height = 1;
                 normalText.Text = distractAText.Text = distractBText.Text = "0";
-            }       
+            }
             else
             {
                 normalBar.Height = normalValue / fullValue * height + 1;
                 distractABar.Height = distractAValue / fullValue * height + 1;
                 distractBBar.Height = distractBValue / fullValue * height + 1;
+                distractCBar.Height = distractCValue / fullValue * height + 1;
+                distractDBar.Height = distractDValue / fullValue * height + 1;
 
                 normalText.Text = normalValue.ToString("0.00");
                 distractAText.Text = distractAValue.ToString("0.00");
                 distractBText.Text = distractBValue.ToString("0.00");
+                distractCText.Text = distractCValue.ToString("0.00");
+                distractDText.Text = distractDValue.ToString("0.00");
             }
+        }
+
+
+        private float getMax()
+        {
+            float max = 0;
+
+            if (normal.Visibility == System.Windows.Visibility.Visible)
+                max = Math.Max(max, normalValue);
+
+            if (distractA.Visibility == System.Windows.Visibility.Visible)
+                max = Math.Max(max, distractAValue);
+
+            if (distractB.Visibility == System.Windows.Visibility.Visible)
+                max = Math.Max(max, distractBValue);
+
+            if (distractC.Visibility == System.Windows.Visibility.Visible)
+                max = Math.Max(max, distractCValue);
+
+            if (distractD.Visibility == System.Windows.Visibility.Visible)
+                max = Math.Max(max, distractDValue);
+
+            return max;
         }
 
     }

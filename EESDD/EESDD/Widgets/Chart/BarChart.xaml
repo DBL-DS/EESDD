@@ -11,9 +11,11 @@
             <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
         <Border x:Name="barSpace" BorderThickness="0,0,0,1" BorderBrush="White">
-            <Grid >
+            <!--<Grid x:Name="barSpaceGrid">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                    <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
                     <ColumnDefinition Width="2*"></ColumnDefinition>
@@ -43,7 +45,65 @@
                     <TextBlock x:Name="distractBText" Foreground="White" TextAlignment="Center" VerticalAlignment="Bottom">8.9</TextBlock>
                     <Rectangle x:Name="distractBBar" Grid.Row="1" Fill="#5533aaff" Height="120"></Rectangle>
                 </Grid>
-            </Grid>
+                <Grid Grid.Column="4" x:Name="distractC" Margin="5,0,5,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="distractCText" Foreground="White" TextAlignment="Center" VerticalAlignment="Bottom">8.9</TextBlock>
+                    <Rectangle x:Name="distractCBar" Grid.Row="1" Fill="#5533aaff" Height="120"></Rectangle>
+                </Grid>
+                <Grid Grid.Column="5" x:Name="distractD" Margin="5,0,5,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="distractDText" Foreground="White" TextAlignment="Center" VerticalAlignment="Bottom">8.9</TextBlock>
+                    <Rectangle x:Name="distractDBar" Grid.Row="1" Fill="#5533aaff" Height="120"></Rectangle>
+                </Grid>
+            </Grid>-->
+            <StackPanel x:Name="barsContainer" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Grid x:Name="normal" Margin="5,0,5,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="normalText" Foreground="White" TextAlignment="Center" VerticalAlignment="Bottom">10.2</TextBlock>
+                    <Rectangle x:Name="normalBar" Grid.Row="1" Fill="#5508ff00" Height="140"></Rectangle>
+                </Grid>
+                <Grid x:Name="distractA" Margin="5,0,5,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="distractAText" Foreground="White" TextAlignment="Center" VerticalAlignment="Bottom">9.5</TextBlock>
+                    <Rectangle x:Name="distractABar" Grid.Row="1" Fill="#55ff751d" Height="130"></Rectangle>
+                </Grid>
+                <Grid x:Name="distractB" Margin="5,0,5,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="distractBText" Foreground="White" TextAlignment="Center" VerticalAlignment="Bottom">8.9</TextBlock>
+                    <Rectangle x:Name="distractBBar" Grid.Row="1" Fill="#5533aaff" Height="120"></Rectangle>
+                </Grid>
+                <Grid x:Name="distractC" Margin="5,0,5,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="distractCText" Foreground="White" TextAlignment="Center" VerticalAlignment="Bottom">8.9</TextBlock>
+                    <Rectangle x:Name="distractCBar" Grid.Row="1" Fill="#5533aaff" Height="120"></Rectangle>
+                </Grid>
+                <Grid x:Name="distractD" Margin="5,0,5,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="distractDText" Foreground="White" TextAlignment="Center" VerticalAlignment="Bottom">8.9</TextBlock>
+                    <Rectangle x:Name="distractDBar" Grid.Row="1" Fill="#5533aaff" Height="120"></Rectangle>
+                </Grid>
+            </StackPanel>
         </Border>
         <TextBlock x:Name="chartTitle" Grid.Row="1" TextAlignment="Center" Foreground="White" Text="{Binding BarChartTitle,ElementName=barChart}" Margin="0,4,0,0"/>
     </Grid>

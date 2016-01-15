@@ -36,7 +36,7 @@ namespace EESDD.Control.User
         protected float averageQueueLength;
         public float AverageQueueLength { get { return averageQueueLength; } set { averageQueueLength = value; } }
         // 平均速度
-        protected float averageSpeed;
+        protected float averageSpeed;   
         public float AverageSpeed { get { return averageSpeed; } set { averageSpeed = value; } }
 
         //**均值与标准差

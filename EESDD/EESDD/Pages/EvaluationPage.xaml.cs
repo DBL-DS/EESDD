@@ -36,17 +36,17 @@ namespace EESDD.Pages
             currentSceneButton = LittleOne;
             user = PageList.Main.User;
             MainChartChange(speed, new EventArgs());
-            //GUISet();
+            GUISet();
         }
 
-        //private void GUISet()
-        //{
-        //    NormalSample.Stroke     = new SolidColorBrush(ColorDef.Normal);
-        //    DistractASample.Stroke  = new SolidColorBrush(ColorDef.DistractA);
-        //    DistractBSample.Stroke  = new SolidColorBrush(ColorDef.DistractB);
-        //    DistractCSample.Stroke  = new SolidColorBrush(ColorDef.DistractC);
-        //    DistractDSample.Stroke  = new SolidColorBrush(ColorDef.DistractD);
-        //}
+        private void GUISet()
+        {
+            NormalSample.Stroke = new SolidColorBrush(ColorDef.Normal);
+            DistractASample.Stroke = new SolidColorBrush(ColorDef.DistractA);
+            DistractBSample.Stroke = new SolidColorBrush(ColorDef.DistractB);
+            DistractCSample.Stroke = new SolidColorBrush(ColorDef.DistractC);
+            DistractDSample.Stroke = new SolidColorBrush(ColorDef.DistractD);
+        }
 
         public void setTitle(string name)
         {
@@ -244,36 +244,32 @@ namespace EESDD.Pages
             bar.setBarFromBarDetail(detail);
             bar.MinWidth = 150;
 
-            float normalValue, distractAValue, distractBValue;
+            float normalValue, distractAValue, distractBValue, distractCValue, distractDValue;
 
-            // set bar chart's value
-            ExperienceUnit unit;
-            // get normal value
-            int normalIndex = UserSelections.getIndex(currentScene, UserSelections.NormalMode);
-            if (normalIndex != -1 && user.Index[normalIndex] != -1){        
-                unit = user.Experiences[user.Index[normalIndex]];
-                normalValue = (float)unit.Evaluation.GetType().GetProperty(detail.DataName).GetValue(unit.Evaluation);
-            }
-            else
-                normalValue = 0;
-            // get distractA value
-            int distractAIndex = UserSelections.getIndex(currentScene, UserSelections.DistractAMode);
-            if (distractAIndex != -1 && user.Index[distractAIndex] != -1){
-                unit = user.Experiences[user.Index[distractAIndex]];
-                distractAValue = (float)unit.Evaluation.GetType().GetProperty(detail.DataName).GetValue(unit.Evaluation);
-            }
-            else
-                distractAValue = 0;
-            // get distractB value
-            int distractBIndex = UserSelections.getIndex(currentScene, UserSelections.DistractBMode);
-            if (distractBIndex != -1 && user.Index[distractBIndex] != -1){
-                unit = user.Experiences[user.Index[distractBIndex]];
-                distractBValue = (float)unit.Evaluation.GetType().GetProperty(detail.DataName).GetValue(unit.Evaluation);
-            }
-            else
-                distractBValue = 0;
+            normalValue = getBarChartValue(currentScene, UserSelections.NormalMode, detail.DataName);
+            distractAValue = getBarChartValue(currentScene, UserSelections.DistractAMode, detail.DataName);
+            distractBValue = getBarChartValue(currentScene, UserSelections.DistractBMode, detail.DataName);
+            distractCValue = getBarChartValue(currentScene, UserSelections.DistractCMode, detail.DataName);
+            distractDValue = getBarChartValue(currentScene, UserSelections.DistractDMode, detail.DataName);
 
-            bar.setValue(normalValue, distractAValue, distractBValue);
+
+            bar.setValue(normalValue, distractAValue, distractBValue, distractCValue, distractDValue);
+        }
+
+        private float getBarChartValue(int scene, int mode, string dataName)
+        {
+            int index = UserSelections.getIndex(scene, mode);
+            float result;
+
+            if (index != -1 && user.Index[index] != -1)
+            {
+                ExperienceUnit unit = user.Experiences[user.Index[index]];
+                result = (float)unit.Evaluation.GetType().GetProperty(dataName).GetValue(unit.Evaluation);
+            }
+            else
+                result = 0;
+
+            return result;
         }
 
         public void refreshCurrentChart()
@@ -294,6 +290,42 @@ namespace EESDD.Pages
         private void clearBars()
         {
             bars.Children.Clear();
+        }
+
+        private void chartSelect(object sender, RoutedEventArgs e)
+        {
+            string name = ((CheckBox)sender).Name;
+            int mode = 0;
+            switch (name)
+            {
+                case "normalCheck":
+                    mode = UserSelections.NormalMode;
+                    break;
+                case "distractACheck":
+                    mode = UserSelections.DistractAMode;
+                    break;
+                case "distractBCheck":
+                    mode = UserSelections.DistractBMode;
+                    break;
+                case "distractCCheck":
+                    mode = UserSelections.DistractCMode;
+                    break;
+                case "distractDCheck":
+                    mode = UserSelections.DistractDMode;
+                    break;
+                default:
+                    return;
+            }
+            if (bars != null && bars.Children != null)
+            {
+                foreach (BarChart chart in bars.Children)
+                {
+                    if (chart != null)
+                    {
+                        chart.setBarVisible(mode, ((CheckBox)sender).IsChecked == true ? true : false);
+                    }
+                }
+            }
         }
     }
 }
