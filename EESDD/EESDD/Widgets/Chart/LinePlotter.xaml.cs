@@ -7,6 +7,7 @@ using Microsoft.Research.DynamicDataDisplay;
 using Microsoft.Research.DynamicDataDisplay.DataSources;
 using EESDD.Control.Operation;
 using System;
+using EESDD.Public;
 namespace EESDD.Widgets.Chart
 {
     /// <summary>
@@ -35,9 +36,6 @@ namespace EESDD.Widgets.Chart
         private Point lastDistractC;
         private Point lastDistractD;
 
-        private const float minChange = (float)0.1;
-        private const double opacity = 2 / 3;
-
         public LinePlotter()
         {
             InitializeComponent();
@@ -46,12 +44,12 @@ namespace EESDD.Widgets.Chart
             dispatcher = Application.Current.Dispatcher;
         }
 
-        private ObservableDataSource<Point> initData = new ObservableDataSource<Point>();
-        private ObservableDataSource<Point> normalData = new ObservableDataSource<Point>();
-        private ObservableDataSource<Point> distractAData = new ObservableDataSource<Point>();
-        private ObservableDataSource<Point> distractBData = new ObservableDataSource<Point>();
-        private ObservableDataSource<Point> distractCData = new ObservableDataSource<Point>();
-        private ObservableDataSource<Point> distractDData = new ObservableDataSource<Point>();
+        private ObservableDataSource<Point> initData        = new ObservableDataSource<Point>();
+        private ObservableDataSource<Point> normalData      = new ObservableDataSource<Point>();
+        private ObservableDataSource<Point> distractAData   = new ObservableDataSource<Point>();
+        private ObservableDataSource<Point> distractBData   = new ObservableDataSource<Point>();
+        private ObservableDataSource<Point> distractCData   = new ObservableDataSource<Point>();
+        private ObservableDataSource<Point> distractDData   = new ObservableDataSource<Point>();
 
         public void init()
         {
@@ -69,55 +67,24 @@ namespace EESDD.Widgets.Chart
         }
         public void drawLine()
         {
-            initGraph = plotter.AddLineGraph(initData, Color.FromArgb(0, 255, 255, 255), lineThickness);
-            normalGraph = plotter.AddLineGraph(normalData, Color.FromArgb(170, 8, 255, 0), lineThickness);
-            distractAGraph = plotter.AddLineGraph(distractAData, Color.FromArgb(170, 255, 117, 29), lineThickness);
-            distractBGraph = plotter.AddLineGraph(distractBData, Color.FromArgb(170, 51, 170, 255), lineThickness);
-            distractCGraph = plotter.AddLineGraph(distractCData, Color.FromArgb(170, 0, 140, 136), lineThickness);
-            distractDGraph = plotter.AddLineGraph(distractDData, Color.FromArgb(170, 0, 140, 0), lineThickness);
+            initGraph = plotter.AddLineGraph(initData, ColorDef.Init, lineThickness);
+            normalGraph = plotter.AddLineGraph(normalData, ColorDef.Normal, lineThickness);
+            distractAGraph = plotter.AddLineGraph(distractAData, ColorDef.DistractA, lineThickness);
+            distractBGraph = plotter.AddLineGraph(distractBData, ColorDef.DistractB, lineThickness);
+            distractCGraph = plotter.AddLineGraph(distractCData, ColorDef.DistractC, lineThickness);
+            distractDGraph = plotter.AddLineGraph(distractDData, ColorDef.DistractD, lineThickness);
             plotter.LegendVisible = false;
         }
 
         public void drawLine(double thickness)
         {
-            initGraph = plotter.AddLineGraph(initData, Color.FromArgb(0, 255, 255, 255), thickness);
-            normalGraph = plotter.AddLineGraph(normalData, Color.FromArgb(170, 8, 255, 0), thickness);
-            distractAGraph = plotter.AddLineGraph(distractAData, Color.FromArgb(170, 255, 117, 29), thickness);
-            distractBGraph = plotter.AddLineGraph(distractBData, Color.FromArgb(170, 51, 170, 255), thickness);
-            distractCGraph = plotter.AddLineGraph(distractCData, Color.FromArgb(170, 0, 140, 136), thickness);
-            distractDGraph = plotter.AddLineGraph(distractDData, Color.FromArgb(170, 0, 140, 0), thickness);
+            initGraph = plotter.AddLineGraph(initData, ColorDef.Init, thickness);
+            normalGraph = plotter.AddLineGraph(normalData, ColorDef.Normal, thickness);
+            distractAGraph = plotter.AddLineGraph(distractAData, ColorDef.DistractA, thickness);
+            distractBGraph = plotter.AddLineGraph(distractBData, ColorDef.DistractB, thickness);
+            distractCGraph = plotter.AddLineGraph(distractCData, ColorDef.DistractC, thickness);
+            distractDGraph = plotter.AddLineGraph(distractDData, ColorDef.DistractD, thickness);
             plotter.LegendVisible = false;
-        }
-
-        public ObservableDataSource<Point> Normal
-        {
-            get { return normalData; }
-            set { normalData = value; }
-        }
-        public ObservableDataSource<Point> DistractA
-        {
-            get { return distractAData; }
-            set { distractAData = value; }
-        }
-        public ObservableDataSource<Point> DistractB
-        {
-            get { return distractBData; }
-            set { distractBData = value; }
-        }
-        public ObservableDataSource<Point> DistractC
-        {
-            get { return distractCData; }
-            set { distractBData = value; }
-        }
-        public ObservableDataSource<Point> DistractD
-        {
-            get { return distractDData; }
-            set { distractBData = value; }
-        }
-        public ObservableDataSource<Point> Init
-        {
-            get { return initData; }
-            set { initData = value; }
         }
 
         public void clearData() {
@@ -143,49 +110,51 @@ namespace EESDD.Widgets.Chart
 
         public void hideLine(int selection)
         {
+            float hideOpacity = 0;
             switch (selection)
             {
                 case UserSelections.NormalMode:
-                    normalGraph.LinePen.Brush.Opacity = 0;
+                    normalGraph.LinePen.Brush.Opacity = hideOpacity;
                     break;
                 case UserSelections.DistractAMode:
-                    distractAGraph.LinePen.Brush.Opacity = 0;
+                    distractAGraph.LinePen.Brush.Opacity = hideOpacity;
                     break;
                 case UserSelections.DistractBMode:
-                    distractBGraph.LinePen.Brush.Opacity = 0;
+                    distractBGraph.LinePen.Brush.Opacity = hideOpacity;
                     break;
                 case UserSelections.DistractCMode:
-                    distractCGraph.LinePen.Brush.Opacity = 0;
+                    distractCGraph.LinePen.Brush.Opacity = hideOpacity;
                     break;
                 case UserSelections.DistractDMode:
-                    distractDGraph.LinePen.Brush.Opacity = 0;
+                    distractDGraph.LinePen.Brush.Opacity = hideOpacity;
                     break;
             }
         }
 
         public void showLine(int selection)
         {
+            float visibleOpacity = 2/3;
             switch (selection)
             {
                 case UserSelections.NormalMode:
-                    normalGraph.LinePen.Brush.Opacity = opacity;
+                    normalGraph.LinePen.Brush.Opacity = visibleOpacity;
                     break;
                 case UserSelections.DistractAMode:
-                    distractAGraph.LinePen.Brush.Opacity = opacity;
+                    distractAGraph.LinePen.Brush.Opacity = visibleOpacity;
                     break;
                 case UserSelections.DistractBMode:
-                    distractBGraph.LinePen.Brush.Opacity = opacity;
+                    distractBGraph.LinePen.Brush.Opacity = visibleOpacity;
                     break;
                 case UserSelections.DistractCMode:
-                    distractCGraph.LinePen.Brush.Opacity = opacity;
+                    distractCGraph.LinePen.Brush.Opacity = visibleOpacity;
                     break;
                 case UserSelections.DistractDMode:
-                    distractDGraph.LinePen.Brush.Opacity = opacity;
+                    distractDGraph.LinePen.Brush.Opacity = visibleOpacity;
                     break;
             }
         }
 
-        public void setLines(LinePlotter plotter)
+        public void setLinesData(LinePlotter plotter)
         {
             this.initData = plotter.initData;
             this.normalData = plotter.normalData;
@@ -209,6 +178,7 @@ namespace EESDD.Widgets.Chart
 
         public void addPoint(int mode, Point point)
         {
+            float minChange = (float)0.1;
             float gradient;
             switch (mode)
             {
@@ -260,6 +230,39 @@ namespace EESDD.Widgets.Chart
                 default: initData.AppendAsync(dispatcher, point); break;
             }
         }
+
+        // ------------- Get & Set ------------>
+        public ObservableDataSource<Point> Normal
+        {
+            get { return normalData; }
+            set { normalData = value; }
+        }
+        public ObservableDataSource<Point> DistractA
+        {
+            get { return distractAData; }
+            set { distractAData = value; }
+        }
+        public ObservableDataSource<Point> DistractB
+        {
+            get { return distractBData; }
+            set { distractBData = value; }
+        }
+        public ObservableDataSource<Point> DistractC
+        {
+            get { return distractCData; }
+            set { distractBData = value; }
+        }
+        public ObservableDataSource<Point> DistractD
+        {
+            get { return distractDData; }
+            set { distractBData = value; }
+        }
+        public ObservableDataSource<Point> Init
+        {
+            get { return initData; }
+            set { initData = value; }
+        }
+        // <------------- Get & Set--------------
     }
     
 }

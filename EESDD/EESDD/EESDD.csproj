@@ -126,6 +126,7 @@
     <Compile Include="CSV\CSVCloumnName.cs" />
     <Compile Include="CSV\CSVReader.cs" />
     <Compile Include="CSV\VehicleCSV.cs" />
+    <Compile Include="Public\ColorDef.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="UDP\UDPController.cs" />
     <Compile Include="UDP\UDPOffset.cs" />

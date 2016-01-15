@@ -1,6 +1,7 @@
 ﻿using EESDD.Control.DataModel;
 using EESDD.Control.Operation;
 using EESDD.Control.User;
+using EESDD.Public;
 using EESDD.Widgets.Buttons;
 using EESDD.Widgets.Chart;
 using System;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace EESDD.Pages
@@ -34,7 +36,17 @@ namespace EESDD.Pages
             currentSceneButton = LittleOne;
             user = PageList.Main.User;
             MainChartChange(speed, new EventArgs());
+            //GUISet();
         }
+
+        //private void GUISet()
+        //{
+        //    NormalSample.Stroke     = new SolidColorBrush(ColorDef.Normal);
+        //    DistractASample.Stroke  = new SolidColorBrush(ColorDef.DistractA);
+        //    DistractBSample.Stroke  = new SolidColorBrush(ColorDef.DistractB);
+        //    DistractCSample.Stroke  = new SolidColorBrush(ColorDef.DistractC);
+        //    DistractDSample.Stroke  = new SolidColorBrush(ColorDef.DistractD);
+        //}
 
         public void setTitle(string name)
         {

@@ -221,10 +221,10 @@ namespace EESDD.Pages
         }
      
         private void setDataSource() {
-            LittleSpeed.setLines(SpeedChart);
-            LittleAcc.setLines(AccelerationChart);
-            LittleOffset.setLines(OffsetChart);
-            LittleFollow.setLines(FollowChart);
+            LittleSpeed.setLinesData(SpeedChart);
+            LittleAcc.setLinesData(AccelerationChart);
+            LittleOffset.setLinesData(OffsetChart);
+            LittleFollow.setLinesData(FollowChart);
 
             double thickness = 1.0;
             LittleSpeed.clearLine();
