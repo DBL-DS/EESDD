@@ -6,6 +6,7 @@ using EESDD.Widgets.Buttons;
 using EESDD.Widgets.Chart;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -37,6 +38,7 @@ namespace EESDD.Pages
             user = PageList.Main.User;
             MainChartChange(speed, new EventArgs());
             GUISet();
+            ChartSet();
         }
 
         private void GUISet()
@@ -46,6 +48,12 @@ namespace EESDD.Pages
             DistractBSample.Stroke = new SolidColorBrush(ColorDef.DistractB);
             DistractCSample.Stroke = new SolidColorBrush(ColorDef.DistractC);
             DistractDSample.Stroke = new SolidColorBrush(ColorDef.DistractD);
+        }
+
+        private void ChartSet()
+        {
+            normalCheck.IsChecked = true;
+            distractACheck.IsChecked = true;
         }
 
         public void setTitle(string name)
@@ -78,7 +86,8 @@ namespace EESDD.Pages
                 currentScene = UserSelections.SceneIntersection;
             }
 
-            refreshCurrentChart();
+            Thread plotCharts = new Thread(refreshCurrentChart);
+            plotCharts.Start();
         }
 
         private void MainChartChange(object sender, EventArgs e)
@@ -146,15 +155,33 @@ namespace EESDD.Pages
 
             int normalIndex = UserSelections.getIndex(currentScene, UserSelections.NormalMode);
             if (normalIndex != -1 && user.Index[normalIndex] != -1)
+            {
                 plotExperienceLine(UserSelections.NormalMode, normalIndex);
+            }
 
             int distractAIndex = UserSelections.getIndex(currentScene, UserSelections.DistractAMode);
             if (distractAIndex != -1 && user.Index[distractAIndex] != -1)
+            {
                 plotExperienceLine(UserSelections.DistractAMode, distractAIndex);
+            }
 
             int distractBIndex = UserSelections.getIndex(currentScene, UserSelections.DistractBMode);
             if (distractBIndex != -1 && user.Index[distractBIndex] != -1)
+            {
                 plotExperienceLine(UserSelections.DistractBMode, distractBIndex);
+            }
+
+            int distractCIndex = UserSelections.getIndex(currentScene, UserSelections.DistractCMode);
+            if (distractCIndex != -1 && user.Index[distractCIndex] != -1)
+            {
+                plotExperienceLine(UserSelections.DistractCMode, distractCIndex);
+            }
+
+            int distractDIndex = UserSelections.getIndex(currentScene, UserSelections.DistractDMode);
+            if (distractDIndex != -1 && user.Index[distractDIndex] != -1)
+            {
+                plotExperienceLine(UserSelections.DistractDMode, distractDIndex);
+            }
         }
 
         private void plotExperienceLine(int _mode, int indexOfSelection)
@@ -181,39 +208,15 @@ namespace EESDD.Pages
             BrakeChart.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
             FollowChart.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
 
-            if (_mode == UserSelections.NormalMode)
+            foreach (SimulatedVehicle vehicle in list)
             {
-                foreach (SimulatedVehicle vehicle in list)
-                {
-                    SpeedChart.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
-                    OffsetChart.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
-                    AccelerationChart.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
-                    BrakeChart.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
-                    FollowChart.Normal.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
-                }
+                SpeedChart.addRealTimePoint(_mode, new Point(vehicle.SimulationTime, vehicle.Speed));
+                OffsetChart.addRealTimePoint(_mode, new Point(vehicle.SimulationTime, vehicle.Offset));
+                AccelerationChart.addRealTimePoint(_mode, new Point(vehicle.SimulationTime, vehicle.Acceleration));
+                BrakeChart.addRealTimePoint(_mode, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
+                FollowChart.addRealTimePoint(_mode, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
             }
-            else if (_mode == UserSelections.DistractAMode)
-            {
-                foreach (SimulatedVehicle vehicle in list)
-                {
-                    SpeedChart.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
-                    OffsetChart.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
-                    AccelerationChart.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
-                    BrakeChart.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
-                    FollowChart.DistractA.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
-                }
-            }
-            else if (_mode == UserSelections.DistractBMode)
-            {
-                foreach (SimulatedVehicle vehicle in list)
-                {
-                    SpeedChart.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Speed));
-                    OffsetChart.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Offset));
-                    AccelerationChart.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.Acceleration));
-                    BrakeChart.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
-                    FollowChart.DistractB.AppendAsync(dispatcher, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
-                }
-            }
+
         }
 
         private void plotBarChart() {
@@ -274,8 +277,11 @@ namespace EESDD.Pages
 
         public void refreshCurrentChart()
         {
-            plotLineChart();
-            plotBarChart();
+            this.Dispatcher.BeginInvoke((Action)delegate()
+            {
+                plotBarChart();
+                plotLineChart();
+            });
         }
 
         private void clearLines()
@@ -325,6 +331,29 @@ namespace EESDD.Pages
                         chart.setBarVisible(mode, ((CheckBox)sender).IsChecked == true ? true : false);
                     }
                 }
+            }
+        }
+
+        private class LineParameter
+        {
+            public LineParameter(int mode, int index)
+            {
+                this.mode = mode;
+                this.index = index;
+            }
+            private int mode;
+
+            public int Mode
+            {
+                get { return mode; }
+                set { mode = value; }
+            }
+            private int index;
+
+            public int Index
+            {
+                get { return index; }
+                set { index = value; }
             }
         }
     }
