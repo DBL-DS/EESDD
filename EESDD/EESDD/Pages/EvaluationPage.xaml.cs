@@ -25,6 +25,9 @@ namespace EESDD.Pages
         private Button currentSceneButton;
         private int currentScene;
         private User user;
+        private int axis;   // 0 - time,  1 - distance
+
+        Thread plotCharts;
         public EvaluationPage()
         {
             InitializeComponent();
@@ -39,6 +42,7 @@ namespace EESDD.Pages
             MainChartChange(speed, new EventArgs());
             GUISet();
             ChartSet();
+            AxisxSet();
         }
 
         private void GUISet()
@@ -54,11 +58,33 @@ namespace EESDD.Pages
         {
             normalCheck.IsChecked = true;
             distractACheck.IsChecked = true;
+            distractBCheck.IsChecked = true;
+            distractCCheck.IsChecked = true;
+            distractDCheck.IsChecked = true;
+        }
+
+        private void AxisxSet()
+        {
+            timeCheck.IsChecked = true;
+            axis = 0;
         }
 
         public void setTitle(string name)
         {
             titleTip.Text = "欢迎您，" + name + "！请选择一个场景，查看对于您体验过程的记录与评价。";
+        }
+
+        private void PlotCharts()
+        {
+            if (plotCharts != null && plotCharts.IsAlive)
+            {
+                plotCharts.Abort();
+            }
+
+            titleTip.Text = "场景数据加载中...";
+
+            plotCharts = new Thread(refreshCurrentChart);
+            plotCharts.Start();
         }
 
         private void Little_Enter(object sender, RoutedEventArgs e)
@@ -86,8 +112,7 @@ namespace EESDD.Pages
                 currentScene = UserSelections.SceneIntersection;
             }
 
-            Thread plotCharts = new Thread(refreshCurrentChart);
-            plotCharts.Start();
+            PlotCharts();
         }
 
         private void MainChartChange(object sender, EventArgs e)
@@ -202,19 +227,48 @@ namespace EESDD.Pages
             BrakeChart.Init.AppendAsync(dispatcher, new Point(0, unit.Bottom.BrakePedal));
             FollowChart.Init.AppendAsync(dispatcher, new Point(0, unit.Bottom.DistanceToNext));
 
-            SpeedChart.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
-            OffsetChart.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
-            AccelerationChart.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
-            BrakeChart.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
-            FollowChart.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
+            switch (axis)
+            {
+                case 0:
+                    SpeedChart.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
+                    OffsetChart.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
+                    AccelerationChart.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
+                    BrakeChart.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
+                    FollowChart.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
+                    break;
+                case 1:
+                    SpeedChart.Init.AppendAsync(dispatcher, new Point(unit.Right.TotalDistance, 0));
+                    OffsetChart.Init.AppendAsync(dispatcher, new Point(unit.Right.TotalDistance, 0));
+                    AccelerationChart.Init.AppendAsync(dispatcher, new Point(unit.Right.TotalDistance, 0));
+                    BrakeChart.Init.AppendAsync(dispatcher, new Point(unit.Right.TotalDistance, 0));
+                    FollowChart.Init.AppendAsync(dispatcher, new Point(unit.Right.TotalDistance, 0));
+                    break;
+                default:
+                    return;
+            }         
+
 
             foreach (SimulatedVehicle vehicle in list)
             {
-                SpeedChart.addRealTimePoint(_mode, new Point(vehicle.SimulationTime, vehicle.Speed));
-                OffsetChart.addRealTimePoint(_mode, new Point(vehicle.SimulationTime, vehicle.Offset));
-                AccelerationChart.addRealTimePoint(_mode, new Point(vehicle.SimulationTime, vehicle.Acceleration));
-                BrakeChart.addRealTimePoint(_mode, new Point(vehicle.SimulationTime, vehicle.BrakePedal));
-                FollowChart.addRealTimePoint(_mode, new Point(vehicle.SimulationTime, vehicle.DistanceToNext));
+                float x;
+
+                switch (axis)
+                {
+                    case 0:
+                        x = vehicle.SimulationTime;
+                        break;
+                    case 1:
+                        x = vehicle.TotalDistance;
+                        break;
+                    default:
+                        return;
+                }
+
+                SpeedChart.addRealTimePoint(_mode, new Point(x, vehicle.Speed));
+                OffsetChart.addRealTimePoint(_mode, new Point(x, vehicle.Offset));
+                AccelerationChart.addRealTimePoint(_mode, new Point(x, vehicle.Acceleration));
+                BrakeChart.addRealTimePoint(_mode, new Point(x, vehicle.BrakePedal));
+                FollowChart.addRealTimePoint(_mode, new Point(x, vehicle.DistanceToNext));
             }
 
         }
@@ -281,6 +335,8 @@ namespace EESDD.Pages
             {
                 plotBarChart();
                 plotLineChart();
+                scanChecks();
+                titleTip.Text = "数据加载完毕。";
             });
         }
 
@@ -302,6 +358,8 @@ namespace EESDD.Pages
         {
             string name = ((CheckBox)sender).Name;
             int mode = 0;
+            bool? check = ((CheckBox)sender).IsChecked;
+
             switch (name)
             {
                 case "normalCheck":
@@ -322,39 +380,74 @@ namespace EESDD.Pages
                 default:
                     return;
             }
+
+            changeChartsVisible(mode, check == true);
+        }
+
+        private void changeChartsVisible(int chartMode, bool visible)
+        {
             if (bars != null && bars.Children != null)
             {
                 foreach (BarChart chart in bars.Children)
                 {
                     if (chart != null)
                     {
-                        chart.setBarVisible(mode, ((CheckBox)sender).IsChecked == true ? true : false);
+                        chart.setBarVisible(chartMode, visible);
                     }
                 }
             }
+
+            SpeedChart.setLineVisible(chartMode, visible);
+            OffsetChart.setLineVisible(chartMode, visible);
+            AccelerationChart.setLineVisible(chartMode, visible);
+            BrakeChart.setLineVisible(chartMode, visible);
+            FollowChart.setLineVisible(chartMode, visible);
+
         }
 
-        private class LineParameter
+        private void scanChecks()
         {
-            public LineParameter(int mode, int index)
-            {
-                this.mode = mode;
-                this.index = index;
-            }
-            private int mode;
+            setDefaultChartsCheck();
 
-            public int Mode
-            {
-                get { return mode; }
-                set { mode = value; }
-            }
-            private int index;
+            changeChartsVisible(UserSelections.NormalMode, normalCheck.IsChecked == true);
+            changeChartsVisible(UserSelections.DistractAMode, distractACheck.IsChecked == true);
+            changeChartsVisible(UserSelections.DistractBMode, distractBCheck.IsChecked == true);
+            changeChartsVisible(UserSelections.DistractCMode, distractCCheck.IsChecked == true);
+            changeChartsVisible(UserSelections.DistractDMode, distractDCheck.IsChecked == true);
+        }
 
-            public int Index
+        private void setDefaultChartsCheck()
+        {
+            if (currentScene == UserSelections.ScenePractice)
             {
-                get { return index; }
-                set { index = value; }
+                distractACheck.IsChecked = false;
+                distractBCheck.IsChecked = false;
+                distractCCheck.IsChecked = false;
+                distractDCheck.IsChecked = false;
             }
+            else if (currentScene == UserSelections.SceneIntersection)
+            {
+                distractDCheck.IsChecked = false;
+            }
+        }
+
+        private void AxisCheck(object sender, RoutedEventArgs e)
+        {
+            string axisName = ((RadioButton)sender).Name;
+
+            switch (axisName)
+            {
+                case "timeCheck":
+                    axis = 0;
+                    break;
+                case "distanceCheck":
+                    axis = 1;
+                    break;
+                default:
+                    return;
+            }
+
+            PlotCharts();
         }
     }
 }

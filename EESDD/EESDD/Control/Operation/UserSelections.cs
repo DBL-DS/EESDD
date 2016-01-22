@@ -16,17 +16,22 @@ namespace EESDD.Control.Operation
             sceneSelect = 0;
             modeSelect = 100;
         }
-        private const int modeNum = 5;
-        public const int ScenePractice = 0;         //Default Scene Selection
-        public const int SceneBrake = modeNum;
-        public const int SceneLaneChange = 2 * modeNum;
-        public const int SceneIntersection = 3 * modeNum;
-        public const int NormalMode = 100;            //Default Mode Selection
-        public const int DistractAMode = 101;
-        public const int DistractBMode = 102;
-        public const int DistractCMode = 103;
-        public const int DistractDMode = 104;
+        private const int modeCount         = 5;
 
+        // -------- scene -------->
+        public  const int ScenePractice     = 0;         //Default Scene Selection
+        public  const int SceneBrake        = modeCount;
+        public  const int SceneLaneChange   = 2 * modeCount;
+        public  const int SceneIntersection = 3 * modeCount;
+        // -------- mode --------->
+        public  const int NormalMode        = 100;            //Default Mode Selection
+        public  const int DistractAMode     = 101;
+        public  const int DistractBMode     = 102;
+        public  const int DistractCMode     = 103;
+        public  const int DistractDMode     = 104;
+
+        public List<int> SceneList  = new List<int>() { ScenePractice, SceneBrake, SceneLaneChange, SceneIntersection };
+        public List<int> ModeList = new List<int>() { NormalMode, DistractAMode, DistractBMode, DistractCMode, DistractDMode };
         public int SceneSelect
         {
             get { return sceneSelect; }

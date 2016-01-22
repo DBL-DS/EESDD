@@ -100,6 +100,7 @@ namespace EESDD.Widgets.Chart
         private void setVisibility(Grid grid, bool visibility)
         {
             grid.Visibility = visibility ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            replotChart();
         }
 
         private void RePlot(object sender, SizeChangedEventArgs e)

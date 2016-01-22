@@ -108,9 +108,9 @@ namespace EESDD.Widgets.Chart
             
         }
 
-        public void hideLine(int selection)
+        private void hideLine(int selection)
         {
-            float hideOpacity = 0;
+            double hideOpacity = 0;
             switch (selection)
             {
                 case UserSelections.NormalMode:
@@ -131,9 +131,9 @@ namespace EESDD.Widgets.Chart
             }
         }
 
-        public void showLine(int selection)
+        private void showLine(int selection)
         {
-            float visibleOpacity = 2/3;
+            double visibleOpacity = 1;
             switch (selection)
             {
                 case UserSelections.NormalMode:
@@ -152,6 +152,14 @@ namespace EESDD.Widgets.Chart
                     distractDGraph.LinePen.Brush.Opacity = visibleOpacity;
                     break;
             }
+        }
+
+        public void setLineVisible(int mode, bool visible)
+        {
+            if (visible == true)
+                showLine(mode);
+            else
+                hideLine(mode);
         }
 
         public void setLinesData(LinePlotter plotter)

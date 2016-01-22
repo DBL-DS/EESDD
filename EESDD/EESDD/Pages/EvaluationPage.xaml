@@ -107,7 +107,22 @@
                                     </Grid>
 
                                     <Grid Grid.Column="1" HorizontalAlignment="Center">
-                                        <StackPanel Margin="0,0,0,0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="60"></RowDefinition>
+                                            <RowDefinition></RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition></RowDefinition>
+                                                <RowDefinition></RowDefinition>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock TextAlignment="Center" VerticalAlignment="Center" Foreground="White" FontFamily="Monaco">Horizontal Axis</TextBlock>
+                                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                                <RadioButton Checked="AxisCheck" x:Name="timeCheck" GroupName="xAxis" Margin="5 0 10 0" Foreground="White" FontFamily="Monaco">Time</RadioButton>
+                                                <RadioButton Checked="AxisCheck" x:Name="distanceCheck" GroupName="xAxis" Foreground="White" FontFamily="Monaco">Distance</RadioButton>
+                                            </StackPanel>
+                                        </Grid>
+                                        <StackPanel Grid.Row="1" Margin="0,0,0,0" Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Center">
                                             <StackPanel Margin="0 10 0 10" Orientation="Horizontal">
                                                 <CheckBox Checked="chartSelect" Unchecked="chartSelect" Margin="0 0 20 0" x:Name="normalCheck"></CheckBox>
                                                 <Line x:Name="NormalSample" Margin="0,0,10,0" VerticalAlignment="Center" StrokeThickness="2" Width="30" Stroke="#aa08ff00" X2="30" ></Line>
@@ -140,16 +155,8 @@
                         </Border>
                         <Grid Grid.Row="1">
                             <StackPanel x:Name="bars" Orientation="Horizontal" HorizontalAlignment="Center">
-                                <chart:BarChart BarChartTitle="反应时(ms)" x:Name="testChart" Width="150"></chart:BarChart>
-                                <chart:BarChart Width="150"></chart:BarChart>
                             </StackPanel>
                         </Grid>
-                    </Grid>
-                    <Grid x:Name="sceneTwo" Visibility="Hidden">
-
-                    </Grid>
-                    <Grid x:Name="sceneThree" Visibility="Hidden">
-
                     </Grid>
                 </Grid>
             </Grid>
