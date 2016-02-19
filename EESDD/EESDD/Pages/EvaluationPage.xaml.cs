@@ -31,7 +31,6 @@ namespace EESDD.Pages
         public EvaluationPage()
         {
             InitializeComponent();
-            init();
         }
 
         public void init()
@@ -195,8 +194,6 @@ namespace EESDD.Pages
 
         private void plotLineChart()
         {
-            clearLines();
-
             int normalIndex = UserSelections.getIndex(currentScene, UserSelections.NormalMode);
             if (normalIndex != -1 && user.Index[normalIndex] != -1)
             {
@@ -293,7 +290,6 @@ namespace EESDD.Pages
         }
 
         private void plotBarChart() {
-            clearBars();
             switch (currentScene)
             {
                 case UserSelections.SceneBrake:
@@ -350,12 +346,22 @@ namespace EESDD.Pages
 
         public void refreshCurrentChart()
         {
+            refreshChart();
+            plotLineChart();
             this.Dispatcher.BeginInvoke((Action)delegate()
             {
-                plotBarChart();
-                plotLineChart();
-                scanChecks();
                 titleTip.Text = "数据加载完毕。";
+            });
+        }
+
+        private void refreshChart()
+        {
+            this.Dispatcher.BeginInvoke((Action)delegate()
+            {
+                clearLines();
+                clearBars();
+                plotBarChart();
+                scanChecks();
             });
         }
 
