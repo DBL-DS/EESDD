@@ -34,8 +34,10 @@ namespace EESDD.Pages
             init();
         }
 
-        private void init()
+        public void init()
         {
+            clearLines();
+            clearBars();
             currentScene = UserSelections.ScenePractice;
             currentSceneButton = LittleOne;
             user = PageList.Main.User;
@@ -120,31 +122,36 @@ namespace EESDD.Pages
             ChartSelectionButton select = (ChartSelectionButton)sender;
 
             ChangeButtonChosen(select);
+            refreshMainChart();
+        }
 
-            if (select.Name.Equals("speed"))
+        private void refreshMainChart()
+        {
+            string currentChartName = currentChartButton.Name;
+            switch (currentChartName)
             {
-                ChangeMainChartTitle("Speed-Time");
-                ChangeMainChart(SpeedChart);
-            }
-            else if (select.Name.Equals("acc"))
-            {
-                ChangeMainChartTitle("Acceleration-Time");
-                ChangeMainChart(AccelerationChart);
-            }
-            else if (select.Name.Equals("brake"))
-            {
-                ChangeMainChartTitle("Brake-Time");
-                ChangeMainChart(BrakeChart);
-            }
-            else if (select.Name.Equals("offset"))
-            {
-                ChangeMainChartTitle("Offset Middle Line-Time");
-                ChangeMainChart(OffsetChart);
-            }
-            else if (select.Name.Equals("follow"))
-            {
-                ChangeMainChartTitle("Following Distance-Time");
-                ChangeMainChart(FollowChart);
+                case "speed":
+                    ChangeMainChartTitle("Speed");
+                    ChangeMainChart(SpeedChart);
+                    break;
+                case "acc":           
+                    ChangeMainChartTitle("Acceleration");
+                    ChangeMainChart(AccelerationChart);
+                    break;
+                case "brake":
+                    ChangeMainChartTitle("Brake");
+                    ChangeMainChart(BrakeChart);
+                    break;
+                case "offset":
+                    ChangeMainChartTitle("Offset Middle Line");
+                    ChangeMainChart(OffsetChart);
+                    break;
+                case "follow":
+                    ChangeMainChartTitle("Following Distance");
+                    ChangeMainChart(FollowChart);
+                    break;
+                default:
+                    return;
             }
         }
 
@@ -158,9 +165,21 @@ namespace EESDD.Pages
                 currentChartButton.Chosen = true;
             }
         }
-        private void ChangeMainChartTitle(string Title)
+        private void ChangeMainChartTitle(string TitleX)
         {
-            MainChartTitle.Text = Title;
+            string TitleY;
+            switch (axis)
+            {
+                case 0:
+                    TitleY = " - Time";
+                    break;
+                case 1:
+                    TitleY = " - Distance";
+                    break;
+                default:
+                    return;
+            }
+            MainChartTitle.Text = TitleX + TitleY;
         }
 
         private void ChangeMainChart(LinePlotter toChange)
@@ -447,6 +466,7 @@ namespace EESDD.Pages
                     return;
             }
 
+            refreshMainChart();
             PlotCharts();
         }
     }

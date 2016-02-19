@@ -56,6 +56,7 @@ namespace EESDD.Pages
                 .CurrentThread.CurrentCulture.TextInfo.ToTitleCase(user.LoginName);
             PageList.SceneSelect.setTitle(titleName);
             PageList.Evaluation.setTitle(titleName);
+            PageList.Evaluation.init();
             PageList.Experience.UserName.Text = titleName;
         }
         private void RegisterForm_Login()
