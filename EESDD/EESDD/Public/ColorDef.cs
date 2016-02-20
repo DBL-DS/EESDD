@@ -15,5 +15,8 @@ namespace EESDD.Public
         public static Color DistractB = Color.FromArgb(170, 255, 0, 0);
         public static Color DistractC = Color.FromArgb(170, 217, 255, 0);
         public static Color DistractD = Color.FromArgb(170, 10, 116, 255);
+
+        public static Color SceneButtonBorderNormal = Color.FromArgb(51, 255, 255, 255);
+        public static Color SceneButtonBorderSelected = Color.FromArgb(51, 0, 0, 0);
     }
 }

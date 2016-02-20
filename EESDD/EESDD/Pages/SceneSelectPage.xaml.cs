@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using EESDD.Control.Operation;
+using EESDD.Public;
+using System.Windows.Media;
 
 namespace EESDD.Pages
 {
@@ -11,6 +13,7 @@ namespace EESDD.Pages
     {
         private Grid currentDetail;
         private Button currentMode;
+        private Border currentBorder;
         public SceneSelectPage()
         {
             InitializeComponent();
@@ -21,6 +24,7 @@ namespace EESDD.Pages
         {
             currentDetail = SceneOneDetail;
             currentMode = NormalMode;
+            currentBorder = LittleOneBorder;
             PageList.Main.Selection.SceneSelect = UserSelections.ScenePractice;
             PageList.Main.Selection.ModeSelect = UserSelections.NormalMode;
         }
@@ -35,21 +39,25 @@ namespace EESDD.Pages
             Button clickBtn = (Button)sender;
             if (clickBtn.Name.Equals("LittleOne"))
             {
+                changeBorder(LittleOneBorder);
                 changeDetail(SceneOneDetail);
                 PageList.Main.Selection.SceneSelect = UserSelections.ScenePractice;
             }
             else if (clickBtn.Name.Equals("LittleTwo"))
             {
+                changeBorder(LittleTwoBorder);
                 changeDetail(SceneTwoDetail);
                 PageList.Main.Selection.SceneSelect = UserSelections.SceneBrake;
             }
             else if (clickBtn.Name.Equals("LittleThree"))
             {
+                changeBorder(LittleThreeBorder);
                 changeDetail(SceneThreeDetail);
                 PageList.Main.Selection.SceneSelect = UserSelections.SceneLaneChange;
             }
             else if (clickBtn.Name.Equals("LittleFour"))
             {
+                changeBorder(LittleFourBorder);
                 changeDetail(SceneFourDetail);
                 PageList.Main.Selection.SceneSelect = UserSelections.SceneIntersection;
             }
@@ -80,6 +88,16 @@ namespace EESDD.Pages
                 currentDetail.Visibility = System.Windows.Visibility.Hidden;
                 currentDetail = toChange;
                 currentDetail.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
+        private void changeBorder(Border toChange)
+        {
+            if (!toChange.Equals(currentBorder))
+            {
+                currentBorder.BorderBrush = new SolidColorBrush(ColorDef.SceneButtonBorderNormal);
+                currentBorder = toChange;
+                currentBorder.BorderBrush = new SolidColorBrush(ColorDef.SceneButtonBorderSelected);
             }
         }
 

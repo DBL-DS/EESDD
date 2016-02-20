@@ -23,6 +23,7 @@ namespace EESDD.Pages
         private LinePlotter currentLine;
         private ChartSelectionButton currentChartButton;
         private Button currentSceneButton;
+        private Border currentBorder;
         private int currentScene;
         private User user;
         private int axis;   // 0 - time,  1 - distance
@@ -38,12 +39,14 @@ namespace EESDD.Pages
             clearLines();
             clearBars();
             currentScene = UserSelections.ScenePractice;
+            currentBorder = LittleOneBorder;
             currentSceneButton = LittleOne;
             user = PageList.Main.User;
             MainChartChange(speed, new EventArgs());
             GUISet();
             ChartSet();
             AxisxSet();
+            changeBorder(currentBorder);
         }
 
         private void GUISet()
@@ -98,22 +101,36 @@ namespace EESDD.Pages
 
             if (clickBtn.Name.Equals("LittleOne"))
             {
+                changeBorder(LittleOneBorder);
                 currentScene = UserSelections.ScenePractice;
             }
             else if (clickBtn.Name.Equals("LittleTwo"))
             {
+                changeBorder(LittleTwoBorder);
                 currentScene = UserSelections.SceneBrake;
             }
             else if (clickBtn.Name.Equals("LittleThree"))
             {
+                changeBorder(LittleThreeBorder);
                 currentScene = UserSelections.SceneLaneChange;
             }
             else if (clickBtn.Name.Equals("LittleFour"))
             {
+                changeBorder(LittleFourBorder);
                 currentScene = UserSelections.SceneIntersection;
             }
 
             PlotCharts();
+        }
+
+        private void changeBorder(Border toChange)
+        {
+            if (!toChange.Equals(currentBorder))
+            {
+                currentBorder.BorderBrush = new SolidColorBrush(ColorDef.SceneButtonBorderNormal);
+                currentBorder = toChange;
+                currentBorder.BorderBrush = new SolidColorBrush(ColorDef.SceneButtonBorderSelected);
+            }
         }
 
         private void MainChartChange(object sender, EventArgs e)

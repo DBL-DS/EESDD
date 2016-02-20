@@ -303,6 +303,7 @@
     <Resource Include="Images\Experience\2qianchebingxian.PNG" />
     <Resource Include="Images\Experience\3lukoudengdeng.PNG" />
     <Resource Include="Images\Experience\0practice.png" />
+    <Resource Include="Images\Select\car_orange.png" />
     <Content Include="Widgets\Chart\Lib\DynamicDataDisplay.dll" />
   </ItemGroup>
   <ItemGroup>
