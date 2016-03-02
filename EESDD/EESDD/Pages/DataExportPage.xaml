@@ -225,9 +225,9 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition/>
                                 </Grid.ColumnDefinitions>
-                                <ComboBox Foreground="#ffeeeeee" SelectedValue="-1" x:Name="SceneComboBox"
+                                <ComboBox Foreground="#ffeeeeee" x:Name="SceneComboBox"
 								Style="{DynamicResource ComboBoxStyle}" Height="30" Width="100"/>
-                                <ComboBox Foreground="#ffeeeeee" SelectedValue="-1" Loaded="ComboBox_Loaded" 
+                                <ComboBox Foreground="#ffeeeeee" Loaded="ComboBox_Loaded" 
 								Grid.Column="1" x:Name="ModeComboBox" Style="{StaticResource ComboBoxStyle}" 
 								Height="30" Width="100"/>
                             </Grid>

@@ -135,10 +135,12 @@ namespace EESDD.Pages
             SceneComboBox.ItemsSource = Scenes;
             SceneComboBox.DisplayMemberPath = "SceneName";
             SceneComboBox.SelectedValuePath = "SceneValue";
+            SceneComboBox.SelectedIndex = 0;
 
             ModeComboBox.ItemsSource = Modes;
             ModeComboBox.DisplayMemberPath = "ModeName";
             ModeComboBox.SelectedValuePath = "ModeValue";
+            ModeComboBox.SelectedIndex = 0;
         }
 
         private void setComboBoxList()
