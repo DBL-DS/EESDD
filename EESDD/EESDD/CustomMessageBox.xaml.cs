@@ -23,6 +23,9 @@ namespace EESDD
         {
             InitializeComponent();
         }
+
+        private static bool? Result;
+
         public new string Title
         {
             get { return this.lblTitle.Text; }
@@ -46,19 +49,20 @@ namespace EESDD
             var msgBox = new CustomMessageBox();
             msgBox.Title = title;
             msgBox.Message = msg;
-            return msgBox.ShowDialog();
+            msgBox.ShowDialog();
+            return Result;
         }
 
         private void Yes_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            this.DialogResult = true;
+            Result = true;
             this.Close();
         }
 
 
         private void No_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            this.DialogResult = false;
+            Result = false;
             this.Close();
         }
 
@@ -83,6 +87,12 @@ namespace EESDD
             {
                 this.DragMove();
             }
+        }
+
+        private void CloseBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Result = null;
+            this.Close();
         }
 
     }

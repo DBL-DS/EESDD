@@ -1,175 +1,292 @@
-﻿<Page x:Class="EESDD.Pages.DataExportPage"
+﻿<Page
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:nav="clr-namespace:EESDD.Widgets.Buttons"      
+      xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero" x:Class="EESDD.Pages.DataExportPage"      
       mc:Ignorable="d" 
       d:DesignHeight="665" d:DesignWidth="1090"
 	Title="DataExportPage">
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/EESDD;component/Resources/UnifiedColor.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="/EESDD;component/Resources/UnifiedColor.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+        	<ControlTemplate x:Key="ComboBoxControlTemplate1" TargetType="{x:Type ComboBox}">
+        		<Grid x:Name="MainGrid" SnapsToDevicePixels="True">
+        			<Grid.ColumnDefinitions>
+        				<ColumnDefinition Width="*"/>
+        				<ColumnDefinition MinWidth="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}" Width="0"/>
+        			</Grid.ColumnDefinitions>
+        			<Popup x:Name="PART_Popup" AllowsTransparency="True" Grid.ColumnSpan="2" IsOpen="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}" Placement="Bottom">
+        				<Themes:SystemDropShadowChrome x:Name="Shdw" Color="Transparent" MaxHeight="{TemplateBinding MaxDropDownHeight}" MinWidth="{Binding ActualWidth, ElementName=MainGrid}">
+        					<Border x:Name="DropDownBorder" BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}" BorderThickness="1" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        						<ScrollViewer x:Name="DropDownScrollViewer">
+        							<Grid RenderOptions.ClearTypeHint="Enabled">
+        								<Canvas HorizontalAlignment="Left" Height="0" VerticalAlignment="Top" Width="0">
+        									<Rectangle x:Name="OpaqueRect" Fill="{Binding Background, ElementName=DropDownBorder}" Height="{Binding ActualHeight, ElementName=DropDownBorder}" Width="{Binding ActualWidth, ElementName=DropDownBorder}"/>
+        								</Canvas>
+        								<ItemsPresenter x:Name="ItemsPresenter" KeyboardNavigation.DirectionalNavigation="Contained" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+        							</Grid>
+        						</ScrollViewer>
+        					</Border>
+        				</Themes:SystemDropShadowChrome>
+        			</Popup>
+        			<ToggleButton BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" Grid.ColumnSpan="2" IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+        				<ToggleButton.Style>
+        					<Style TargetType="{x:Type ToggleButton}">
+        						<Setter Property="OverridesDefaultStyle" Value="True"/>
+        						<Setter Property="IsTabStop" Value="False"/>
+        						<Setter Property="Focusable" Value="False"/>
+        						<Setter Property="ClickMode" Value="Press"/>
+        						<Setter Property="Background" Value="Transparent"/>
+        						<Setter Property="Template">
+        							<Setter.Value>
+        								<ControlTemplate TargetType="{x:Type ToggleButton}">
+        									<Themes:ButtonChrome x:Name="Chrome" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" RenderMouseOver="{TemplateBinding IsMouseOver}" RenderPressed="{TemplateBinding IsPressed}" SnapsToDevicePixels="True">
+        										<Grid HorizontalAlignment="Right" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
+        											<Path x:Name="Arrow" Data="M0,0L3.5,4 7,0z" Fill="Black" HorizontalAlignment="Center" Margin="3,1,0,0" VerticalAlignment="Center"/>
+        										</Grid>
+        									</Themes:ButtonChrome>
+        									<ControlTemplate.Triggers>
+        										<Trigger Property="IsChecked" Value="True">
+        											<Setter Property="RenderPressed" TargetName="Chrome" Value="True"/>
+        										</Trigger>
+        										<Trigger Property="IsEnabled" Value="False">
+        											<Setter Property="Fill" TargetName="Arrow" Value="#FFAFAFAF"/>
+        										</Trigger>
+        									</ControlTemplate.Triggers>
+        								</ControlTemplate>
+        							</Setter.Value>
+        						</Setter>
+        					</Style>
+        				</ToggleButton.Style>
+        			</ToggleButton>
+        			<ContentPresenter ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" Content="{TemplateBinding SelectionBoxItem}" ContentStringFormat="{TemplateBinding SelectionBoxItemStringFormat}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" IsHitTestVisible="False" Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        		</Grid>
+        		<ControlTemplate.Triggers>
+        			<Trigger Property="HasDropShadow" SourceName="PART_Popup" Value="True">
+        				<Setter Property="Margin" TargetName="Shdw" Value="0,0,5,5"/>
+        				<Setter Property="Color" TargetName="Shdw" Value="#71000000"/>
+        			</Trigger>
+        			<Trigger Property="HasItems" Value="False">
+        				<Setter Property="Height" TargetName="DropDownBorder" Value="95"/>
+        			</Trigger>
+        			<Trigger Property="IsEnabled" Value="False">
+        				<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+        				<Setter Property="Background" Value="#FFF4F4F4"/>
+        			</Trigger>
+        			<MultiTrigger>
+        				<MultiTrigger.Conditions>
+        					<Condition Property="IsGrouping" Value="True"/>
+        					<Condition Property="VirtualizingPanel.IsVirtualizingWhenGrouping" Value="False"/>
+        				</MultiTrigger.Conditions>
+        				<Setter Property="ScrollViewer.CanContentScroll" Value="False"/>
+        			</MultiTrigger>
+        			<Trigger Property="CanContentScroll" SourceName="DropDownScrollViewer" Value="False">
+        				<Setter Property="Canvas.Top" TargetName="OpaqueRect" Value="{Binding VerticalOffset, ElementName=DropDownScrollViewer}"/>
+        				<Setter Property="Canvas.Left" TargetName="OpaqueRect" Value="{Binding HorizontalOffset, ElementName=DropDownScrollViewer}"/>
+        			</Trigger>
+        		</ControlTemplate.Triggers>
+        	</ControlTemplate>
         </ResourceDictionary>
     </Page.Resources>
-    <Grid Background="#ff342947">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition Width="250"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <Grid>
-            <DataGrid
-                CanUserReorderColumns="False" CanUserResizeColumns="False" 
-                CanUserResizeRows="False" Margin="30" CanUserAddRows="False" CanUserDeleteRows="False"
-                Background="#cceeeeee" ColumnHeaderStyle="{StaticResource DataGridHeader}"
-                x:Name="experienceDataGrid">
-                <DataGrid.Columns>
-                    <DataGridCheckBoxColumn Header="" Width="50" Binding="{Binding Path=exportChoice}" />
-                    <DataGridTextColumn Width="50" Header="序号" Binding="{Binding Path=number}" />
-                    <DataGridTextColumn Width="70" Header="登录名" Binding="{Binding Path=loginName}" />
-                    <DataGridTextColumn Width="70" Header="姓名" Binding="{Binding Path=realName}" />
-                    <DataGridTextColumn Width="50" Header="性别" Binding="{Binding Path=gender}" />
-                    <DataGridTextColumn Width="100" Header="最后保存时间" Binding="{Binding Path=lastSaveTime}" />
-                    <DataGridCheckBoxColumn Width="1*" Header="1" Binding="{Binding Path=one}" />
-                    <DataGridCheckBoxColumn Width="1*" Header="2" Binding="{Binding Path=two}" />
-                    <DataGridCheckBoxColumn Width="1*" Header="3" Binding="{Binding Path=three}" />
-                    <DataGridCheckBoxColumn Width="1*" Header="4" Binding="{Binding Path=four}" />
-                    <DataGridCheckBoxColumn Width="1*" Header="5" Binding="{Binding Path=five}" />
-                    <DataGridCheckBoxColumn Width="1*" Header="6" Binding="{Binding Path=six}" />
-                    <DataGridCheckBoxColumn Width="1*" Header="7" Binding="{Binding Path=seven}" />
-                    <DataGridCheckBoxColumn Width="1*" Header="8" Binding="{Binding Path=eight}" />
-                    <DataGridCheckBoxColumn Width="1*" Header="9" Binding="{Binding Path=nine}" />
-                </DataGrid.Columns>
-            
-            </DataGrid>
-        </Grid>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition Height="100"></RowDefinition>
-            </Grid.RowDefinitions>
-            <StackPanel Margin="30">
-                <Button Margin="10" Height="30">全选</Button>
-                <Button Margin="10" Height="30">全部取消</Button>
-                <Button Click="DataExport" Margin="10" Height="30">导出数据</Button>
-                <TextBlock TextWrapping="Wrap" Foreground="#ffaaaaaa" Margin="20">*在左侧选择要导出的的数据,可以导出为Excel表格</TextBlock>
-            </StackPanel>
-            <StackPanel Grid.Row="1" Margin="20" >
-                <TextBlock TextWrapping="Wrap" Foreground="#ffaaaaaa">
-                    *数字部分为某模式下的场景，勾选的表示用户已成功体验过。
-                </TextBlock>
-                <StackPanel Margin="0,10,0,0">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">序号</TextBlock>
-                        <TextBlock Margin="20,0,0,0" Grid.Column="1" Foreground="#ffaaaaaa">场景</TextBlock>
-                        <TextBlock Margin="20,0,0,0" Grid.Column="2" Foreground="#ffaaaaaa">模式</TextBlock>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">1</TextBlock>
-                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">前车刹车场景</TextBlock>
-                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa">正常模式</TextBlock>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">2</TextBlock>
-                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">前车刹车场景</TextBlock>
-                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa">分心模式A</TextBlock>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">3</TextBlock>
-                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">前车刹车场景</TextBlock>
-                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa">分心模式B</TextBlock>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">4</TextBlock>
-                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">并道场景</TextBlock>
-                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa">正常模式</TextBlock>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">5</TextBlock>
-                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">并道场景</TextBlock>
-                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa">分心模式A</TextBlock>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">6</TextBlock>
-                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">并道场景</TextBlock>
-                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa">分心模式B</TextBlock>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">7</TextBlock>
-                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">交叉口场景</TextBlock>
-                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa">正常模式</TextBlock>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">8</TextBlock>
-                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">交叉口场景</TextBlock>
-                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa">分心模式A</TextBlock>
-                    </Grid>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"></ColumnDefinition>
-                            <ColumnDefinition Width="95*"></ColumnDefinition>
-                            <ColumnDefinition Width="11*"></ColumnDefinition>
-                            <ColumnDefinition Width="84*"/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock TextAlignment="Center" Foreground="#ffaaaaaa">9</TextBlock>
-                        <TextBlock Grid.Column="1" Foreground="#ffaaaaaa">交叉口场景</TextBlock>
-                        <TextBlock Grid.Column="2" Foreground="#ffaaaaaa" Grid.ColumnSpan="2">分心模式B</TextBlock>
-                    </Grid>
-                </StackPanel>
-                
-            </StackPanel>
-            <StackPanel Grid.Row="2" VerticalAlignment="Bottom">
-                <Button Margin="10" Height="30" Click="DeleteLastExperience">Delete Last Experience</Button>
-                <Button Margin="10" Height="30" Click="Button_Click">退出</Button>
-            </StackPanel>
-        </Grid>
-    </Grid>
+	<Grid Background="#ff342947">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="320"/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<Border VerticalAlignment="Center" Padding="0 50" BorderBrush="#77000000" BorderThickness="0 0 2 0">
+			<StackPanel>
+				<Border HorizontalAlignment="Center" Margin="0 0 0 30" Padding="50 20" BorderBrush="#77cccccc" BorderThickness="0 0 0 2">
+					<Border.Effect>
+						<DropShadowEffect BlurRadius="20" ShadowDepth="10" Opacity="0.5"/>
+					</Border.Effect>
+					<Image Width="100" Height="100" x:Name="Gender" Source="/EESDD;component/Images/DataExport/baby-boy-icon.png"/>
+				</Border>
+				<Grid Margin="0 10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="150"/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<TextBlock FontSize="17" Foreground="White" TextAlignment="Right"><Run Text="登录名："/></TextBlock>
+					<TextBlock FontSize="17" Grid.Column="1" Foreground="White" x:Name="LoginName" TextAlignment="Center"><Run Text="Hugh"/></TextBlock>
+				</Grid>
+				<Grid Margin="0 10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="150"/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<TextBlock FontSize="17" Foreground="White" TextAlignment="Right"><Run Text="真实姓名："/></TextBlock>
+					<TextBlock FontSize="17" Grid.Column="1" Foreground="White" x:Name="RealName" TextAlignment="Center"><Run Text="Hugh"/></TextBlock>
+				</Grid>
+				<Grid Margin="0 10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="150"/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<TextBlock FontSize="17" Foreground="White" TextAlignment="Right"><Run Text="年龄："/></TextBlock>
+					<TextBlock FontSize="17" Grid.Column="1" Foreground="White" x:Name="Age" TextAlignment="Center"><Run Text="18"/></TextBlock>
+				</Grid>
+				<Grid Margin="0 10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="150"/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<TextBlock FontSize="17" Foreground="White" TextAlignment="Right"><Run Text="职业："/></TextBlock>
+					<TextBlock FontSize="17" Grid.Column="1" Foreground="White" x:Name="Career" TextAlignment="Center"><Run Text="学生"/></TextBlock>
+				</Grid>
+				<Grid Margin="0 10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="150"/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<TextBlock FontSize="17" Foreground="White" TextAlignment="Right"><Run Text="驾龄："/></TextBlock>
+					<TextBlock FontSize="17" Grid.Column="1" Foreground="White" x:Name="DrivingAge" TextAlignment="Center"><Run Text="5"/></TextBlock>
+				</Grid>
+				<Grid Margin="0 10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="150"/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<TextBlock FontSize="17" Foreground="White" TextAlignment="Right"><Run Text="身高(cm)："/></TextBlock>
+					<TextBlock FontSize="17" Grid.Column="1" Foreground="White" x:Name="Height" TextAlignment="Center"><Run Text="172"/></TextBlock>
+				</Grid>
+				<Grid Margin="0 10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="150"/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<TextBlock FontSize="17" Foreground="White" TextAlignment="Right"><Run Text="体重(kg)："/></TextBlock>
+					<TextBlock FontSize="17" Grid.Column="1" Foreground="White" x:Name="Weight" TextAlignment="Center"><Run Text="70"/></TextBlock>
+				</Grid>
+				<Grid Margin="0 10">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="150"/>
+						<ColumnDefinition/>
+					</Grid.ColumnDefinitions>
+					<TextBlock FontSize="17" Foreground="White" TextAlignment="Right"><Run Text="联系方式："/></TextBlock>
+					<TextBlock FontSize="17" Grid.Column="1" Foreground="White" x:Name="Contract" TextAlignment="Center"><Run Text="1234567890"/></TextBlock>
+				</Grid>
+			</StackPanel>
+		</Border>
+		<Grid Grid.Column="1">
+			<Grid.RowDefinitions>
+				<RowDefinition/>
+				<RowDefinition Height="250"/>
+			</Grid.RowDefinitions>
+			<DataGrid x:Name="ScenesGrid" Loaded="DataGrid_Loaded"
+				Background="{x:Null}"
+				IsReadOnly="True"
+				IsEnabled="False"
+				ColumnHeaderStyle="{StaticResource ScenesGridHeader}"
+				CellStyle="{StaticResource ScenesGridCell}"
+				RowHeaderWidth="0"
+				Style="{StaticResource ScenesGrid}"
+				Margin="0 50 0 0"/>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="70"/>
+						<RowDefinition Height="20"/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<Border VerticalAlignment="Top" HorizontalAlignment="Center" BorderThickness="5" BorderBrush="#33000000" CornerRadius="2" Margin="50 0">
+						<Border.Effect>
+							<DropShadowEffect BlurRadius="20" ShadowDepth="10" Opacity="0.5"/>
+						</Border.Effect>
+                        <Grid>
+                            <Button Cursor="Hand" Style="{StaticResource ListButtonStyle}" x:Name="DeleteDataBtn"  Height="50" Click="DeleteDataBtn_Click">
+                                <Grid Height="50" Width="180">
+                                    <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="删除数据"/>
+                                </Grid>
+                            </Button>
+                            <Button Visibility="Hidden" Cursor="Hand" Style="{StaticResource ListButtonStyle}" x:Name="ConfirmDeleteDataBtn"  Height="50" Click="ConfirmDeleteDataBtn_Click">
+                                <Grid Height="50" Width="180">
+                                    <TextBlock Style="{StaticResource ListTextNormalStyle}" Text="删除选定数据"/>
+                                </Grid>
+                            </Button>
+                        </Grid>
+					</Border>
+					<TextBlock Grid.Row="1" x:Name="DeleteTip" Foreground="White" HorizontalAlignment="Center"><Run Text=""/></TextBlock>
+                    <Border Grid.Row="2" BorderBrush="#55000000" BorderThickness="0 2 0 0"
+                             Visibility="Hidden" x:Name="DataDeleteChooseGrid"
+                            Padding="0 5 0 0" Margin="0 5 0 0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock TextAlignment="Center" FontSize="14" Foreground="#ffeeeeee" VerticalAlignment="Center" Text="请选择要删除的场景和模式："/>
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox Foreground="#ffeeeeee" SelectedValue="-1" x:Name="SceneComboBox"
+								Style="{DynamicResource ComboBoxStyle}" Height="30" Width="100"/>
+                                <ComboBox Foreground="#ffeeeeee" SelectedValue="-1" Loaded="ComboBox_Loaded" 
+								Grid.Column="1" x:Name="ModeComboBox" Style="{StaticResource ComboBoxStyle}" 
+								Height="30" Width="100"/>
+                            </Grid>
+                            <Button
+						    VerticalAlignment="Top" 
+						    Grid.Row="2" 
+						    x:Name="HideChooseGridBtn" 
+						    HorizontalAlignment="Center" 
+						    Cursor="Hand"
+						    Style="{StaticResource TabsNormalStyle}"
+						    FontSize="13"
+						    Click="HideChooseGrid"
+                            >
+                                <TextBlock TextDecorations="Underline"><Run Text="收   起"/></TextBlock>
+                            </Button>
+                        </Grid>
+
+                    </Border>
+				</Grid>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="70"/>
+						<RowDefinition Height="30"/>
+						<RowDefinition/>
+					</Grid.RowDefinitions>
+					<Border VerticalAlignment="Top" HorizontalAlignment="Center" BorderThickness="5" BorderBrush="#33000000" CornerRadius="2" Margin="50 0">
+						<Border.Effect>
+							<DropShadowEffect BlurRadius="20" ShadowDepth="10" Opacity="0.5"/>
+						</Border.Effect>
+						<Grid>
+							<Button Cursor="Hand" Style="{StaticResource ListButtonStyle}" x:Name="ExportDataBtn"  Height="50" Click="ExportDataBtn_Click">
+								<Grid Height="50" Width="180">
+									<TextBlock Style="{StaticResource ListTextNormalStyle}" Text="导出该用户所有数据"/>
+								</Grid>
+							</Button>
+							<Button Visibility="Hidden" Cursor="Hand" Style="{StaticResource ListButtonStyle}" x:Name="StopExportBtn"  Height="50" Click="StopExportBtn_Click">
+								<Grid Height="50" Width="180">
+									<TextBlock Style="{StaticResource ListTextNormalStyle}" Text="停止导出"/>
+								</Grid>
+							</Button>
+						</Grid>
+					</Border>
+					<TextBlock VerticalAlignment="Top" Grid.Row="1" x:Name="ExportTip" Foreground="#ffdddddd" HorizontalAlignment="Center"/>
+					<Button
+						VerticalAlignment="Top" 
+						Grid.Row="2" 
+						x:Name="OpenDataFloder" 
+						HorizontalAlignment="Center" 
+						Cursor="Hand"
+						Style="{StaticResource TabsNormalStyle}"
+						FontSize="13"
+						Click="OpenDataFolder"
+                        >
+						<TextBlock TextDecorations="Underline"><Run Text="打开数据导出文件夹"/></TextBlock>
+					</Button>
+				</Grid>
+
+			</StackPanel>
+		</Grid>
+
+	</Grid>
 </Page>

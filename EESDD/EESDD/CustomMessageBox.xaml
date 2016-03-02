@@ -5,20 +5,25 @@
             Background="{x:Null}"  
 	        ResizeMode="NoResize"  x:Name="main"
 	        AllowsTransparency="True" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Resources/StyleDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Window.Triggers>
-	        <EventTrigger RoutedEvent="Window.Loaded" >
-	            <BeginStoryboard>
-	                <Storyboard Name="sbOpShow">
-	                    <DoubleAnimation
+        <EventTrigger RoutedEvent="Window.Loaded" >
+            <BeginStoryboard>
+                <Storyboard Name="sbOpShow">
+                    <DoubleAnimation
 	                    Storyboard.TargetName="main" 
 	                    Storyboard.TargetProperty="Opacity" 
 	                    From="0" To="1" Duration="0:0:0.15"/>
-	                </Storyboard>
-	            </BeginStoryboard>
-	        </EventTrigger>
-	    </Window.Triggers>
-	    <Window.Resources>
-	    </Window.Resources>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
 
     <Border Background="#ff1a1a1a">
 	            <Canvas>
@@ -26,10 +31,18 @@
 	            <Border Canvas.Top="0" Height="30" Width="{Binding ElementName=main, Path=Width,UpdateSourceTrigger=PropertyChanged}" 
 	                    BorderThickness="0,0,0,1" BorderBrush="#FFEFE2E2" Background="#ccffffff"
                          MouseDown="TitleBar_MouseDown">
-	                <TextBlock x:Name="lblTitle" Text="test" HorizontalAlignment="Left" 
+                <Grid>
+                    <TextBlock x:Name="lblTitle" Text="test" HorizontalAlignment="Left" 
 	                           Foreground="#FF000000" FontSize="14"
 	                           VerticalAlignment="Center" Margin="5"/>
-	            </Border>
+                    <TextBlock x:Name="CloseBtn" Text="X" HorizontalAlignment="Right"
+                               VerticalAlignment="Center" Width="40" FontSize="12"
+                               TextAlignment="Center" Background="#FFFF5A5A" 
+                               Foreground="White" MouseDown="CloseBtn_MouseDown"
+                               Padding="0 4"></TextBlock>
+                </Grid>
+                    
+            </Border>
 	            <TextBlock x:Name="lblMsg"
 	                       Foreground="White" FontSize="15" 
 	                       TextWrapping="Wrap" Text="test"

@@ -11,8 +11,6 @@ namespace EESDD.Pages
     /// </summary>
     public partial class LoginPage : Page
     {
-        private static string experiencesFileNameFormat = "yyyyMMddHHmmss";
-        private static string loginTimeFormat = "yyyy-MM-dd HH:mm:ss";
         public LoginPage()
         {
             InitializeComponent();
@@ -58,6 +56,8 @@ namespace EESDD.Pages
             PageList.Evaluation.setTitle(titleName);
             PageList.Evaluation.init();
             PageList.Experience.UserName.Text = titleName;
+            PageList.DataExport.loadInfo();
+            PageList.DataExport.refreshData();
         }
         private void RegisterForm_Login()
         {

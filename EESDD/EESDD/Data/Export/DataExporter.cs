@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace EESDD.Data.Export
 {
@@ -15,18 +16,47 @@ namespace EESDD.Data.Export
             ExcelManger manger = new ExcelManger(PageList.Main.User.LoginName + ".xlsx");
             manger.openTemplate();
             int[] index = PageList.Main.User.Index;
+            int count = 0;
 
+            exportUserInfo(manger);
             for (int i = 0; i < index.Length; i++)
             {
-                
                 if (index[i] != -1)
                 {
+                    showTip(++count);
                     ExperienceUnit unit = PageList.Main.User.Experiences[index[i]];
                     exportAExperienceUnit(manger, unit);
                 }
             }
 
             manger.saveFileAndExit();
+        }
+
+        public static void showTip(int count)
+        {
+            Application.Current.Dispatcher.BeginInvoke((Action)delegate()
+            {
+                PageList.DataExport.ExportTip.Text = "数据导出中，正在导出第" + count + "组数据...";
+            });
+        }
+
+        private static void exportUserInfo(ExcelManger manger)
+        {
+            manger.createNewSheet("个人信息");
+            setInfoValues(manger);
+        }
+
+        private static void setInfoValues(ExcelManger manger)
+        {
+            User user = PageList.Main.User;
+            manger.setCellValue(3, 2, user.RealName);
+            manger.setCellValue(3, 4, user.Gender);
+            manger.setCellValue(3, 6, user.Age + "");
+            manger.setCellValue(3, 8, user.DrivingAge + "");
+            manger.setCellValue(3, 10, user.Height + "");
+            manger.setCellValue(4, 2, user.Weight + "");
+            manger.setCellValue(4, 4, user.Career);
+            manger.setCellValue(4, 6, user.Contact);
         }
 
         private static void exportAExperienceUnit(ExcelManger manger, ExperienceUnit unit)

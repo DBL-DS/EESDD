@@ -34,7 +34,6 @@ namespace EESDD.Control.Player
 
          bool refreshing = false;
 
-         int playTimes = 0;
          int scene;
          int mode;
 

@@ -21,8 +21,8 @@ namespace EESDD.Control.User
         public bool Normal { get { return normal; } set { normal = value; } }
         public bool DstractA { get { return distractA; } set { distractA = value; } }
         public bool DstractB { get { return distractB; } set { distractB = value; } }
-        public bool DstractC { get { return distractA; } set { distractA = value; } }
-        public bool DstractD { get { return distractB; } set { distractB = value; } }
+        public bool DstractC { get { return distractC; } set { distractC = value; } }
+        public bool DstractD { get { return distractD; } set { distractD = value; } }
 
         public BarDetail(string dataName, string barTtitle, bool normal, bool distractA, bool distractB, bool distractC, bool distractD)
         {

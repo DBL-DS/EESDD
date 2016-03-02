@@ -19,11 +19,9 @@ namespace EESDD
     public partial class MainWindow : Window
     {
         UDPController udpControl;
-        VehicleUDP udp;
         UserSelections selection;
         User user;
         Player player;
-        bool refreshing;
 
         public MainWindow()
         {
@@ -157,7 +155,7 @@ namespace EESDD
             if (user != null && user.LoginName != null)
             {
                 setChosen((TabsButton)sender);
-                PageList.Main.setPage(PageList.CurrentData);
+                PageList.Main.setPage(PageList.DataExport);
             }
             else
             {
@@ -244,13 +242,11 @@ namespace EESDD
         static EvaluationPage evaluation;
         static SceneSelectPage sceneSelect;
         static ExperiencePage experience;
-        static DataExportAuthenticationPage authentication;
         static DataExportPage dataExport;
         static AboutPage about;
 
         static Page currentExperience;
         static Page currentEvaluation;
-        static Page currentData;
         static Page currentAbout;
 
         public static MainWindow Main
@@ -309,17 +305,6 @@ namespace EESDD
             }
         }
 
-        public static DataExportAuthenticationPage Authentication
-        {
-            get
-            {
-                if (authentication == null)
-                {
-                    authentication = new DataExportAuthenticationPage();
-                }
-                return authentication;
-            }
-        }
         public static DataExportPage DataExport
         {
             get
@@ -366,18 +351,6 @@ namespace EESDD
                 return PageList.currentEvaluation; 
             }
             set { PageList.currentEvaluation = value;
-            }
-        }
-        
-        public static Page CurrentData
-        {
-            get {
-                if (currentData == null) {
-                    currentData = Authentication;
-                } 
-                return PageList.currentData;
-            }
-            set { PageList.currentData = value; 
             }
         }
 

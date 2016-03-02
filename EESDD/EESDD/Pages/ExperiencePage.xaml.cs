@@ -193,10 +193,14 @@ namespace EESDD.Pages
         
         private void ShutDown_Click(object sender, RoutedEventArgs e)
         {
-            endRefresh(CustomMessageBox.Show("提示","是否保存数据？") == true ? true : false);
-            PageList.Main.setPage(PageList.SceneSelect);
-            clearChart();
-            UserInfoManger.saveUserInfo(PageList.Main.User);
+            bool? result = CustomMessageBox.Show("提示", "是否保存数据？");
+            if (result != null)
+            {
+                endRefresh((bool)result);
+                PageList.Main.setPage(PageList.SceneSelect);
+                clearChart();
+                UserInfoManger.saveUserInfo(PageList.Main.User);          
+            }
         }
 
         public bool Used
