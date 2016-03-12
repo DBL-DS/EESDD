@@ -177,7 +177,7 @@
                                         <line:LinePlotter x:Name="OffsetChart" Visibility="Hidden" Margin="30,0"></line:LinePlotter>
                                         <line:LinePlotter x:Name="BrakeChart" Visibility="Hidden" Margin="30,0"></line:LinePlotter>
                                         <line:LinePlotter x:Name="FollowChart" Visibility="Hidden" Margin="30,0"></line:LinePlotter>
-                                        <line:LinePlotter x:Name="ScreenShotChart" Visibility="Hidden" Margin="30,0"></line:LinePlotter>
+                                        <line:LinePlotter x:Name="PrintLineChart" Visibility="Hidden" Margin="30,0"></line:LinePlotter>
                                     </Grid>
 
                                     <Grid Grid.Column="1" HorizontalAlignment="Center">

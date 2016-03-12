@@ -10,6 +10,7 @@ using iTextSharp.text;
 using System.IO;
 using EESDD.Public;
 using EESDD.Control.Operation;
+using System.Threading;
 
 namespace EESDD.Data.Report
 {
@@ -139,6 +140,11 @@ namespace EESDD.Data.Report
             PdfPTable table = new PdfPTable(3);
             table.TotalWidth = 213f;
             table.SetWidths(new float[]{13f, 100f, 100f});
+            ManualResetEvent imageWaitFlag = PageList.Evaluation.generateWaitFlag;
+            int waitForFile = 100;
+
+            Thread screenShotThread = new Thread(PageList.Evaluation.ScreenShotTaker);
+            screenShotThread.Start();
 
             // 柱状图  跟驰刹车场景-刹车阶段   应对刹车反应时
             // 柱状图  前车并线场景           应对前车并线反应时
@@ -148,10 +154,18 @@ namespace EESDD.Data.Report
             rowTitle1.HorizontalAlignment = 1;
             rowTitle1.PaddingTop = 40f;
             table.AddCell(rowTitle1);
-            PageList.Evaluation.SaveBarScreenShot(UserSelections.SceneBrake, BarDetailCluster.ReactTime, DirectoryDef.PictureTempPath);
+            PageList.Evaluation.RefreshPrintBar(UserSelections.SceneBrake, BarDetailCluster.ReactTime, DirectoryDef.PictureTempPath);
+
+            imageWaitFlag.Reset();
+            imageWaitFlag.WaitOne();
+            Thread.Sleep(waitForFile);
             table.AddCell(Image.GetInstance(DirectoryDef.PictureTempPath));
             PageList.Evaluation.reportProgress(25);
-            PageList.Evaluation.SaveBarScreenShot(UserSelections.SceneLaneChange, BarDetailCluster.ReactTime, DirectoryDef.PictureTempPath);
+            PageList.Evaluation.RefreshPrintBar(UserSelections.SceneLaneChange, BarDetailCluster.ReactTime, DirectoryDef.PictureTempPath);
+
+            imageWaitFlag.Reset();
+            imageWaitFlag.WaitOne();
+            Thread.Sleep(waitForFile);
             table.AddCell(Image.GetInstance(DirectoryDef.PictureTempPath));
             PageList.Evaluation.reportProgress(35);
 
@@ -163,10 +177,18 @@ namespace EESDD.Data.Report
             rowTitle2.HorizontalAlignment = 1;
             rowTitle2.PaddingTop = 40f;
             table.AddCell(rowTitle2);
-            PageList.Evaluation.SaveLineScreenShot(UserSelections.SceneBrake, "Speed", DirectoryDef.PictureTempPath, 1);
+            PageList.Evaluation.RefreshPrintLine(UserSelections.SceneBrake, "Speed", DirectoryDef.PictureTempPath, 1);
+
+            imageWaitFlag.Reset();
+            imageWaitFlag.WaitOne();
+            Thread.Sleep(waitForFile);
             table.AddCell(Image.GetInstance(DirectoryDef.PictureTempPath));
             PageList.Evaluation.reportProgress(45);
-            PageList.Evaluation.SaveBarScreenShot(UserSelections.SceneBrake, BarDetailCluster.VarianceDistanceToNext, DirectoryDef.PictureTempPath);
+            PageList.Evaluation.RefreshPrintBar(UserSelections.SceneBrake, BarDetailCluster.VarianceDistanceToNext, DirectoryDef.PictureTempPath);
+
+            imageWaitFlag.Reset();
+            imageWaitFlag.WaitOne();
+            Thread.Sleep(waitForFile);
             table.AddCell(Image.GetInstance(DirectoryDef.PictureTempPath));
             PageList.Evaluation.reportProgress(55);
 
@@ -178,12 +200,22 @@ namespace EESDD.Data.Report
             rowTitle3.HorizontalAlignment = 1;
             rowTitle3.PaddingTop = 40f;
             table.AddCell(rowTitle3);
-            PageList.Evaluation.SaveBarScreenShot(UserSelections.SceneIntersection, BarDetailCluster.AverageQueueLength, DirectoryDef.PictureTempPath);
+            PageList.Evaluation.RefreshPrintBar(UserSelections.SceneIntersection, BarDetailCluster.AverageQueueLength, DirectoryDef.PictureTempPath);
+
+            imageWaitFlag.Reset();
+            imageWaitFlag.WaitOne();
+            Thread.Sleep(waitForFile);
             table.AddCell(Image.GetInstance(DirectoryDef.PictureTempPath));
             PageList.Evaluation.reportProgress(65);
-            PageList.Evaluation.SaveBarScreenShot(UserSelections.SceneIntersection, BarDetailCluster.AverageDelay, DirectoryDef.PictureTempPath);
+            PageList.Evaluation.RefreshPrintBar(UserSelections.SceneIntersection, BarDetailCluster.AverageDelay, DirectoryDef.PictureTempPath);
+
+            imageWaitFlag.Reset();
+            imageWaitFlag.WaitOne();
+            Thread.Sleep(waitForFile);
             table.AddCell(Image.GetInstance(DirectoryDef.PictureTempPath));
             PageList.Evaluation.reportProgress(75);
+
+            screenShotThread.Abort();
 
             document.Add(table);
         }

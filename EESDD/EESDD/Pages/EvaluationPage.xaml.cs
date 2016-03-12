@@ -63,7 +63,7 @@ namespace EESDD.Pages
             DistractCSample.Stroke = new SolidColorBrush(ColorDef.DistractC);
             DistractDSample.Stroke = new SolidColorBrush(ColorDef.DistractD);
 
-            ScreenShotChart.changeToPrintMode();
+            PrintLineChart.changeToPrintMode();
         }
 
         private void ChartSet()
@@ -554,9 +554,10 @@ namespace EESDD.Pages
         private void ShowDistract(object sender, RoutedEventArgs e)
         {
             currentLine.Visibility = System.Windows.Visibility.Hidden;
-            ScreenShotChart.Visibility = System.Windows.Visibility.Visible;
-            plotExperienceLine(UserSelections.SceneBrake, UserSelections.NormalMode, ScreenShotChart, "Speed", 1);
+            PrintLineChart.Visibility = System.Windows.Visibility.Visible;
+            plotExperienceLine(UserSelections.SceneBrake, UserSelections.NormalMode, PrintLineChart, "Speed", 1);
             ImageMaker.ViewToPng(LineChart, DirectoryDef.PictureTempPath);
+
         }
 
         private void ExportPdf(object sender, RoutedEventArgs e)
@@ -564,6 +565,7 @@ namespace EESDD.Pages
             ReportGenerator generator = new ReportGenerator();
             Thread exportPdfThread = new Thread(generator.generate);
             exportPdfThread.Start();
+
         }
 
         private void SaveScreenShots()
@@ -571,21 +573,23 @@ namespace EESDD.Pages
             
         }
 
-        public void SaveLineScreenShot(int scene, string variable, string filePath, int xAsix)
+        public void RefreshPrintLine(int scene, string variable, string filePath, int xAsix)
         {
-            ScreenShotChart.clearData();
+            this.Dispatcher.BeginInvoke((Action)delegate()
+            {
+                PrintLineChart.clearData();
+            });
 
-            plotExperienceLine(scene, UserSelections.NormalMode, ScreenShotChart, variable, xAsix);
-            plotExperienceLine(scene, UserSelections.DistractAMode, ScreenShotChart, variable, xAsix);
-            plotExperienceLine(scene, UserSelections.DistractBMode, ScreenShotChart, variable, xAsix);
-            plotExperienceLine(scene, UserSelections.DistractCMode, ScreenShotChart, variable, xAsix);
-            plotExperienceLine(scene, UserSelections.DistractDMode, ScreenShotChart, variable, xAsix);
+            plotExperienceLine(scene, UserSelections.NormalMode, PrintLineChart, variable, xAsix);
+            plotExperienceLine(scene, UserSelections.DistractAMode, PrintLineChart, variable, xAsix);
+            plotExperienceLine(scene, UserSelections.DistractBMode, PrintLineChart, variable, xAsix);
+            plotExperienceLine(scene, UserSelections.DistractCMode, PrintLineChart, variable, xAsix);
+            plotExperienceLine(scene, UserSelections.DistractDMode, PrintLineChart, variable, xAsix);
 
-            Thread.Sleep(5000);
-            ImageMaker.ViewToPng(ScreenShotChart, filePath);
+            TakeScreenShot(1);
         }
 
-        public void SaveBarScreenShot(int scene, BarDetail detail, string filePath)
+        public void RefreshPrintBar(int scene, BarDetail detail, string filePath)
         {
             this.Dispatcher.BeginInvoke((Action)delegate()
             {
@@ -593,10 +597,37 @@ namespace EESDD.Pages
 
                 BarChart bar = plotExperienceBar(scene, detail);
                 bar.changeToPrintMode();
-                
+                TakeScreenShot(0);
             });
-            ImageMaker.ViewToPng(bars, filePath);
+        }
+        private int screenShotTarget = 0; // 0 - bar , 1 - line
+        private ManualResetEvent waitFlag = new ManualResetEvent(false);
+        private bool keepTakerFlag = true;
+        private int a = 0;
+        public ManualResetEvent generateWaitFlag = new ManualResetEvent(false);
+        public void ScreenShotTaker()
+        {
+            int waitForPlot = 100;
+            while (keepTakerFlag)
+            {
+                waitFlag.Reset();
+                waitFlag.WaitOne();
+                Thread.Sleep(waitForPlot);
+                if (screenShotTarget == 0)
+                    ImageMaker.ViewToPng(bars, DirectoryDef.PictureTempPath);
+                else if (screenShotTarget == 1)
+                    ImageMaker.ViewToPng(PrintLineChart, DirectoryDef.PictureTempPath);
+                a++;
+                generateWaitFlag.Set();
+            }
+        }
 
+        // target   0 - bar
+        //          1 - line
+        public void TakeScreenShot(int target)
+        {
+            screenShotTarget = target;
+            waitFlag.Set();
         }
 
         public void reportPrinting()
@@ -605,7 +636,7 @@ namespace EESDD.Pages
             this.Dispatcher.BeginInvoke((Action)delegate()
             {
                 currentLine.Visibility = System.Windows.Visibility.Hidden;
-                ScreenShotChart.Visibility = System.Windows.Visibility.Visible;
+                PrintLineChart.Visibility = System.Windows.Visibility.Visible;
                 MainPanel.IsEnabled = false;
             });
         }
@@ -625,7 +656,7 @@ namespace EESDD.Pages
 
                 clearBars();
                 plotBarChart();
-                ScreenShotChart.Visibility = System.Windows.Visibility.Hidden;
+                PrintLineChart.Visibility = System.Windows.Visibility.Hidden;
                 currentLine.Visibility = System.Windows.Visibility.Visible;
             });
         }
