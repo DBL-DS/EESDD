@@ -1,6 +1,7 @@
 ﻿using EESDD.Control.DataModel;
 using EESDD.Control.Operation;
 using EESDD.Control.User;
+using EESDD.Data.Report;
 using EESDD.Public;
 using EESDD.Widgets.Buttons;
 using EESDD.Widgets.Chart;
@@ -11,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace EESDD.Pages
@@ -27,6 +29,8 @@ namespace EESDD.Pages
         private int currentScene;
         private User user;
         private int axis;   // 0 - time,  1 - distance
+
+        private 
 
         Thread plotCharts;
         public EvaluationPage()
@@ -47,6 +51,8 @@ namespace EESDD.Pages
             ChartSet();
             AxisxSet();
             changeBorder(currentBorder);
+
+            PlotCharts();
         }
 
         private void GUISet()
@@ -56,6 +62,8 @@ namespace EESDD.Pages
             DistractBSample.Stroke = new SolidColorBrush(ColorDef.DistractB);
             DistractCSample.Stroke = new SolidColorBrush(ColorDef.DistractC);
             DistractDSample.Stroke = new SolidColorBrush(ColorDef.DistractD);
+
+            ScreenShotChart.changeToPrintMode();
         }
 
         private void ChartSet()
@@ -306,27 +314,77 @@ namespace EESDD.Pages
 
         }
 
+        private void plotExperienceLine(int scene, int mode, LinePlotter plotter, string variable, int xAxis)
+        {
+            int index = UserSelections.getIndex(scene, mode);
+            if (index == -1)
+                return;
+
+            Dispatcher dispatcher = PageList.Main.Dispatcher;
+            ExperienceUnit unit = user.Experiences[user.Index[index]];
+            List<SimulatedVehicle> list = unit.Vehicles;
+
+            plotter.Init.AppendAsync(dispatcher, 
+                new Point(0, (float)unit.Top.GetType().GetProperty(variable).GetValue(unit.Top)));
+            plotter.Init.AppendAsync(dispatcher, 
+                new Point(0, (float)unit.Bottom.GetType().GetProperty(variable).GetValue(unit.Bottom)));
+
+            switch (xAxis)
+            {
+                case 0:
+                    plotter.Init.AppendAsync(dispatcher, new Point(unit.Right.SimulationTime, 0));
+                    break;
+                case 1:
+                    plotter.Init.AppendAsync(dispatcher, new Point(unit.Right.TotalDistance, 0));
+                    break;
+                default:
+                    return;
+            }
+
+
+            foreach (SimulatedVehicle vehicle in list)
+            {
+                float x;
+
+                switch (xAxis)
+                {
+                    case 0:
+                        x = vehicle.SimulationTime;
+                        break;
+                    case 1:
+                        x = vehicle.TotalDistance;
+                        break;
+                    default:
+                        return;
+                }
+
+                plotter.addRealTimePoint(mode, 
+                    new Point(x, (float)vehicle.GetType().GetProperty(variable).GetValue(vehicle)));
+            }
+
+        }
+
         private void plotBarChart() {
             switch (currentScene)
             {
                 case UserSelections.SceneBrake:
                     foreach (BarDetail detail in BarChoice.SceneBrake)
-                        plotExperienceBar(detail);
+                        plotExperienceBar(currentScene, detail);
                     break;
                 case UserSelections.SceneLaneChange:
                     foreach (BarDetail detail in BarChoice.SceneLaneChange)
-                        plotExperienceBar(detail);
+                        plotExperienceBar(currentScene, detail);
                     break;
                 case UserSelections.SceneIntersection:
                     foreach (BarDetail detail in BarChoice.SceneIntersection)
-                        plotExperienceBar(detail);
+                        plotExperienceBar(currentScene, detail);
                     break;
                 default:
                     break;
             }
         }
 
-        private void plotExperienceBar(BarDetail detail)
+        private BarChart plotExperienceBar(int scene, BarDetail detail)
         {
             BarChart bar = new BarChart();
             bars.Children.Add(bar);
@@ -334,15 +392,15 @@ namespace EESDD.Pages
             bar.MinWidth = 150;
 
             float normalValue, distractAValue, distractBValue, distractCValue, distractDValue;
-
-            normalValue = getBarChartValue(currentScene, UserSelections.NormalMode, detail.DataName);
-            distractAValue = getBarChartValue(currentScene, UserSelections.DistractAMode, detail.DataName);
-            distractBValue = getBarChartValue(currentScene, UserSelections.DistractBMode, detail.DataName);
-            distractCValue = getBarChartValue(currentScene, UserSelections.DistractCMode, detail.DataName);
-            distractDValue = getBarChartValue(currentScene, UserSelections.DistractDMode, detail.DataName);
-
+             
+            normalValue = getBarChartValue(scene, UserSelections.NormalMode, detail.DataName);
+            distractAValue = getBarChartValue(scene, UserSelections.DistractAMode, detail.DataName);
+            distractBValue = getBarChartValue(scene, UserSelections.DistractBMode, detail.DataName);
+            distractCValue = getBarChartValue(scene, UserSelections.DistractCMode, detail.DataName);
+            distractDValue = getBarChartValue(scene, UserSelections.DistractDMode, detail.DataName);
 
             bar.setValue(normalValue, distractAValue, distractBValue, distractCValue, distractDValue);
+            return bar;
         }
 
         private float getBarChartValue(int scene, int mode, string dataName)
@@ -491,6 +549,85 @@ namespace EESDD.Pages
 
             refreshMainChart();
             PlotCharts();
+        }
+
+        private void ShowDistract(object sender, RoutedEventArgs e)
+        {
+            currentLine.Visibility = System.Windows.Visibility.Hidden;
+            ScreenShotChart.Visibility = System.Windows.Visibility.Visible;
+            plotExperienceLine(UserSelections.SceneBrake, UserSelections.NormalMode, ScreenShotChart, "Speed", 1);
+            ImageMaker.ViewToPng(LineChart, DirectoryDef.PictureTempPath);
+        }
+
+        private void ExportPdf(object sender, RoutedEventArgs e)
+        {
+            ReportGenerator generator = new ReportGenerator();
+            Thread exportPdfThread = new Thread(generator.generate);
+            exportPdfThread.Start();
+        }
+
+        private void SaveScreenShots()
+        {
+            
+        }
+
+        public void SaveLineScreenShot(int scene, string variable, string filePath, int xAsix)
+        {
+            ScreenShotChart.clearData();
+
+            plotExperienceLine(scene, UserSelections.NormalMode, ScreenShotChart, variable, xAsix);
+            plotExperienceLine(scene, UserSelections.DistractAMode, ScreenShotChart, variable, xAsix);
+            plotExperienceLine(scene, UserSelections.DistractBMode, ScreenShotChart, variable, xAsix);
+            plotExperienceLine(scene, UserSelections.DistractCMode, ScreenShotChart, variable, xAsix);
+            plotExperienceLine(scene, UserSelections.DistractDMode, ScreenShotChart, variable, xAsix);
+
+            Thread.Sleep(5000);
+            ImageMaker.ViewToPng(ScreenShotChart, filePath);
+        }
+
+        public void SaveBarScreenShot(int scene, BarDetail detail, string filePath)
+        {
+            this.Dispatcher.BeginInvoke((Action)delegate()
+            {
+                clearBars();
+
+                BarChart bar = plotExperienceBar(scene, detail);
+                bar.changeToPrintMode();
+                
+            });
+            ImageMaker.ViewToPng(bars, filePath);
+
+        }
+
+        public void reportPrinting()
+        {
+            reportProgress(0);
+            this.Dispatcher.BeginInvoke((Action)delegate()
+            {
+                currentLine.Visibility = System.Windows.Visibility.Hidden;
+                ScreenShotChart.Visibility = System.Windows.Visibility.Visible;
+                MainPanel.IsEnabled = false;
+            });
+        }
+        public void reportProgress(int progress)
+        {
+            this.Dispatcher.BeginInvoke((Action)delegate()
+            {
+                titleTip.Text = "评估报告生成中..." + progress + "%";
+            });
+        }
+        public void reportPrinted()
+        {
+            this.Dispatcher.BeginInvoke((Action)delegate()
+            {
+                titleTip.Text = "评估报告生成成功";
+                MainPanel.IsEnabled = true;
+
+                clearBars();
+                plotBarChart();
+                ScreenShotChart.Visibility = System.Windows.Visibility.Hidden;
+                currentLine.Visibility = System.Windows.Visibility.Visible;
+            });
         }
     }
 }

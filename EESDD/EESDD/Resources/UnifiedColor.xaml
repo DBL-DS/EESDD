@@ -124,16 +124,11 @@
 			</Trigger>
 		</Style.Triggers>
 	</Style>
-    
-    
-    
-	<Style x:Key="StartButtonStyle" BasedOn="{StaticResource NoDefaultBlue}" TargetType="{x:Type Button}">
-		<!--<Setter Property="Effect">
-            <Setter.Value>
-                <DropShadowEffect BlurRadius="30" ShadowDepth="0" Opacity="0.7"></DropShadowEffect>
-            </Setter.Value>
-        </Setter>-->
-		<Style.Triggers>
+
+
+
+    <Style x:Key="StartButtonStyle" BasedOn="{StaticResource NoDefaultBlue}" TargetType="{x:Type Button}">
+        <Style.Triggers>
 			<Trigger Property="IsMouseOver" Value="true">
 				<Setter Property="Effect">
 					<Setter.Value>
@@ -203,13 +198,6 @@
 		</Setter>
 	</Style>
     
-	<!--<style x:key="comboboxstyle" targettype="{x:type combobox}">
-		<setter property="background" value="transparent"/>
-		<setter property="borderbrush" value="black"/>
-		<setter property="verticalalignment" value="center"/>
-		<setter property="horizontalalignment" value="center"/>
-        <setter property="foreground" value="#ffaaaaaa"/>
-    </style>-->
     <Style TargetType="{x:Type ComboBox}" x:Key="ComboBoxStyle">
         <Setter Property="SnapsToDevicePixels" Value="true"/>
         <Setter Property="Focusable" Value="False"/>
@@ -462,5 +450,15 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <Style x:Key="ReportButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource NoDefaultBlue}">
+        <Setter Property="Foreground" Value="#ff000000"></Setter>
+        <Setter Property="Cursor" Value="Hand"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Foreground" Value="White"></Setter>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 </ResourceDictionary>

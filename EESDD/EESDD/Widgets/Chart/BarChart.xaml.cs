@@ -163,5 +163,15 @@ namespace EESDD.Widgets.Chart
             return max;
         }
 
+        public void changeToPrintMode()
+        {
+            normalText.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+            distractAText.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+            distractBText.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+            distractCText.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+            distractDText.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+            barSpace.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+            chartTitle.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+        }
     }
 }

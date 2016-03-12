@@ -239,6 +239,12 @@ namespace EESDD.Widgets.Chart
             }
         }
 
+        public void changeToPrintMode()
+        {
+            plotter.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+            plotter.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+        }
+
         // ------------- Get & Set ------------>
         public ObservableDataSource<Point> Normal
         {
