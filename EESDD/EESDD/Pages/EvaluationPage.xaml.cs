@@ -317,7 +317,7 @@ namespace EESDD.Pages
         private void plotExperienceLine(int scene, int mode, LinePlotter plotter, string variable, int xAxis)
         {
             int index = UserSelections.getIndex(scene, mode);
-            if (index == -1)
+            if (user.Index[index] == -1)
                 return;
 
             Dispatcher dispatcher = PageList.Main.Dispatcher;
@@ -603,7 +603,6 @@ namespace EESDD.Pages
         private int screenShotTarget = 0; // 0 - bar , 1 - line
         private ManualResetEvent waitFlag = new ManualResetEvent(false);
         private bool keepTakerFlag = true;
-        private int a = 0;
         public ManualResetEvent generateWaitFlag = new ManualResetEvent(false);
         public void ScreenShotTaker()
         {
@@ -617,7 +616,6 @@ namespace EESDD.Pages
                     ImageMaker.ViewToPng(bars, DirectoryDef.PictureTempPath);
                 else if (screenShotTarget == 1)
                     ImageMaker.ViewToPng(PrintLineChart, DirectoryDef.PictureTempPath);
-                a++;
                 generateWaitFlag.Set();
             }
         }

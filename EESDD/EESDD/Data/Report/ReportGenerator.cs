@@ -11,6 +11,7 @@ using System.IO;
 using EESDD.Public;
 using EESDD.Control.Operation;
 using System.Threading;
+using System.Windows.Media;
 
 namespace EESDD.Data.Report
 {
@@ -23,12 +24,16 @@ namespace EESDD.Data.Report
         BaseFont kaiFont;
         Font titleFont;
         Font contentFont;
+        Font chartTitleFont;
+        float tableWidth;
 
         public ReportGenerator()
         {
             kaiFont = BaseFont.CreateFont(DirectoryDef.KaiFontPath, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
             titleFont = new Font(kaiFont, 24, Font.BOLD);
             contentFont = new Font(kaiFont, 12, Font.NORMAL);
+            chartTitleFont = new Font(kaiFont, 8, Font.NORMAL);
+            tableWidth = 213f;
         }
         public void generate()
         {
@@ -61,7 +66,6 @@ namespace EESDD.Data.Report
             SaveFileDialog s = new SaveFileDialog();
             // 设置文件类型过滤
             s.Filter = " pdf files(*.pdf)|*.pdf|All files(*.*)|*.*";
-
             User user = PageList.Main.User;
             s.FileName = user.LoginName + "-" + user.RealName + "-分心驾驶评估报告";
 
@@ -82,6 +86,7 @@ namespace EESDD.Data.Report
             PageList.Evaluation.reportProgress(5);
             setUserInfo();
             PageList.Evaluation.reportProgress(15);
+            setImageSample();
             setImages();
             PageList.Evaluation.reportProgress(75);
             setComment();
@@ -99,7 +104,7 @@ namespace EESDD.Data.Report
         {
             User user = PageList.Main.User;
             PdfPTable table = new PdfPTable(4);
-            table.TotalWidth = 213f;
+            table.TotalWidth = tableWidth;
 
             table.SpacingBefore = 20f;
             table.HorizontalAlignment = 1;
@@ -112,112 +117,181 @@ namespace EESDD.Data.Report
             loginName.PaddingRight = 20;
             table.AddCell(loginName);
 
-            table.AddCell(new Phrase(TextDef.CNRealName, contentFont));
-            table.AddCell(new Phrase(user.RealName, contentFont));
-            table.AddCell(new Phrase(TextDef.CNGender, contentFont));
-            table.AddCell(new Phrase(user.Gender, contentFont));
-            table.AddCell(new Phrase(TextDef.CNHeight, contentFont));
-            table.AddCell(new Phrase(user.Height + "", contentFont));
-            table.AddCell(new Phrase(TextDef.CNWeight, contentFont));
-            table.AddCell(new Phrase(user.Weight + "", contentFont));
-            table.AddCell(new Phrase(TextDef.CNAge, contentFont));
-            table.AddCell(new Phrase(user.Age + "", contentFont));
-            table.AddCell(new Phrase(TextDef.CNDrivingAge, contentFont));
-            table.AddCell(new Phrase(user.DrivingAge + "", contentFont));
-            table.AddCell(new Phrase(TextDef.CNContact, contentFont));
-            table.AddCell(new Phrase(user.Contact + "", contentFont));
+            addUnitToTable(TextDef.CNRealName, user.RealName, table);
+            addUnitToTable(TextDef.CNGender, user.Gender, table);
+            addUnitToTable(TextDef.CNHeight, user.Height + "", table);
+            addUnitToTable(TextDef.CNWeight, user.Weight + "", table);
+            addUnitToTable(TextDef.CNAge, user.Age + "", table);
+            addUnitToTable(TextDef.CNDrivingAge, user.DrivingAge + "", table);
+            addUnitToTable(TextDef.CNContact, user.Contact, table);
 
             PdfPCell empty = new PdfPCell(new Phrase("", contentFont));
             empty.Colspan = 2;
             table.AddCell(empty);
 
-            
             document.Add(table);
+        }
+
+        private void addUnitToTable(string attribute, string value, PdfPTable table){
+            PdfPCell attrCell = new PdfPCell(new Phrase(attribute, contentFont));
+            attrCell.Padding = 3;
+            attrCell.PaddingLeft = 10;
+            PdfPCell valueCell = new PdfPCell(new Phrase(value, contentFont));
+            valueCell.Padding = 3;
+            valueCell.PaddingLeft = 10;
+            table.AddCell(attrCell);
+            table.AddCell(valueCell);
+        }
+
+        private void setImageSample()
+        {
+            List<string> sampleNames = new List<string>() { "正常模式", "微信语音", "微信短信", "调谐收音机", "行车导航" };
+            List<Color> sampleColors = new List<Color>() { ColorDef.Normal, ColorDef.DistractA, ColorDef.DistractB, ColorDef.DistractC, ColorDef.DistractD };
+            int sampleCounts = sampleNames.Count;
+
+            PdfPTable sampleTable = new PdfPTable(sampleCounts);
+
+            int count = 0;
+            foreach (string name in sampleNames)
+            {
+                PdfPCell cell = new PdfPCell(new Phrase(name, chartTitleFont));
+                cell.HorizontalAlignment = 1;
+
+                if (++count == 1)
+                    cell.BorderWidthRight = 0;
+                else if (count == sampleCounts)
+                    cell.BorderWidthLeft = 0;
+                else
+                    cell.BorderWidthLeft = cell.BorderWidthRight = 0;
+                
+                sampleTable.AddCell(cell);
+            }
+
+            drawSampleColor(100, 647, 5, 83, sampleColors);
+
+            document.Add(sampleTable);
+        }
+
+        private void drawSampleColor(double startX, double startY, double length, double interval, List<Color> colors)
+        {
+            PdfContentByte drawer = writer.DirectContent;
+
+            int count = 0;
+            foreach (Color color in colors)
+            {
+                double x = startX + count * interval;
+                drawer.MoveTo(x, startY);
+                drawer.Rectangle(x, startY, length, length);
+
+                drawer.SetRGBColorFill(color.R, color.G, color.B);
+                drawer.Fill();
+
+                count++;
+            }
+
+            drawer.SetRGBColorFill(0, 0, 0);
+        }
+
+        private void AddImageSample(PdfPTable table)
+        {
+
         }
 
         private void setImages()
         {
             PdfPTable table = new PdfPTable(3);
-            table.TotalWidth = 213f;
+            table.TotalWidth = tableWidth;
             table.SetWidths(new float[]{13f, 100f, 100f});
-            ManualResetEvent imageWaitFlag = PageList.Evaluation.generateWaitFlag;
-            int waitForFile = 100;
 
             Thread screenShotThread = new Thread(PageList.Evaluation.ScreenShotTaker);
             screenShotThread.Start();
 
             // 柱状图  跟驰刹车场景-刹车阶段   应对刹车反应时
             // 柱状图  前车并线场景           应对前车并线反应时
-            PdfPCell rowTitle1 = new PdfPCell(new Phrase("行车安全性", contentFont));
-            rowTitle1.PaddingLeft = rowTitle1.PaddingRight = 5f;
-            rowTitle1.MinimumHeight = 150f;
-            rowTitle1.HorizontalAlignment = 1;
-            rowTitle1.PaddingTop = 40f;
-            table.AddCell(rowTitle1);
-            PageList.Evaluation.RefreshPrintBar(UserSelections.SceneBrake, BarDetailCluster.ReactTime, DirectoryDef.PictureTempPath);
-
-            imageWaitFlag.Reset();
-            imageWaitFlag.WaitOne();
-            Thread.Sleep(waitForFile);
-            table.AddCell(Image.GetInstance(DirectoryDef.PictureTempPath));
-            PageList.Evaluation.reportProgress(25);
-            PageList.Evaluation.RefreshPrintBar(UserSelections.SceneLaneChange, BarDetailCluster.ReactTime, DirectoryDef.PictureTempPath);
-
-            imageWaitFlag.Reset();
-            imageWaitFlag.WaitOne();
-            Thread.Sleep(waitForFile);
-            table.AddCell(Image.GetInstance(DirectoryDef.PictureTempPath));
-            PageList.Evaluation.reportProgress(35);
+            AddRowTitle("行车安全性", table);
+            AddBarImageToCell(UserSelections.SceneBrake, BarDetailCluster.ReactTime, DirectoryDef.PictureTempPath, table, "应对前车刹车反应时", 25);
+            AddBarImageToCell(UserSelections.SceneLaneChange, BarDetailCluster.ReactTime, DirectoryDef.PictureTempPath, table, "应对前车并线反应时", 55);
 
             // 折线图  跟驰刹车场景-跟驰阶段 速度-距离
             // 柱状图  跟弛刹车场景-跟驰阶段 跟驰距离标准差
-            PdfPCell rowTitle2 = new PdfPCell(new Phrase("乘客舒适度", contentFont));
-            rowTitle2.PaddingLeft = rowTitle2.PaddingRight = 5f;
-            rowTitle2.MinimumHeight = 150f;
-            rowTitle2.HorizontalAlignment = 1;
-            rowTitle2.PaddingTop = 40f;
-            table.AddCell(rowTitle2);
-            PageList.Evaluation.RefreshPrintLine(UserSelections.SceneBrake, "Speed", DirectoryDef.PictureTempPath, 1);
-
-            imageWaitFlag.Reset();
-            imageWaitFlag.WaitOne();
-            Thread.Sleep(waitForFile);
-            table.AddCell(Image.GetInstance(DirectoryDef.PictureTempPath));
-            PageList.Evaluation.reportProgress(45);
-            PageList.Evaluation.RefreshPrintBar(UserSelections.SceneBrake, BarDetailCluster.VarianceDistanceToNext, DirectoryDef.PictureTempPath);
-
-            imageWaitFlag.Reset();
-            imageWaitFlag.WaitOne();
-            Thread.Sleep(waitForFile);
-            table.AddCell(Image.GetInstance(DirectoryDef.PictureTempPath));
-            PageList.Evaluation.reportProgress(55);
+            AddRowTitle("乘客舒适度", table);
+            AddLineImageToCell(UserSelections.SceneBrake, "Speed", DirectoryDef.PictureTempPath, 1, table, "行车速度曲线 速度-行驶距离", 45);
+            AddBarImageToCell(UserSelections.SceneBrake, BarDetailCluster.VarianceDistanceToNext, DirectoryDef.PictureTempPath, table, "跟驰距离标准差", 55);
 
             // 柱状图  路口等灯场景   平均排队长度
             // 柱状图  路口等灯场景   平均延误
-            PdfPCell rowTitle3 = new PdfPCell(new Phrase("行车顺畅度", contentFont));
-            rowTitle3.PaddingLeft = rowTitle3.PaddingRight = 5f;
-            rowTitle3.MinimumHeight = 150f;
-            rowTitle3.HorizontalAlignment = 1;
-            rowTitle3.PaddingTop = 40f;
-            table.AddCell(rowTitle3);
-            PageList.Evaluation.RefreshPrintBar(UserSelections.SceneIntersection, BarDetailCluster.AverageQueueLength, DirectoryDef.PictureTempPath);
-
-            imageWaitFlag.Reset();
-            imageWaitFlag.WaitOne();
-            Thread.Sleep(waitForFile);
-            table.AddCell(Image.GetInstance(DirectoryDef.PictureTempPath));
-            PageList.Evaluation.reportProgress(65);
-            PageList.Evaluation.RefreshPrintBar(UserSelections.SceneIntersection, BarDetailCluster.AverageDelay, DirectoryDef.PictureTempPath);
-
-            imageWaitFlag.Reset();
-            imageWaitFlag.WaitOne();
-            Thread.Sleep(waitForFile);
-            table.AddCell(Image.GetInstance(DirectoryDef.PictureTempPath));
-            PageList.Evaluation.reportProgress(75);
+            AddRowTitle("行车顺畅度", table);
+            AddBarImageToCell(UserSelections.SceneIntersection, BarDetailCluster.AverageQueueLength, DirectoryDef.PictureTempPath, table, 65);
+            AddBarImageToCell(UserSelections.SceneIntersection, BarDetailCluster.AverageDelay, DirectoryDef.PictureTempPath, table, 75);
 
             screenShotThread.Abort();
-
             document.Add(table);
+        }
+
+        private void AddRowTitle(string title, PdfPTable table)
+        {
+            PdfPCell rowTitle = new PdfPCell(new Phrase(title, contentFont));
+            rowTitle.PaddingLeft = rowTitle.PaddingRight = 5f;
+            rowTitle.HorizontalAlignment = 1;
+            rowTitle.PaddingTop = 40f;
+            rowTitle.MinimumHeight = 150f;
+            table.AddCell(rowTitle);
+        }
+
+        private void AddBarImageToCell(int scene, BarDetail detail, string filePath, PdfPTable table, string title, int progress)
+        {
+            AddBarImageToCell(scene, detail.ChangeTitle(title), filePath, table, progress);
+        }
+        private void AddBarImageToCell(int scene, BarDetail detail, string filePath, PdfPTable table, int progress)
+        {
+            int waitForFile = 100;
+
+            PageList.Evaluation.RefreshPrintBar(scene, detail, filePath);
+            waitImageGenerating();
+            Thread.Sleep(waitForFile);
+            Image image = Image.GetInstance(filePath);
+            PdfPCell imageCell = new PdfPCell(image);
+            imageCell.HorizontalAlignment = 1;
+            imageCell.PaddingTop = 25;
+            table.AddCell(imageCell);
+            image.ScaleAbsolute(120, 100);
+            PageList.Evaluation.reportProgress(progress);
+        }
+
+        private void AddLineImageToCell(int scene, string variable, string filePath, int xAxis, PdfPTable table, string title, int progress)
+        {
+            int waitForFile = 100;
+
+            PageList.Evaluation.RefreshPrintLine(scene, variable, filePath, xAxis);
+            waitImageGenerating();
+            Thread.Sleep(waitForFile);
+            Image image = Image.GetInstance(filePath);
+            PdfPCell imageCell = new PdfPCell(image);
+            imageCell.HorizontalAlignment = 1;
+            imageCell.PaddingTop = 15;
+            imageCell.BorderColor = BaseColor.WHITE;
+            image.ScaleAbsolute(180, 100);
+
+
+            PdfPTable imageUnit = new PdfPTable(1);
+            imageUnit.AddCell(imageCell);
+
+            PdfPCell lineTitle = new PdfPCell(new Phrase(title, chartTitleFont));
+            lineTitle.HorizontalAlignment = 1;
+            lineTitle.BorderColor = BaseColor.WHITE;
+            lineTitle.PaddingTop = 5;
+
+            imageUnit.AddCell(lineTitle);
+
+            table.AddCell(imageUnit);
+            PageList.Evaluation.reportProgress(progress);
+        }
+
+        private void waitImageGenerating()
+        {
+            ManualResetEvent imageWaitFlag = PageList.Evaluation.generateWaitFlag;
+            imageWaitFlag.Reset();
+            imageWaitFlag.WaitOne();
         }
 
         private void setComment()
