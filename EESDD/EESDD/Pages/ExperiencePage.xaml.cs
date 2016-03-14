@@ -111,6 +111,7 @@ namespace EESDD.Pages
             setTitle();
             setImage();
             used = true;
+
             Thread refreshData = new Thread(PageList.Main.Player.refreshDataSource);
             refreshData.Start();
 
@@ -118,7 +119,17 @@ namespace EESDD.Pages
             int scene = PageList.Main.Selection.SceneSelect;
             if (scene != UserSelections.SceneLaneChange)
             {
-                PageList.Main.Player.initVissim();
+                try
+                {
+                    PageList.Main.Player.initVissim();
+                }
+                catch (System.Exception)
+                {
+                    CustomMessageBox.Show("Warnning", "请确保VISSIM能够正常运行");
+                    endRefresh(false);
+                    PageList.Main.setPage(PageList.SceneSelect);
+                    return;
+                }
                 Thread vissimRun = new Thread(PageList.Main.Player.UseVissim);
                 vissimRun.Start();
             }

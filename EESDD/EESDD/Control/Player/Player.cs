@@ -150,7 +150,7 @@ namespace EESDD.Control.Player
          }
          public void initVissim()
          {
-             vissim = new BJUTVissim();
+            vissim = new BJUTVissim();
          }
          public void refreshDataSource()
          {
