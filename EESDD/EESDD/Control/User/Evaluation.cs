@@ -228,4 +228,63 @@ namespace EESDD.Control.User
                 this.reactTime = unit.ReactAct.ReactTime;
         }
     }
+
+    public class AreaEvaluation
+    {
+        private float meanSpeed;
+        private float meanAcc;
+        private float meanOffset;
+        private float meanSteeringWheel;
+        private float meanDistanceToNext;
+        private float varianceSpeed;
+        private float varianceAcc;
+        private float varianceOffset;
+        private float varianceSteeringWheel;
+        private float varianceDistanceToNext;
+
+        public float MeanSpeed { get { return meanSpeed; } set { meanSpeed = value; } }
+        public float MeanAcc { get { return meanAcc; } set { meanAcc = value; } }
+        public float MeanOffset { get { return meanOffset; } set { meanOffset = value; } }
+        public float MeanSteeringWheel { get { return meanSteeringWheel; } set { meanSteeringWheel = value; } }
+        public float MeanDistanceToNext { get { return meanDistanceToNext; } set { meanDistanceToNext = value; } }
+        public float VarianceSpeed { get { return varianceSpeed; } set { varianceSpeed = value; } }
+        public float VarianceAcc { get { return varianceAcc; } set { varianceAcc = value; } }
+        public float VarianceOffset { get { return varianceOffset; } set { varianceOffset = value; } }
+        public float VarianceSteeringWheel { get { return varianceSteeringWheel; } set { varianceSteeringWheel = value; } }
+        public float VarianceDistanceToNext { get { return varianceDistanceToNext; } set { varianceDistanceToNext = value; } }     
+    }
+
+    public class VISSIMEvaluation
+    {
+        private float averageDelay;
+        private float averageQueenLength;
+        private float averageSpeed;
+
+        public float AverageDelay { get { return averageDelay; } set { averageDelay = value; } }
+        public float AverageQueenLength { get { return averageQueenLength; } set { averageQueenLength = value; } }
+        public float AverageSpeed { get { return averageSpeed; } set { averageSpeed = value; } }
+    }
+
+    public class ReactUnit
+    {
+        private float reactStart;
+        private float reactEnd;
+        private float reactTime;
+
+        public float ReactStart { get { return reactStart; } set { reactStart = value; } }
+        public float ReactEnd { get { return reactEnd; } set { reactEnd = value; reactTime = reactEnd - reactStart; } }
+        public float ReactTime { get { return reactTime; } }
+    }
+    public class BrakeUnit
+    {
+        private float brakeStart;
+        private float brakeEnd;
+        private float brakeDistance;
+
+        public float BrakeStart { get { return brakeStart; } set { brakeStart = value; } }
+        public float BrakeEnd { get { return brakeEnd; } set { brakeEnd = value; brakeDistance = brakeEnd - brakeStart; } }
+        public float BrakeDistance { get { return brakeDistance; } }
+    }
+
+    
 }
