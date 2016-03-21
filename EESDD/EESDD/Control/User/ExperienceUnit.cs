@@ -33,6 +33,7 @@ namespace EESDD.Control.User
             set { 
                 vehicles = value;
                 setTopAndBottom();
+                scanInclusion();
             }
         }
 
@@ -108,6 +109,24 @@ namespace EESDD.Control.User
                         p.SetValue(bottom, p.GetValue(vehicle));
                     }
                 }
+            }
+        }
+        public void scanInclusion()
+        {
+            if (vehicles == null || vehicles.Count == 0)
+                return;
+
+            // clear possible inclusion due to the feature of Simulator
+            float firstTime = vehicles[0].SimulationTime;
+            int count = 0;
+            foreach (SimulatedVehicle vehicle in vehicles)
+            {
+                if (vehicle.SimulationTime < firstTime)
+                {
+                    vehicles.RemoveRange(0, count);
+                    break;
+                }
+                ++count;
             }
         }
     }
