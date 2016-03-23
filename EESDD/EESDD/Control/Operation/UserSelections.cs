@@ -30,8 +30,8 @@ namespace EESDD.Control.Operation
         public  const int DistractCMode     = 103;
         public  const int DistractDMode     = 104;
 
-        public List<int> SceneList  = new List<int>() { ScenePractice, SceneBrake, SceneLaneChange, SceneIntersection };
-        public List<int> ModeList = new List<int>() { NormalMode, DistractAMode, DistractBMode, DistractCMode, DistractDMode };
+        public static List<int> SceneList  = new List<int>() { ScenePractice, SceneBrake, SceneLaneChange, SceneIntersection };
+        public static List<int> ModeList = new List<int>() { NormalMode, DistractAMode, DistractBMode, DistractCMode, DistractDMode };
         public int SceneSelect
         {
             get { return sceneSelect; }

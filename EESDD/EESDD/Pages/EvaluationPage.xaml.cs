@@ -553,11 +553,6 @@ namespace EESDD.Pages
 
         private void ShowDistract(object sender, RoutedEventArgs e)
         {
-            currentLine.Visibility = System.Windows.Visibility.Hidden;
-            PrintLineChart.Visibility = System.Windows.Visibility.Visible;
-            plotExperienceLine(UserSelections.SceneBrake, UserSelections.NormalMode, PrintLineChart, "Speed", 1);
-            ImageMaker.ViewToPng(LineChart, DirectoryDef.PictureTempPath);
-
         }
 
         private void ExportPdf(object sender, RoutedEventArgs e)
@@ -566,11 +561,6 @@ namespace EESDD.Pages
             Thread exportPdfThread = new Thread(generator.generate);
             exportPdfThread.Start();
 
-        }
-
-        private void SaveScreenShots()
-        {
-            
         }
 
         public void RefreshPrintLine(int scene, string variable, string filePath, int xAsix)

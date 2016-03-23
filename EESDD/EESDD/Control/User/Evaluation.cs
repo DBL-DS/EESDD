@@ -24,6 +24,40 @@ namespace EESDD.Control.User
             setSpecialData();
         }
 
+        private AreaEvaluation totalArea;
+        private List<AreaEvaluation> markedAreaEvaluations;
+        private VISSIMEvaluation flowEvaluation;
+        private List<BrakeUnit> brakes;
+        private List<ReactUnit> reacts;
+
+        public AreaEvaluation TotalArea { get { return totalArea; } }
+        public List<AreaEvaluation> MarkedAreas { get { return markedAreaEvaluations; } }
+        public VISSIMEvaluation Flow { get { return flowEvaluation; } }
+        public List<BrakeUnit> Brakes { get { return brakes; } }
+        public List<ReactUnit> Reacts { get { return reacts; } }
+
+        public int MarkedAreasCount
+        {
+            get
+            {
+                if (markedAreaEvaluations == null)
+                    return 0;
+                else
+                    return markedAreaEvaluations.Count;
+            }
+        }
+
+        public void scanAreas(ExperienceUnit unit)
+        {
+            int marker;
+
+            foreach (SimulatedVehicle vehicle in unit.Vehicles)
+            {
+                
+            }
+
+        }
+
         //**针对场景中所有车辆（VISSIM数据）
         // 平均延误
         protected float averageDelay;
@@ -231,6 +265,12 @@ namespace EESDD.Control.User
 
     public class AreaEvaluation
     {
+        private float marker;
+        private float startTime;
+        private float endTime;
+        private float startDistance;
+        private float endDistance;
+
         private float meanSpeed;
         private float meanAcc;
         private float meanOffset;
@@ -241,6 +281,12 @@ namespace EESDD.Control.User
         private float varianceOffset;
         private float varianceSteeringWheel;
         private float varianceDistanceToNext;
+
+        public float Marker { get { return marker; } set { marker = value; } }
+        public float StartTime { get { return startTime; } set { startTime = value; } }
+        public float EndTime { get { return endTime; } set { endTime = value; } }
+        public float StartDistance { get { return startDistance; } set { startDistance = value; } }
+        public float EndDistance { get { return endDistance; } set { endDistance = value; } }
 
         public float MeanSpeed { get { return meanSpeed; } set { meanSpeed = value; } }
         public float MeanAcc { get { return meanAcc; } set { meanAcc = value; } }
