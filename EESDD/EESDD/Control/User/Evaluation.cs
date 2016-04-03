@@ -263,6 +263,7 @@ namespace EESDD.Control.User
         }
     }
 
+    [Serializable]
     public class AreaEvaluation
     {
         private float marker;
@@ -300,6 +301,7 @@ namespace EESDD.Control.User
         public float VarianceDistanceToNext { get { return varianceDistanceToNext; } set { varianceDistanceToNext = value; } }     
     }
 
+    [Serializable]
     public class VISSIMEvaluation
     {
         private float averageDelay;
@@ -311,6 +313,7 @@ namespace EESDD.Control.User
         public float AverageSpeed { get { return averageSpeed; } set { averageSpeed = value; } }
     }
 
+    [Serializable]
     public class ReactUnit
     {
         private float reactStart;
@@ -321,6 +324,8 @@ namespace EESDD.Control.User
         public float ReactEnd { get { return reactEnd; } set { reactEnd = value; reactTime = reactEnd - reactStart; } }
         public float ReactTime { get { return reactTime; } }
     }
+
+    [Serializable]
     public class BrakeUnit
     {
         private float brakeStart;
@@ -331,6 +336,4 @@ namespace EESDD.Control.User
         public float BrakeEnd { get { return brakeEnd; } set { brakeEnd = value; brakeDistance = brakeEnd - brakeStart; } }
         public float BrakeDistance { get { return brakeDistance; } }
     }
-
-    
 }

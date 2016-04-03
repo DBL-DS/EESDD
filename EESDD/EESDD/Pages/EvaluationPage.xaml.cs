@@ -7,6 +7,7 @@ using EESDD.Widgets.Buttons;
 using EESDD.Widgets.Chart;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,6 +30,7 @@ namespace EESDD.Pages
         private int currentScene;
         private User user;
         private int axis;   // 0 - time,  1 - distance
+        private bool showMark;
 
         private 
 
@@ -219,6 +221,9 @@ namespace EESDD.Pages
 
         private void plotLineChart()
         {
+            if (axis == 1)
+                plotMarks();
+
             int normalIndex = UserSelections.getIndex(currentScene, UserSelections.NormalMode);
             if (normalIndex != -1 && user.Index[normalIndex] != -1)
             {
@@ -312,6 +317,84 @@ namespace EESDD.Pages
                 FollowChart.addRealTimePoint(_mode, new Point(x, vehicle.DistanceToNext));
             }
 
+        }
+
+        // distance oriented
+        private void plotMarks()
+        {
+            if (currentScene == UserSelections.ScenePractice)
+                return;
+
+            SimulatedVehicle top = new SimulatedVehicle();
+            SimulatedVehicle bottom = new SimulatedVehicle();
+
+            int count = 0;
+            int index;
+            ExperienceUnit unit = null;
+            foreach (int mode in UserSelections.ModeList)
+            {
+                index = user.Index[UserSelections.getIndex(currentScene, mode)];
+                if (index != -1)
+                {
+                    unit = user.Experiences[index];
+                    foreach (PropertyInfo p in top.GetType().GetProperties())
+                    {
+                        if ((float)p.GetValue(unit.Top) > (float)p.GetValue(top))
+                        {
+                            p.SetValue(top, (float)p.GetValue(unit.Top));
+                        }
+
+                        if ((float)p.GetValue(unit.Bottom) < (float)p.GetValue(bottom))
+                        {
+                            p.SetValue(bottom, (float)p.GetValue(unit.Bottom));
+                        }
+                    }
+                    ++count;
+                }
+            }
+
+            
+            if (count != 0)
+            {
+                foreach (DistractMark mark in unit.Marks)
+                {
+                    float start = mark.Start.TotalDistance;
+                    float end = mark.End.TotalDistance;
+
+                    SpeedChart.AddAMarker(new List<Point>() { new Point(start, top.Speed), 
+                        new Point(start, bottom.Speed), new Point(end, bottom.Speed), new Point(end, top.Speed), new Point(start, top.Speed) });
+                    OffsetChart.AddAMarker(new List<Point>() { new Point(start, top.Offset), 
+                        new Point(start, bottom.Offset), new Point(end, bottom.Offset), new Point(end, top.Offset), new Point(start, top.Offset) });
+                    AccelerationChart.AddAMarker(new List<Point>() { new Point(start, top.Acceleration), 
+                        new Point(start, bottom.Acceleration), new Point(end, bottom.Acceleration), new Point(end, top.Acceleration), new Point(start, top.Acceleration) });
+                    BrakeChart.AddAMarker(new List<Point>() { new Point(start, top.BrakePedal), 
+                        new Point(start, bottom.BrakePedal), new Point(end, bottom.BrakePedal), new Point(end, top.BrakePedal), new Point(start, top.BrakePedal) });
+                    FollowChart.AddAMarker(new List<Point>() { new Point(start, top.DistanceToNext), 
+                        new Point(start, bottom.DistanceToNext), new Point(end, bottom.DistanceToNext), new Point(end, top.DistanceToNext), new Point(start, top.DistanceToNext) });
+                }
+            }
+
+            if (showMark && axis == 1)
+                showMarkers();
+            else
+                hideMarkers();
+        }
+
+        private void showMarkers(){
+            SpeedChart.ShowMarkers();
+            OffsetChart.ShowMarkers();
+            AccelerationChart.ShowMarkers();
+            BrakeChart.ShowMarkers();
+            FollowChart.ShowMarkers();
+        }
+
+        private void hideMarkers()
+        {
+            SpeedChart.HideMarkers();
+            OffsetChart.HideMarkers();
+            AccelerationChart.HideMarkers();
+            BrakeChart.HideMarkers();
+            FollowChart.HideMarkers();
         }
 
         private void plotExperienceLine(int scene, int mode, LinePlotter plotter, string variable, int xAxis)
@@ -539,6 +622,7 @@ namespace EESDD.Pages
             {
                 case "timeCheck":
                     axis = 0;
+                    hideMarkers();
                     break;
                 case "distanceCheck":
                     axis = 1;
@@ -553,6 +637,25 @@ namespace EESDD.Pages
 
         private void ShowDistract(object sender, RoutedEventArgs e)
         {
+            if (((CheckBox)sender).IsChecked == true)
+            {
+                if (distanceCheck.IsChecked == true)
+                {
+                    showMarkers();
+                    showMark = true;
+                }
+                else
+                {
+                    CustomMessageBox.Show("Warnning", "只有距离为横坐标时产生标记。");
+                    ((CheckBox)sender).IsChecked = false;
+                }
+            }
+            else
+            {
+                hideMarkers();
+                showMark = false;
+            }
+
         }
 
         private void ExportPdf(object sender, RoutedEventArgs e)

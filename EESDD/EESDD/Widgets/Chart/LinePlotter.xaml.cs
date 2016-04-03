@@ -8,6 +8,7 @@ using Microsoft.Research.DynamicDataDisplay.DataSources;
 using EESDD.Control.Operation;
 using System;
 using EESDD.Public;
+using System.Collections.Generic;
 namespace EESDD.Widgets.Chart
 {
     /// <summary>
@@ -22,6 +23,7 @@ namespace EESDD.Widgets.Chart
         private LineGraph distractBGraph;
         private LineGraph distractCGraph;
         private LineGraph distractDGraph;
+        private List<LineGraph> distractMarkers;
         private Dispatcher dispatcher;
 
         private float gradientNormal;
@@ -35,6 +37,9 @@ namespace EESDD.Widgets.Chart
         private Point lastDistractB;
         private Point lastDistractC;
         private Point lastDistractD;
+
+        private const double visibleOpacity = 1;
+        private const double hideOpacity = 0;
 
         public LinePlotter()
         {
@@ -94,7 +99,16 @@ namespace EESDD.Widgets.Chart
             distractBData.Collection.Clear();
             distractCData.Collection.Clear();
             distractDData.Collection.Clear();
+            if (distractMarkers != null && distractMarkers.Count != 0)
+            {
+                foreach (LineGraph graph in distractMarkers)
+                {
+                    graph.Remove();
+                }
+                distractMarkers.Clear();
+            }
 
+            
             init();
         }
 
@@ -103,14 +117,8 @@ namespace EESDD.Widgets.Chart
             plotter.RemoveUserElements();
         }
 
-        public void saveSnapShot()
-        {
-            
-        }
-
         private void hideLine(int selection)
         {
-            double hideOpacity = 0;
             switch (selection)
             {
                 case UserSelections.NormalMode:
@@ -133,7 +141,6 @@ namespace EESDD.Widgets.Chart
 
         private void showLine(int selection)
         {
-            double visibleOpacity = 1;
             switch (selection)
             {
                 case UserSelections.NormalMode:
@@ -243,6 +250,51 @@ namespace EESDD.Widgets.Chart
         {
             plotter.Foreground = new SolidColorBrush(Color.FromRgb(0, 0, 0));
             plotter.BorderBrush = new SolidColorBrush(Color.FromRgb(0, 0, 0));
+        }
+
+        public void AddAMarker(List<Point> points)
+        {
+
+            if (distractMarkers == null)
+                distractMarkers = new List<LineGraph>();
+            ObservableDataSource<Point> data = new ObservableDataSource<Point>(points);
+            LineGraph graph = null;
+            this.Dispatcher.BeginInvoke((Action)delegate()
+            {
+                graph = plotter.AddLineGraph(data, ColorDef.Marker);
+                graph.LinePen.Brush.Opacity = hideOpacity;
+                distractMarkers.Add(graph);
+                plotter.LegendVisible = false;
+            });
+        }
+
+        public bool ShowMarkers()
+        {
+            if (distractMarkers == null || distractMarkers.Count == 0)
+                return false;
+
+            this.Dispatcher.BeginInvoke((Action)delegate()
+            {
+                foreach (LineGraph graph in distractMarkers)
+                {
+                    graph.LinePen.Brush.Opacity = visibleOpacity;
+                }
+            });
+            return true;
+        }
+
+        public bool HideMarkers()
+        {
+            if (distractMarkers == null || distractMarkers.Count == 0)
+                return false;
+            this.Dispatcher.BeginInvoke((Action)delegate()
+            {
+                foreach (LineGraph graph in distractMarkers)
+                {
+                    graph.LinePen.Brush.Opacity = hideOpacity;
+                }
+            });
+            return true;
         }
 
         // ------------- Get & Set ------------>
