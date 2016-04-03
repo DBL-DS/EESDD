@@ -68,9 +68,9 @@ namespace EESDD.Control.Player
          private void initChart() {
              int index = PageList.Main.Selection.Index;           
 
-             int normalIndex = UserSelections.getIndex(scene, UserSelections.NormalMode);
-             if (normalIndex != -1 && normalIndex != index && user.Index[normalIndex] != -1)
-                 plotExperience(UserSelections.NormalMode, normalIndex);
+             //int normalIndex = UserSelections.getIndex(scene, UserSelections.NormalMode);
+             //if (normalIndex != -1 && normalIndex != index && user.Index[normalIndex] != -1)
+             //    plotExperience(UserSelections.NormalMode, normalIndex);
 
              //int distractAIndex = UserSelections.getIndex(scene, UserSelections.DistractAMode);
              //if (distractAIndex != -1 && distractAIndex != index && user.Index[distractAIndex] != -1)
