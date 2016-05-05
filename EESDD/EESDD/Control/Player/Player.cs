@@ -25,6 +25,7 @@ namespace EESDD.Control.Player
 
          BrakeActivity brakeActivity;
          ReactActivity reactActivity;
+         float accident = 0;
 
          BJUTVissim vissim;
          VehicleUDP udp;
@@ -126,9 +127,7 @@ namespace EESDD.Control.Player
          public void play(SimulatedVehicle vehicle) {
              if (vehicle != null && vehicle.SimulationTime > 0.000001)
              {
-                 // set following distance as -1 when there is no car before (default is 90000+)
-                 if (vehicle.DistanceToNext > 2000)
-                     vehicle.DistanceToNext = -1;
+                 preProcess(vehicle);
 
                  currentVehicle = vehicle;
                  vehicles.Add(vehicle);
@@ -142,6 +141,31 @@ namespace EESDD.Control.Player
                  setBrake(vehicle);
                  setReact(vehicle);
              }
+         }
+
+         public void preProcess(SimulatedVehicle vehicle)
+         {
+             if (vehicle.Area < 0)
+             {
+                 accident = 1;
+             }
+
+             if (PageList.Main.Selection.SceneSelect == UserSelections.SceneBrake ||
+                 PageList.Main.Selection.SceneSelect == UserSelections.SceneLaneChange)
+             {
+                 float initLane = 4;
+                 vehicle.Offset += (vehicle.Lane - initLane) * 4;
+             }
+
+             if (vehicle.DistanceToNext > 2000)
+             {
+                 float frontVehicleSpeed = (float)(70 / 3.6);
+                 vehicle.DistanceToNext = currentVehicle.DistanceToNext
+                     + vehicle.TotalDistance - currentVehicle.TotalDistance
+                     - frontVehicleSpeed * (vehicle.SimulationTime - currentVehicle.SimulationTime);
+             }
+
+             
          }
 
          public void UseVissim()
@@ -207,6 +231,7 @@ namespace EESDD.Control.Player
                  unit.Vehicles = PageList.Main.Player.Vehicles;
                  unit.BrakeAct = this.brakeActivity;
                  unit.ReactAct = this.reactActivity;
+                 unit.Accident = accident;
                  Evaluation evaluation = new Evaluation(unit);
                  unit.Evaluation = evaluation;
 

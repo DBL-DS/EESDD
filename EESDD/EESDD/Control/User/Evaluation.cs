@@ -106,6 +106,9 @@ namespace EESDD.Control.User
         public float VarianceDistanceToNext { get { return varianceDistanceToNext; } set { varianceDistanceToNext = value; } }
 
         //**特殊观察量（依赖于场景）
+        // 是否撞车
+        protected float accident = 0;
+        public float Accident { get { return accident; } set { accident = value; } }
         // 反应时
         protected float reactTime;
         public float ReactTime { get { return reactTime; } set { reactTime = value; } }
@@ -259,7 +262,10 @@ namespace EESDD.Control.User
             if (unit.BrakeAct != null)
                 this.brakeDistance = unit.BrakeAct.BrakeDistance;
             if (unit.ReactAct != null)
-                this.reactTime = unit.ReactAct.ReactTime;
+            {
+                this.reactTime = unit.ReactAct.ReactTime <= 5 ? unit.ReactAct.ReactTime : 5;
+            }
+            this.accident = unit.Accident;
         }
     }
 

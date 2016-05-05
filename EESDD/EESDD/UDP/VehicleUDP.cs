@@ -16,7 +16,7 @@ namespace EESDD.UDP
         Socket socket;
         EndPoint EP;
         byte[] buffer; 
-        const int BufferSize = 184;
+        const int BufferSize = 260;
 
         public VehicleUDP(int port) {
             this.port = port;
@@ -51,6 +51,7 @@ namespace EESDD.UDP
             try
             {
                 socket.Receive(buffer);
+                dataToConsole(buffer);
             }
             catch (SocketException e)
             {
@@ -95,6 +96,14 @@ namespace EESDD.UDP
             return s;
         }
 
+        private void dataToConsole(byte[] buffer)
+        {
+            for (int i = 0; i < BufferSize/4; i++)
+            {
+                Console.Write(getFloat(buffer, i * 4) + " ");
+            }
+            Console.WriteLine("");
+        }
         public void close() {
             socket.Close();
         }

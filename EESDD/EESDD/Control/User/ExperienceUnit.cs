@@ -22,7 +22,13 @@ namespace EESDD.Control.User
         private SimulatedVehicle top;
         private SimulatedVehicle bottom;
         private List<DistractMark> marks;
-        
+        private float accident;
+
+        public float Accident
+        {
+            get { return accident; }
+            set { accident = value; }
+        }
 
         public int SceneID
         {
